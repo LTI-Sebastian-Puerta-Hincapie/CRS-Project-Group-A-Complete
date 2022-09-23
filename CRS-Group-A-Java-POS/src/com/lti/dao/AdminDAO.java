@@ -1,0 +1,89 @@
+/**
+ * 
+ */
+package com.lti.dao;
+
+import com.lti.bean.Admin;
+import com.lti.bean.Course;
+import com.lti.bean.Professor;
+import com.lti.bean.SemesterRegistration;
+import com.lti.bean.Student;
+
+/**
+ * @author Jonathan
+ *
+ */
+public interface AdminDAO {
+
+	/**
+	 * This method generates a report card for the student
+	 * @param StudentID of type integer
+	 */
+	public void generateReportCardDAO(int StudentID);
+	
+	/**
+	 * This method adds a professor to the database
+	 * @param professor of type Professor
+	 */
+	public void addProfessorDAO(Professor professor);
+	
+	/**
+	 * This method approves the registration of a student's course
+	 * @param studentID of type integer 
+	 * @param approvalStatus of type integer
+	 */
+	public void approveStudentRegistrationDAO(int studentID, int approvalStatus);
+	
+	/**
+	 * Creates StudentRegistration in database
+	 * @param semesterRegistration of type SemesterRegistration
+	 */
+	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration);
+	
+	/**
+	 * This method adds a course to the course list
+	 * @param course of type Course
+	 */
+	public void addCourseDAO(Course course);
+	
+	/**
+	 * This method removes the course from the course list
+	 * @param courseId of type integer
+	 */
+	public void removeCourseDAO(int courseId);
+	
+	/**
+	 * This method updates a course's information in the course list
+	 * @param courseId of type integer
+	 * @param courseName of type String
+	 * @param description of type String
+	 */
+	public void updateCourseDAO(int courseId, String courseName, String description);
+	
+	/**
+	 * This method checks if a course is available for enrollment
+	 * @param courseId of type integer
+	 */
+	public void checkAvailabilityDAO(int courseId);
+	
+	/**
+	 * This method checks the list of courses a student is registered to
+	 * @param studentID of type integer
+	 */
+	public void viewCourses(int studentID);
+	
+	/**
+	 * This method checks the list of courses a student is registered to
+	 * @param studentId of type integer
+	 * @return SemesterRegistration returns a list of registered students for the semester
+	 */
+	public SemesterRegistration getSemesterRegistrationDAO(int studentId);
+	
+	/**
+	 * This method updates the enrollment count in the course catalog for a specific course
+	 * @param courseId of type integer
+	 * @return SemesterRegistration returns a list of registered students for the semester
+	 */
+	public void updateCourseCatalogEnrollmentForCourseDAO(int courseId);
+	
+}
