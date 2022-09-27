@@ -14,6 +14,8 @@ public class Department {
 	private String departmentName;
 	private String description;
 	
+	public Department() {}
+	
 	public Department(int departmentId, String departmentName, String description) {
 		
 		this.departmentId = departmentId;

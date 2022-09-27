@@ -21,6 +21,8 @@ public class Payment {
 	private int isPaid;
 	private String paymentMethod;
 	
+	public Payment() {}
+	
 	public Payment(int studentId, int paymentAmount, LocalDate dueDate, String semester) {
 
 		this.studentId = studentId;

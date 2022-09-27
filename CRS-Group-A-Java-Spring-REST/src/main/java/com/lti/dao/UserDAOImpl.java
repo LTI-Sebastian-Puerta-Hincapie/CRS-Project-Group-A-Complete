@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Repository;
+
 import com.lti.bean.User;
 import com.lti.constant.SQLQueries;
 import com.lti.utils.DBUtils;
@@ -15,6 +17,7 @@ import com.lti.utils.DBUtils;
  *
  */
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 	
 	private Connection conn = null;

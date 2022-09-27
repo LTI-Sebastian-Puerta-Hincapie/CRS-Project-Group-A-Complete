@@ -13,6 +13,8 @@ public class Grade {
 	private String grade;
 	private Course course;
 	
+	public Grade() {}
+	
 	public Grade(String grade, Course course) {
 		
 		this.grade = grade;

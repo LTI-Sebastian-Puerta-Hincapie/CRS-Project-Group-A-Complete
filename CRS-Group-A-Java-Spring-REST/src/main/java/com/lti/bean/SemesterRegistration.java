@@ -11,11 +11,8 @@ public class SemesterRegistration {
 	private boolean approvalStatus;
 	private String comments;
 	
-	public SemesterRegistration() {
-	}
-	
-	
-	
+	public SemesterRegistration() {}
+
 	public SemesterRegistration(int studentId, int adminId, boolean approvalStatus,
 			String comments) {
 		super();

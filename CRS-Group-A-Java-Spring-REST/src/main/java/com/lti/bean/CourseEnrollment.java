@@ -9,7 +9,8 @@ public class CourseEnrollment {
     private int studentId;
     private String studentName;
     
-    
+    public CourseEnrollment() {}
+      
 	public CourseEnrollment(int courseId, int studentId, String studentName) {
 
 		this.courseId = courseId;

@@ -14,6 +14,7 @@ public class Major {
 	private String majorName;
 	private String description;
 	
+	public Major() {}
 	
 	public Major(int majorId, String majorName, String description) {
 		

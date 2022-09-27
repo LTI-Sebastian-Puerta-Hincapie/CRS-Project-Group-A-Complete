@@ -10,6 +10,7 @@ public class RegisteredCourse {
 	private int RegisteredStatus;
 	private String Grade;
 	
+	public RegisteredCourse() {}
 	
 	public RegisteredCourse(int courseId, int studentId, int registeredStatus, String grade) {
 
