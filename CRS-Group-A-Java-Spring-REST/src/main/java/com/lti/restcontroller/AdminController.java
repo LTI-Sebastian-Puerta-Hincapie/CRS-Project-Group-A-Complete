@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -70,6 +71,7 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/createregistration/{studentId}/{adminId}/{approvalStatus}/{comments}")
+	@ResponseBody
 	public ResponseEntity createStudentRegistration(@PathVariable("studentId") int studentId, @PathVariable("adminId") int adminId,
 													@PathVariable("approvalStatus") int approvalStatus, @PathVariable("comments") String comments) {
 		Boolean approve = false;
@@ -89,6 +91,7 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/getregistration/{studentId}")
+	@ResponseBody
 	public ResponseEntity getSemesterRegistration(@PathVariable("studentId") int studentId) {
 		SemesterRegistration reg;
 		try {
@@ -103,6 +106,7 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/addcourse/{courseId}/{courseName}/{description}")
+	@ResponseBody
 	public ResponseEntity addCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId, courseName, description);
 		try {
@@ -116,7 +120,8 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/addcourse/{courseId}")
+			value = "admin/removecourse/{courseId}")
+	@ResponseBody
 	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) {
 		try {
 			adminservice.removeCourse(courseId);
@@ -130,6 +135,7 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/updatecourse/{courseId}/{courseName}/{description}")
+	@ResponseBody
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId,courseName,description);
 		try {
@@ -144,6 +150,7 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/checkavailability/{id}")
+	@ResponseBody
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {
