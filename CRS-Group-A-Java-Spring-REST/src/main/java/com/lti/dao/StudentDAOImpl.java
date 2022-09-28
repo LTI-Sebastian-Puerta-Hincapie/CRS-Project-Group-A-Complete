@@ -139,7 +139,7 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public List<Grade> viewGradesDAO(Student student) {
+	public List<Grade> viewGradesDAO(int studentId) {
 		
 		List<Grade> grades = new ArrayList<Grade>();
 		Grade grade = null;
@@ -149,7 +149,7 @@ public class StudentDAOImpl implements StudentDAO {
 			  conn = DBUtils.getConnection();
 			  
 		      stmt = conn.prepareStatement(SQLQueries.SELECT_GRADES_BY_STUDENTID);
-		      stmt.setInt(1,student.getId());
+		      stmt.setInt(1,studentId);
 		      ResultSet rs = stmt.executeQuery();
 		      while(rs.next()) {
 		    	  int id = rs.getInt("CourseId");
@@ -173,7 +173,7 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public void payFeeDAO(Student student, String paymentMethod) {
+	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   try {
 
@@ -182,7 +182,7 @@ public class StudentDAOImpl implements StudentDAO {
 	      stmt = conn.prepareStatement(SQLQueries.UPDATE_PAYMENT_BY_STUDENTID);
 	      stmt.setInt(1, 1);
 	      stmt.setString(2, paymentMethod);
-	      stmt.setInt(3,student.getId());
+	      stmt.setInt(3,studentId);
 	      stmt.executeUpdate();
 
 	   } catch(SQLException se){

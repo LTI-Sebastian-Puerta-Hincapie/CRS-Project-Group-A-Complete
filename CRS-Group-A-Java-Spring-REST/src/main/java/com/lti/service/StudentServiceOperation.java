@@ -65,20 +65,20 @@ public interface StudentServiceOperation {
 	
 	/**
 	 * This method view grades for a specific student and returns a list of grades
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @exception UnableToViewStudentGradesException is thrown when a student course is not found
 	 * @return List<Grade> returns a list of grades
 	 */
-	public List<Grade> viewGrades(Student student) throws StudentCourseNotFoundException;
+	public List<Grade> viewGrades(int studentId) throws StudentCourseNotFoundException;
 	
 	/**
 	 * This method makes a payment for the courses that the student is registered for
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @param paymentMethod of type String
 	 * @exception StudentMissingFeePaymentException is thrown when the student fee has not been paid
 	 * @exception StudentPaymentRecordNotFoundException is thrown when a student payment record is not found
 	 */
-	public void payFee(Student student, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException;
+	public void payFee(int studentId, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException;
 	
 	/**
 	 * This method gets the student data 

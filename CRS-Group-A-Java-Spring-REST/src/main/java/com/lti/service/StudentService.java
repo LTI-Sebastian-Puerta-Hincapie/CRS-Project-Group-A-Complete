@@ -74,7 +74,7 @@ public class StudentService implements StudentServiceOperation {
 			}
 			System.out.println("\n--Course has been added --");
 		}
-		System.out.println("\nCourse has already been added for this student");
+		else System.out.println("\nCourse has already been added for this student");
 	}
 	
 	public void dropCourse(Student student, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException {
@@ -97,25 +97,25 @@ public class StudentService implements StudentServiceOperation {
 		}
 	}
 
-	public List<Grade> viewGrades(Student student) throws StudentCourseNotFoundException {
+	public List<Grade> viewGrades(int studentId) throws StudentCourseNotFoundException {
 		
-		List<Grade> grades = studentDao.viewGradesDAO(student);
+		List<Grade> grades = studentDao.viewGradesDAO(studentId);
 		if(grades == null) {
 			throw new StudentCourseNotFoundException();
 		}
 		return grades;
 	}
 	
-	public void payFee(Student student, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException {
+	public void payFee(int studentId, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException {
 		
 		System.out.println("\nYou have opted to pay: " + paymentMethod);
 		
-		Payment payment = studentDao.getFeeDAO(student.getId());
+		Payment payment = studentDao.getFeeDAO(studentId);
 		if(payment != null) {
 			
-			studentDao.payFeeDAO(student, paymentMethod);
+			studentDao.payFeeDAO(studentId, paymentMethod);
 			
-			payment = studentDao.getFeeDAO(student.getId());
+			payment = studentDao.getFeeDAO(studentId);
 			if(payment.getIsPaid() == 0) {
 				
 				throw new StudentMissingFeePaymentException();
