@@ -73,12 +73,12 @@ public interface StudentServiceOperation {
 	
 	/**
 	 * This method makes a payment for the courses that the student is registered for
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @param paymentMethod of type String
 	 * @exception StudentMissingFeePaymentException is thrown when the student fee has not been paid
 	 * @exception StudentPaymentRecordNotFoundException is thrown when a student payment record is not found
 	 */
-	public void payFee(Student student, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException;
+	public void payFee(int studentId, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException;
 	
 	/**
 	 * This method gets the student data 

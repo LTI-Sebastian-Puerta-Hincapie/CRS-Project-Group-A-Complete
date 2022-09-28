@@ -173,7 +173,7 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public void payFeeDAO(Student student, String paymentMethod) {
+	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   try {
 
@@ -182,7 +182,7 @@ public class StudentDAOImpl implements StudentDAO {
 	      stmt = conn.prepareStatement(SQLQueries.UPDATE_PAYMENT_BY_STUDENTID);
 	      stmt.setInt(1, 1);
 	      stmt.setString(2, paymentMethod);
-	      stmt.setInt(3,student.getId());
+	      stmt.setInt(3,studentId);
 	      stmt.executeUpdate();
 
 	   } catch(SQLException se){

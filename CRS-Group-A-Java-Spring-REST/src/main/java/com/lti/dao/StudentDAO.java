@@ -57,10 +57,10 @@ public interface StudentDAO {
 	
 	/**
 	 * This method makes a payment for the courses that the student is registered for
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @param paymentMethod of type String
 	 */
-	public void payFeeDAO(Student student, String paymentMethod);
+	public void payFeeDAO(int studentId, String paymentMethod);
 	
 	/**
 	 * This method gets the student data 
