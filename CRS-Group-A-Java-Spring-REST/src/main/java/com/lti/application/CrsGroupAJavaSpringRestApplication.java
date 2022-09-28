@@ -17,5 +17,4 @@ public class CrsGroupAJavaSpringRestApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CrsGroupAJavaSpringRestApplication.class, args);
 	}
-
 }
