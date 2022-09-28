@@ -97,9 +97,9 @@ public class StudentService implements StudentServiceOperation {
 		}
 	}
 
-	public List<Grade> viewGrades(Student student) throws StudentCourseNotFoundException {
+	public List<Grade> viewGrades(int studentId) throws StudentCourseNotFoundException {
 		
-		List<Grade> grades = studentDao.viewGradesDAO(student);
+		List<Grade> grades = studentDao.viewGradesDAO(studentId);
 		if(grades == null) {
 			throw new StudentCourseNotFoundException();
 		}

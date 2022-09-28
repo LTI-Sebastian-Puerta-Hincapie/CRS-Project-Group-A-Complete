@@ -1,16 +1,22 @@
 package com.lti.restcontroller;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.bean.Grade;
+import com.lti.bean.RegisteredCourse;
+import com.lti.bean.Student;
 import com.lti.bean.StudentCourse;
 import com.lti.bean.User;
 import com.lti.exception.CourseNotRegisteredException;
@@ -29,10 +35,10 @@ public class StudentController {
 		    method = RequestMethod.POST,
 		    value = "/student/registerforcourse")
 	@ResponseBody
-		public ResponseEntity registerForCourse(@RequestBody StudentCourse data){
+		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse){
 						
 			try {
-				studentService.registerForCourse(data.student, data.courseId);
+				studentService.registerForCourse(studentCourse.student, studentCourse.courseId);
 			} catch (CourseNotRegisteredException e) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			} catch (StudentCourseNotFoundException e) {
@@ -45,10 +51,10 @@ public class StudentController {
 		    method = RequestMethod.POST,
 		    value = "/student/addcourse")
 	@ResponseBody
-		public ResponseEntity addCourse(@RequestBody StudentCourse data){
+		public ResponseEntity addCourse(@RequestBody StudentCourse studentCourse){
 						
 			try {
-				studentService.addCourse(data.student, data.courseId);
+				studentService.addCourse(studentCourse.student, studentCourse.courseId);
 			} catch (StudentAddCourseException e) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			}
@@ -59,16 +65,31 @@ public class StudentController {
 		    method = RequestMethod.DELETE,
 		    value = "/student/dropcourse")
 	@ResponseBody
-		public ResponseEntity dropCourse(@RequestBody StudentCourse data){
+		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse){
 						
 			try {
-				studentService.dropCourse(data.student, data.courseId);
+				studentService.dropCourse(studentCourse.student, studentCourse.courseId);
 			} catch (StudentDropCourseException e) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			} catch (StudentCourseNotFoundException e) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity(HttpStatus.OK);
+		}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.GET,
+		    value = "/student/viewgrades/{id}")
+	@ResponseBody
+		public List<Grade> viewGrades(@PathVariable("id") int studentId){
+				
+		    List<Grade> grades = null;
+			try {
+				grades = studentService.viewGrades(studentId);
+			} catch (StudentCourseNotFoundException e) {
+				return null;
+			}
+			return grades;
 		}
 
 }

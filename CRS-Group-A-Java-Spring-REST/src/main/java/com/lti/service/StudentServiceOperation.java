@@ -65,11 +65,11 @@ public interface StudentServiceOperation {
 	
 	/**
 	 * This method view grades for a specific student and returns a list of grades
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @exception UnableToViewStudentGradesException is thrown when a student course is not found
 	 * @return List<Grade> returns a list of grades
 	 */
-	public List<Grade> viewGrades(Student student) throws StudentCourseNotFoundException;
+	public List<Grade> viewGrades(int studentId) throws StudentCourseNotFoundException;
 	
 	/**
 	 * This method makes a payment for the courses that the student is registered for
