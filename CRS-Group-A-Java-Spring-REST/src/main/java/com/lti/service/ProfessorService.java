@@ -22,15 +22,36 @@ import com.lti.dao.ProfessorDAOImpl;
 public class ProfessorService implements ProfessorServiceOperation {
 	
 	private ProfessorDAO professorDao;
+	private StudentDAO studentDao = null;
 	
 	public ProfessorService() {
 		
 		this.professorDao = new ProfessorDAOImpl();
+		this.studentDao = new StudentDAOImpl();
 	}
 	
-	public void addGrades(int studentId, int courseId, String grade) {
-		
-		professorDao.addGradesDAO(studentId, courseId, grade);
+	public void addGrades(int studentId, int courseId, String grade) throws StudentNotFoundException,
+	StudentCourseNotFoundException, StudentCourseRegistrationNotFoundException {
+
+	Student student = studentDao.getStudentDAO(studentId);
+
+	//validate whether student exists in system
+	if(student == null) {
+	throw new StudentNotFoundException();
+	}
+	RegisteredCourse registeredCourse = studentDao.getCourseDAO(student, courseId);
+
+	//validate whether student has registered for the course
+	if(registeredCourse == null) {
+	throw new StudentCourseNotFoundException();
+	}
+
+	//Validate the registration status is approved or not
+	if(registeredCourse.getRegisteredStatus()!=1) {
+	throw new StudentCourseRegistrationNotFoundException(student.getName());
+	}
+
+	professorDao.addGradesDAO(studentId, courseId, grade);
 	}
 	
 	public List<CourseEnrollment> viewEnrolledStudents(int courserId) {
@@ -50,3 +71,4 @@ public class ProfessorService implements ProfessorServiceOperation {
 		return professorDao.getProfessorCoursesDAO(professorId);
 	}
 }
+

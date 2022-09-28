@@ -24,7 +24,8 @@ public interface ProfessorServiceOperation {
 	 * @param courseId of type integer
 	 * @param grade of type String
 	 */
-	public void addGrades(int studentId, int courseId, String grade);
+	void addGrades(int studentId, int courseId, String grade) throws StudentNotFoundException,
+	StudentCourseNotFoundException, StudentCourseRegistrationNotFoundException;
 
 	
 	/**
