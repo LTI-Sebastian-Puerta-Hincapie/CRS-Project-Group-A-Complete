@@ -20,8 +20,6 @@ import com.lti.exception.StudentNotRegisteredException;
 import com.lti.exception.UserNotFoundException;
 import com.lti.service.UserService;
 
-
-
 @RestController
 public class UserController {
 	
@@ -36,7 +34,7 @@ public class UserController {
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
-		    value = "/users/{username}/{password}")
+		    value = "/user/{username}/{password}")
 	@ResponseBody
 	public ResponseEntity<User> getUser(
 			@PathVariable("username") String username, 

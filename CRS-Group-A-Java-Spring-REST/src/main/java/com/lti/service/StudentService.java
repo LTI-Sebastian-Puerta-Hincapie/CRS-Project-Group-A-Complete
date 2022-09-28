@@ -74,7 +74,7 @@ public class StudentService implements StudentServiceOperation {
 			}
 			System.out.println("\n--Course has been added --");
 		}
-		System.out.println("\nCourse has already been added for this student");
+		else System.out.println("\nCourse has already been added for this student");
 	}
 	
 	public void dropCourse(Student student, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException {

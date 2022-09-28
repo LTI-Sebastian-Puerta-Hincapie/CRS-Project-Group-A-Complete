@@ -67,7 +67,6 @@ public class RegisteredCourse {
 	 */
 	public void setGrade(String grade) {
 		Grade = grade;
-	}
-	
-	
+	}	
 }
+
