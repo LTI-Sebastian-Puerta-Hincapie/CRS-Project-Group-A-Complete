@@ -9,9 +9,15 @@ import com.lti.bean.CourseCatalog;
 import com.lti.bean.CourseEnrollment;
 import com.lti.bean.Grade;
 import com.lti.bean.Professor;
+import com.lti.bean.RegisteredCourse;
 import com.lti.bean.Student;
 import com.lti.dao.ProfessorDAO;
 import com.lti.dao.ProfessorDAOImpl;
+import com.lti.dao.StudentDAO;
+import com.lti.dao.StudentDAOImpl;
+import com.lti.exception.StudentCourseNotFoundException;
+import com.lti.exception.StudentCourseRegistrationNotFoundException;
+import com.lti.exception.StudentNotFoundException;
 
 /**
  * @author Sebastian

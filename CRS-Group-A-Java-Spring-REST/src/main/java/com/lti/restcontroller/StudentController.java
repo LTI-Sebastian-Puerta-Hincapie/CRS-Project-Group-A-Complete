@@ -23,6 +23,7 @@ import com.lti.exception.CourseNotRegisteredException;
 import com.lti.exception.StudentAddCourseException;
 import com.lti.exception.StudentCourseNotFoundException;
 import com.lti.exception.StudentDropCourseException;
+import com.lti.exception.StudentNotFoundException;
 import com.lti.service.StudentService;
 
 @RestController
@@ -90,6 +91,21 @@ public class StudentController {
 				return null;
 			}
 			return grades;
+		}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.GET,
+		    value = "/student/{id}")
+	@ResponseBody
+		public Student getStudent(@PathVariable("id") int studentId){
+				
+		    Student student = null;
+		    try {
+				student = studentService.getStudent(studentId);
+			} catch (StudentNotFoundException e) {
+				return null;
+			}
+			return student;
 		}
 
 }
