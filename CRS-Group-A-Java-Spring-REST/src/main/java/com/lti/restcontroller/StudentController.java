@@ -16,6 +16,7 @@ import com.lti.bean.User;
 import com.lti.exception.CourseNotRegisteredException;
 import com.lti.exception.StudentAddCourseException;
 import com.lti.exception.StudentCourseNotFoundException;
+import com.lti.exception.StudentDropCourseException;
 import com.lti.service.StudentService;
 
 @RestController
@@ -51,7 +52,23 @@ public class StudentController {
 			} catch (StudentAddCourseException e) {
 				return new ResponseEntity(HttpStatus.NOT_FOUND);
 			}
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.OK);
+		}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.DELETE,
+		    value = "/student/dropcourse")
+	@ResponseBody
+		public ResponseEntity dropCourse(@RequestBody StudentCourse data){
+						
+			try {
+				studentService.dropCourse(data.student, data.courseId);
+			} catch (StudentDropCourseException e) {
+				return new ResponseEntity(HttpStatus.NOT_FOUND);
+			} catch (StudentCourseNotFoundException e) {
+				return new ResponseEntity(HttpStatus.NOT_FOUND);
+			}
+			return new ResponseEntity(HttpStatus.OK);
 		}
 
 }
