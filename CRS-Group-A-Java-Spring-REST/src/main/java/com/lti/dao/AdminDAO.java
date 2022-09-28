@@ -3,6 +3,8 @@
  */
 package com.lti.dao;
 
+import java.util.ArrayList;
+
 import com.lti.bean.Admin;
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
@@ -19,7 +21,7 @@ public interface AdminDAO {
 	 * This method generates a report card for the student
 	 * @param StudentID of type integer
 	 */
-	public void generateReportCardDAO(int StudentID);
+	public ArrayList<ArrayList<String>> generateReportCardDAO(int StudentID);
 	
 	/**
 	 * This method adds a professor to the database
@@ -64,7 +66,7 @@ public interface AdminDAO {
 	 * This method checks if a course is available for enrollment
 	 * @param courseId of type integer
 	 */
-	public void checkAvailabilityDAO(int courseId);
+	public Boolean checkAvailabilityDAO(int courseId);
 	
 	/**
 	 * This method checks the list of courses a student is registered to

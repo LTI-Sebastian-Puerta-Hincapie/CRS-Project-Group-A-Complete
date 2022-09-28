@@ -28,8 +28,8 @@ public class AdminService implements AdminServiceOperation {
 		admindao = new AdminDAOImpl();
 	}
 
-	public void generateReportCard(int studentID) {
-		admindao.generateReportCardDAO(studentID);
+	public ArrayList<ArrayList<String>> generateReportCard(int studentID) {
+		return admindao.generateReportCardDAO(studentID);
 	}
 	
 	public void addProfessor(Professor professor) {
@@ -56,8 +56,8 @@ public class AdminService implements AdminServiceOperation {
 		admindao.updateCourseDAO(id, name, description); 
 	}
 	
-	public void checkAvailability(int id) {
-		admindao.checkAvailabilityDAO(id);
+	public Boolean checkAvailability(int id) {
+		return admindao.checkAvailabilityDAO(id);
 	}
 	
 	public void viewCourses(int studentID) {
