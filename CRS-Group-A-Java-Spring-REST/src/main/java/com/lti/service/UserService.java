@@ -1,5 +1,7 @@
 package com.lti.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.lti.bean.SemesterRegistration;
@@ -22,6 +24,7 @@ import com.lti.exception.UserNotFoundException;
 @Service
 public class UserService implements UserServiceOperation {
 	
+	Logger logger = LoggerFactory.getLogger(UserService.class);
 	private UserDAO userdao;
 	private AdminDAO admindao;
 	

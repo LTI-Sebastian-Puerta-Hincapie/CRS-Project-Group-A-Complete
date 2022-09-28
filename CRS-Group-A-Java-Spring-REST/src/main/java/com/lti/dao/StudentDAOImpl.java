@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.lti.bean.Course;
 import com.lti.bean.CourseCatalog;
 import com.lti.bean.Grade;
@@ -26,10 +29,11 @@ import com.lti.utils.DBUtils;
 
 public class StudentDAOImpl implements StudentDAO {
 	  
+	Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
+	
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
    
-
 	@Override
 	public void registerForCourseDAO(Student student, int courseId) {
 		

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.lti.bean.Course;
@@ -37,6 +39,7 @@ import com.lti.exception.StudentPaymentRecordNotFoundException;
 @Service
 public class StudentService implements StudentServiceOperation {
 	
+	Logger logger = LoggerFactory.getLogger(StudentService.class);
 	private StudentDAO studentDao;
 	
 	public StudentService() {

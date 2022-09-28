@@ -109,7 +109,7 @@ public class AdminController {
 		return new ResponseEntity(courseId, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/addcourse/{courseId}/{courseName}/{description}")
+	@GetMapping("admin/updatecourse/{courseId}/{courseName}/{description}")
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId,courseName,description);
 		try {
