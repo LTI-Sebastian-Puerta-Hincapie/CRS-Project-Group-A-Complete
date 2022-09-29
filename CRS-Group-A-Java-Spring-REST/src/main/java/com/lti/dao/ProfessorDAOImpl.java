@@ -1,9 +1,4 @@
 package com.lti.dao;
-import java.util.List;
-import com.lti.bean.Course;
-import com.lti.bean.Grade;
-import com.lti.bean.Student;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,18 +6,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lti.bean.Course;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.lti.bean.CourseCatalog;
 import com.lti.bean.CourseEnrollment;
 import com.lti.bean.Grade;
 import com.lti.bean.Professor;
-import com.lti.bean.Student;
 import com.lti.constant.SQLQueries;
-import com.lti.utils.DBUtils;
 import com.lti.exception.NoEnrolledStudentsFoundException;
+import com.lti.exception.ProfessorNotFoundException;
+import com.lti.exception.ProfessorNotRegisteredForCourseException;
+import com.lti.utils.DBUtils;
 
 
 public class ProfessorDAOImpl implements ProfessorDAO {
+	
+	Logger logger = LoggerFactory.getLogger(ProfessorDAOImpl.class);
     
     public List<Grade> addGradesDAO(String student, int courseId, String grade) {
         // TODO Auto-generated method stub
@@ -38,20 +38,15 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 		      stmt.executeUpdate();	
 		    
 		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
+			   logger.error("JDBC exception occured while adding grades",se);
 		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
+			   logger.error("Generic exception occured while adding grades",e);
 		   }
 	
 
         return null;
     }
     
-
-
-	
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	
@@ -64,9 +59,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			  
 		      stmt = conn.prepareStatement(SQLQueries.UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID);
 		      
-		    
-		    
-		      
 		      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
 		      stmt.setString(1, grade);
 		      stmt.setInt(2,studentId);
@@ -74,11 +66,9 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 		      stmt.executeUpdate();	
 		    
 		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
+			   logger.error("JDBC exception occured while adding grades",se);
 		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
+			   logger.error("Generic exception occured while adding grades",e);
 		   }
 	}
 
@@ -98,10 +88,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
 			      stmt.setInt(1, courseId);
 			      ResultSet rs = stmt.executeQuery();
-			      
-			      if(rs==null) {
-			    	  throw new NoEnrolledStudentsFoundException();
-			    	  }
 			    
 			      while(rs.next()) {
 			    	  int _courseId = rs.getInt("CourseId");
@@ -111,13 +97,11 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			    	  courseEnrollment.add(courseEnrollmentEntry);
 			      }
 			      
-			   } catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   } catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }
+		   } catch(SQLException se){
+					   logger.error("JDBC exception occured while fetching enrolled students",se);
+				   } catch(Exception e){
+					   logger.error("Generic exception occured fetching enrolled students",e);
+				   }
 		   
 		   return courseEnrollment;
 	}
@@ -132,6 +116,7 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			      stmt = conn.prepareStatement(SQLQueries.SELECT_PROFESSOR_BY_PROFESSORID);
 			      stmt.setInt(1,professorId);
 			      ResultSet rs = stmt.executeQuery();
+			      
 			      if(rs.next()) {
 			    	  int id = rs.getInt("Id");
 			    	  String name = rs.getString("Name");
@@ -142,13 +127,11 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			    	  professor = new Professor(id, name, departmentId, email, phone, address);
 			      }
 			    
-			   } catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   } catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }
+		   } catch(SQLException se){
+			   logger.error("JDBC exception occured while fetching professor details",se);
+		   } catch(Exception e){
+			   logger.error("Generic exception occured fetching professor details",e);
+		   }
 		   return professor;
 	}
 
@@ -166,6 +149,8 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 		      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
 		      stmt.setInt(1,professorId);
 		      ResultSet rs = stmt.executeQuery();	
+		     
+		      
 		      while(rs.next()) {
 		    	  
 		    	  int courseId = rs.getInt("CourseId");
@@ -177,13 +162,11 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 		    	  courses.add(course);
 		      }
 		    
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
+	   } catch(SQLException se){
+		   logger.error("JDBC exception occured while fetching course catalog by professor",se);
+	   } catch(Exception e){
+		   logger.error("Generic exception occured fetching course catalog by professor",e);
+	   }
 	   
 	   return courses;
 	}
