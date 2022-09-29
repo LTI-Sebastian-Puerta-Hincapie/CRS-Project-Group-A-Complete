@@ -58,12 +58,14 @@ public class StudentService implements StudentServiceOperation {
 			course = studentDao.getCourseDAO(student, courseId);
 			
 			if(course.getRegisteredStatus() == 0) {
-				throw new CourseNotRegisteredException();
+				throw new CourseNotRegisteredException(
+						"\nCourse not registered, courseId: " + courseId + " studentId: " + student.getId());
 			}
 		}
 		else {
 			
-			throw new StudentCourseNotFoundException();
+			throw new StudentCourseNotFoundException(
+					"\nCourse not found, courseId: " + courseId + " studentId: " + student.getId());
 		}
 	}
 	
@@ -74,7 +76,8 @@ public class StudentService implements StudentServiceOperation {
 		if(course == null) {
 			int _courseId = studentDao.addCourseDAO(student, courseId);
 			if(_courseId < 0) {
-				throw new StudentAddCourseException();
+				throw new StudentAddCourseException(
+						"\nCourse was not added, courseId: " + courseId + " studentId: " + student.getId());
 			}
 			System.out.println("\n--Course has been added --");
 		}
@@ -91,7 +94,8 @@ public class StudentService implements StudentServiceOperation {
 			
 			course = studentDao.getCourseDAO(student, courseId);
 			if(course != null) {
-				throw new StudentDropCourseException();
+				throw new StudentDropCourseException(
+						"\nUnable to drop course, courseId: " + courseId + " studentId: " + student.getId());
 			}
 			else {
 				System.out.println("\nCourse has been dropped");
@@ -107,7 +111,7 @@ public class StudentService implements StudentServiceOperation {
 		logger.info("From viewGrades service method");
 		List<Grade> grades = studentDao.viewGradesDAO(studentId);
 		if(grades == null) {
-			throw new StudentCourseNotFoundException();
+			throw new StudentCourseNotFoundException("Grades are not available because no courses were found for this student");
 		}
 		return grades;
 	}
@@ -141,7 +145,7 @@ public class StudentService implements StudentServiceOperation {
 		Student student = studentDao.getStudentDAO(studentId);
 		
 		if(student == null) {			
-			throw new StudentNotFoundException();
+			throw new StudentNotFoundException("Student not found, studentId: " + studentId);
 		}
 		return student;
 	}

@@ -9,11 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.bean.Course;
@@ -44,126 +46,94 @@ public class StudentController {
 	/**
 	 * This controller method registers a student to a specific course
 	 * @param studentCourse of type StudentCourse object
-	 * @exception StudentNotFoundException is thrown when a course is not found for a specific student
-	 * @exception CourseNotRegisteredException is thrown when a course has not been registered for a specific student
+	 * @throws StudentCourseNotFoundException is thrown when a specific course for a student is not found
+	 * @throws CourseNotRegisteredException is thrown when a course has not been registered for a specific student
 	 * @return ResponseEntity returns a status
 	 */
+	@ExceptionHandler({CourseNotRegisteredException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/registerforcourse")
 	@ResponseBody
-		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse){
+		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
 					
 			logger.info("From the registerForCourse controller method");
-			try {
-				studentService.registerForCourse(studentCourse.student, studentCourse.courseId);
-			} catch (CourseNotRegisteredException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Course has not been registered, courseId = " + studentCourse.courseId, HttpStatus.NOT_ACCEPTABLE);
-			} catch (StudentCourseNotFoundException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
-				
-			}	
+			studentService.registerForCourse(studentCourse.student, studentCourse.courseId);	
 			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
 		}
 	
 	/**
 	 * This controller method adds a course for a specific student
 	 * @param studentCourse of type StudentCourse object
-	 * @exception StudentAddCourse is thrown when a course has not been added
+	 * @throws StudentAddCourseException is thrown when a course has not been added
 	 * @return ResponseEntity returns a status
 	 */
+	@ExceptionHandler(StudentAddCourseException.class)
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/addcourse")
 	@ResponseBody
-		public ResponseEntity addCourse(@RequestBody StudentCourse studentCourse){
+		public ResponseEntity addCourse(@RequestBody StudentCourse studentCourse) throws StudentAddCourseException 
+		{
 			
 		    logger.info("From the addCourse controller method");
-			try {
-				studentService.addCourse(studentCourse.student, studentCourse.courseId);
-			} catch (StudentAddCourseException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
-			}
+		    studentService.addCourse(studentCourse.student, studentCourse.courseId);
 			return new ResponseEntity("Course has been successfully added", HttpStatus.OK);
 		}
 	
 	/**
 	 * This controller method drops a course for a specific student
 	 * @param studentCourse of type StudentCourse object
-	 * @exception StudentNotFoundException is thrown when a student is not found
-	 * @exception StudentDropCourseException is thrown when a course has not been dropped
+	 * @throws StudentNotFoundException is thrown when a student is not found
+	 * @throws StudentDropCourseException is thrown when a course has not been dropped
 	 * @return ResponseEntity returns a status
 	 */
+	@ExceptionHandler({StudentDropCourseException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.DELETE,
 		    value = "/student/dropcourse")
 	@ResponseBody
-		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse){
+		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse) throws StudentDropCourseException, StudentCourseNotFoundException
+		{
 				
 		    logger.info("From the dropCourse controller method");
-			try {
-				studentService.dropCourse(studentCourse.student, studentCourse.courseId);
-			} catch (StudentDropCourseException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Unable to drop course, courseId = " + studentCourse.courseId, HttpStatus.NOT_ACCEPTABLE);
-			} catch (StudentCourseNotFoundException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
-			}
-			return new ResponseEntity("Course has been successfully dropped", HttpStatus.OK);
+		    studentService.dropCourse(studentCourse.student, studentCourse.courseId);
+			return new ResponseEntity("Course has been successfully dropped", HttpStatus.NO_CONTENT);
 		}
 	
 	/**
 	 * This controller method displays course grades for a specific student
 	 * @param studentId of type int 
-	 * @exception StudentNotFoundException is thrown when there aren't any courses for a specific student
+	 * @throws StudentCourseNotFoundException is thrown when there aren't any courses for a specific student
 	 * @return ResponseEntity<List<Grade> returns a status with a list of grades
 	 */
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
 		    value = "/student/{id}/viewgrades")
 	@ResponseBody
-		public ResponseEntity<List<Grade>> viewGrades(@PathVariable("id") int studentId){
+		public ResponseEntity<List<Grade>> viewGrades(@PathVariable("id") int studentId) throws StudentCourseNotFoundException
+		{
 				
 		    logger.info("From the viewGrades controller method");
-		    List<Grade> grades = null;
-			try {
-				grades = studentService.viewGrades(studentId);
-			} catch (StudentCourseNotFoundException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity("No courses found", HttpStatus.NOT_FOUND);
-			}
+		    List<Grade> grades = studentService.viewGrades(studentId);
 			return new ResponseEntity<List<Grade>>(grades, HttpStatus.OK);
 		}
 	
 	/**
 	 * This controller method gets a specific student by studentId
 	 * @param studentId of type int 
-	 * @exception StudentNotFoundException is thrown when a student is not found
+	 * @throws StudentNotFoundException is thrown when a student is not found
 	 * @return ResponseEntity<Student> returns a status with student data
 	 */
+	@ExceptionHandler({StudentNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
 		    value = "/student/{id}")
 	@ResponseBody
-		public ResponseEntity<Student> getStudent(@PathVariable("id") int studentId){
+		public ResponseEntity<Student> getStudent(@PathVariable("id") int studentId) throws StudentNotFoundException{
 			
 		    logger.info("From the getStudent controller method");
-		    Student student = null;
-		    try {
-				student = studentService.getStudent(studentId);
-			} catch (StudentNotFoundException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity("Student not found, studentId = " + studentId, HttpStatus.NOT_FOUND);
-			}
+		    Student student = studentService.getStudent(studentId);
 			return new ResponseEntity<Student>(student, HttpStatus.OK);
 		}
 	
