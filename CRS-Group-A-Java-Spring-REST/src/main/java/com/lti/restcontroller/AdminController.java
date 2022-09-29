@@ -4,10 +4,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -22,7 +27,9 @@ public class AdminController {
 	@Autowired
 	private AdminService adminservice;
 	
-	@GetMapping("/admin/addprofessor/{id}/{name}/{departmentId}/{email}/{phone}/{address}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "/admin/addprofessor/{id}/{name}/{departmentId}/{email}/{phone}/{address}")
 	public ResponseEntity addProfessor(@PathVariable("id") int id, @PathVariable("name") String name, @PathVariable("departmentId") int departmentId, 
 										@PathVariable("email") String email, @PathVariable("phone") String phone, @PathVariable("address") String address) {
 		Professor professor = new Professor(id,name,departmentId,email,phone,address);
@@ -35,7 +42,9 @@ public class AdminController {
 		return new ResponseEntity(professor, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/generatereportcard/{id}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/generatereportcard/{id}")
 	public ResponseEntity generateReportCard(@PathVariable("id") int id) {
 		ArrayList<ArrayList<String>> reportCard;
 		try {
@@ -47,7 +56,9 @@ public class AdminController {
 		return new ResponseEntity(reportCard, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/approve/{studentID}/{approvalStatus}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/approve/{studentID}/{approvalStatus}")
 	public ResponseEntity approveStudentRegistration(@PathVariable("studentID") int studentID, @PathVariable("approvalStatus") int approvalStatus) {
 		try {
 			adminservice.approveStudentRegistration(studentID, approvalStatus);
@@ -57,7 +68,10 @@ public class AdminController {
 		return new ResponseEntity(true, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/createregistration/{studentId}/{adminId}/{approvalStatus}/{comments}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/createregistration/{studentId}/{adminId}/{approvalStatus}/{comments}")
+	@ResponseBody
 	public ResponseEntity createStudentRegistration(@PathVariable("studentId") int studentId, @PathVariable("adminId") int adminId,
 													@PathVariable("approvalStatus") int approvalStatus, @PathVariable("comments") String comments) {
 		Boolean approve = false;
@@ -74,7 +88,10 @@ public class AdminController {
 		return new ResponseEntity(reg, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/getregistration/{studentId}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/getregistration/{studentId}")
+	@ResponseBody
 	public ResponseEntity getSemesterRegistration(@PathVariable("studentId") int studentId) {
 		SemesterRegistration reg;
 		try {
@@ -86,7 +103,10 @@ public class AdminController {
 		return new ResponseEntity(reg, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/addcourse/{courseId}/{courseName}/{description}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/addcourse/{courseId}/{courseName}/{description}")
+	@ResponseBody
 	public ResponseEntity addCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId, courseName, description);
 		try {
@@ -98,7 +118,10 @@ public class AdminController {
 		return new ResponseEntity(course, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/addcourse/{courseId}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/removecourse/{courseId}")
+	@ResponseBody
 	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) {
 		try {
 			adminservice.removeCourse(courseId);
@@ -109,7 +132,10 @@ public class AdminController {
 		return new ResponseEntity(courseId, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/updatecourse/{courseId}/{courseName}/{description}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/updatecourse/{courseId}/{courseName}/{description}")
+	@ResponseBody
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId,courseName,description);
 		try {
@@ -121,8 +147,11 @@ public class AdminController {
 		return new ResponseEntity(course, HttpStatus.OK);
 	}
 	
-	@GetMapping("admin/checkavailability/{id}")
-	public ResponseEntity updateCourse(@PathVariable("id") int id) {
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/checkavailability/{id}")
+	@ResponseBody
+	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {
 			available = adminservice.checkAvailability(id);
