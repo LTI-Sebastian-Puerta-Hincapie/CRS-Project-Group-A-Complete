@@ -202,32 +202,22 @@ public class StudentController {
 	 * This controller method pays fee due
 	 * @param studentId of type int 
 	 * @param paymentMethod of type String
-	 * @exception StudentMissingFeePaymentException is thrown when payment due has not been paid
-	 * @exception StudentPaymentRecordNotFoundException is thrown when a payment bill is not found for a specific student
+	 * @throws StudentMissingFeePaymentException is thrown when payment due has not been paid
+	 * @throws StudentPaymentRecordNotFoundException is thrown when a payment bill is not found for a specific student
 	 * @return ResponseEntity returns a status
 	 */
+	@ExceptionHandler({StudentMissingFeePaymentException.class, StudentPaymentRecordNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/{id}/payfee/{paymentMethod}")
 	@ResponseBody
 		public ResponseEntity payFee(
 				@PathVariable("id") int studentId, 
-				@PathVariable("paymentMethod") String paymentMethod){
+				@PathVariable("paymentMethod") String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException
+		{
 				
 		    logger.info("From the payFee controller method");
-			try {
-				studentService.payFee(studentId, paymentMethod);
-			} catch (StudentMissingFeePaymentException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Amount due has not been paid", 
-						HttpStatus.NOT_ACCEPTABLE);
-			} catch (StudentPaymentRecordNotFoundException e) {
-				logger.error(e.getLocalizedMessage());
-				return new ResponseEntity(
-						"Payment bill not available for this student, check if student has registered for courses", 
-						HttpStatus.NOT_FOUND);
-			}
+		    studentService.payFee(studentId, paymentMethod);
 			return new ResponseEntity("Payment was successful", HttpStatus.OK);
 		}
 

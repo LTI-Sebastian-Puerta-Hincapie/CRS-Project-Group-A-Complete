@@ -129,12 +129,12 @@ public class StudentService implements StudentServiceOperation {
 			payment = studentDao.getFeeDAO(studentId);
 			if(payment.getIsPaid() == 0) {
 				
-				throw new StudentMissingFeePaymentException();
+				throw new StudentMissingFeePaymentException("Fee amount has not been paid");
 			}
 		} 
 		else {
 			
-			throw new StudentPaymentRecordNotFoundException();
+			throw new StudentPaymentRecordNotFoundException("Payment bill not available for this student, check if student has registered for courses");
 		}
 	}
 	
