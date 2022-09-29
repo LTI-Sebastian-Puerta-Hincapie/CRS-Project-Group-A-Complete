@@ -50,7 +50,7 @@ public class StudentController {
 	 * @throws CourseNotRegisteredException is thrown when a course has not been registered for a specific student
 	 * @return ResponseEntity returns a status
 	 */
-	@ExceptionHandler({CourseNotRegisteredException.class, StudentCourseNotFoundException.class})
+//	@ExceptionHandler({CourseNotRegisteredException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/registerforcourse")
@@ -68,7 +68,7 @@ public class StudentController {
 	 * @throws StudentAddCourseException is thrown when a course has not been added
 	 * @return ResponseEntity returns a status
 	 */
-	@ExceptionHandler(StudentAddCourseException.class)
+//	@ExceptionHandler(StudentAddCourseException.class)
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/addcourse")
@@ -88,7 +88,7 @@ public class StudentController {
 	 * @throws StudentDropCourseException is thrown when a course has not been dropped
 	 * @return ResponseEntity returns a status
 	 */
-	@ExceptionHandler({StudentDropCourseException.class, StudentCourseNotFoundException.class})
+//	@ExceptionHandler({StudentDropCourseException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.DELETE,
 		    value = "/student/dropcourse")
@@ -125,7 +125,7 @@ public class StudentController {
 	 * @throws StudentNotFoundException is thrown when a student is not found
 	 * @return ResponseEntity<Student> returns a status with student data
 	 */
-	@ExceptionHandler({StudentNotFoundException.class})
+//	@ExceptionHandler({StudentNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
 		    value = "/student/{id}")
@@ -206,7 +206,7 @@ public class StudentController {
 	 * @throws StudentPaymentRecordNotFoundException is thrown when a payment bill is not found for a specific student
 	 * @return ResponseEntity returns a status
 	 */
-	@ExceptionHandler({StudentMissingFeePaymentException.class, StudentPaymentRecordNotFoundException.class})
+//	@ExceptionHandler({StudentMissingFeePaymentException.class, StudentPaymentRecordNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/{id}/payfee/{paymentMethod}")

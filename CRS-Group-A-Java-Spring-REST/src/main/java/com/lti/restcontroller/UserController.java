@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lti.bean.SemesterRegistration;
@@ -53,7 +54,7 @@ public class UserController {
 	 * @throws IncorrectPasswordException  is thrown when an incorrect password been entered by the user
 	 * @throws UserNotFoundException  is thrown when a specific user doesn't exist
 	 */
-	@ExceptionHandler({IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class})
+//	@ExceptionHandler({IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class})
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
@@ -77,7 +78,7 @@ public class UserController {
 	 * @throws IncorrectPasswordException  is thrown when an incorrect password been entered by the user
 	 * @throws UserNotFoundException  is thrown when a specific user doesn't exist
 	 */
-	@ExceptionHandler({UserNotFoundException.class, IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class, StudentNotRegisteredException.class})
+//	@ExceptionHandler({UserNotFoundException.class, IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class, StudentNotRegisteredException.class})
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
@@ -97,7 +98,7 @@ public class UserController {
 	 * @throws SemesterRegistrationExistsException 
 	 * @throws UserNotFoundException 
 	 */
-	@ExceptionHandler(SemesterRegistrationExistsException.class)
+//	@ExceptionHandler({SemesterRegistrationExistsException.class, UserNotFoundException.class})
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
