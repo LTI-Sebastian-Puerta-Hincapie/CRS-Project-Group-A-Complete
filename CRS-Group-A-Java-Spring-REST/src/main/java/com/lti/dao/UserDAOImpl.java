@@ -45,12 +45,17 @@ public class UserDAOImpl implements UserDAO {
 	    	  int roleId = rs.getInt("RoleId");
 	    	  user = new User(id, _username, password, roleId);
 	      }
+	      
+		  logger.info("LoginDAO method");
+		  logger.debug("user: " + user);
 	   } catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());
 	   } 
 	   
 	   return user;
