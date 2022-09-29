@@ -151,7 +151,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 
 	@Override
-	public void removeCourseDAO(int id) {
+	public void removeCourseDAO(int id) throws CourseNotFoundException {
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
@@ -169,7 +169,7 @@ public class AdminDAOImpl implements AdminDAO{
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 		}catch(CourseNotFoundException ce) {
-			System.out.println(ce.getMessage());
+			throw new CourseNotFoundException();
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -180,7 +180,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void updateCourseDAO(int id, String name, String description) {
+	public void updateCourseDAO(int id, String name, String description) throws CourseNotFoundException {
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
@@ -201,7 +201,7 @@ public class AdminDAOImpl implements AdminDAO{
 			stmt.setInt(3, id);
 			stmt.executeUpdate();
 		}catch(CourseNotFoundException ce) {
-			System.out.println(ce.getMessage());
+			throw new CourseNotFoundException();
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -212,7 +212,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public Boolean checkAvailabilityDAO(int id) {
+	public Boolean checkAvailabilityDAO(int id){
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT Capacity, Enrolled From coursecatalog WHERE Id = ?";
@@ -229,20 +229,16 @@ public class AdminDAOImpl implements AdminDAO{
 				}
 			}
 			else {
-				throw new CourseNotFoundException();
+				return null;
 			}	
-		}catch(CourseNotFoundException ce) {
-			return false;
-			//System.out.println(ce.getMessage());
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}finally {
-			return false;
 		}
+		return null;
 	}
 
 	@Override

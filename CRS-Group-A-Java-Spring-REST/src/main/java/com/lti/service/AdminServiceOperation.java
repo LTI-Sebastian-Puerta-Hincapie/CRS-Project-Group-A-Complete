@@ -10,6 +10,7 @@ import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
+import com.lti.exception.CourseNotFoundException;
 
 /**
  * @author Jonathan
@@ -51,22 +52,25 @@ public interface AdminServiceOperation {
 	/**
 	 * This method removes the course from the course list
 	 * @param courseId of type integer
+	 * @throws CourseNotFoundException 
 	 */
-	public void removeCourse(int courseId);
+	public void removeCourse(int courseId) throws CourseNotFoundException;
 	
 	/**
 	 * This method updates a course's information in the course list
 	 * @param courseId of type integer
 	 * @param courseName of type String
 	 * @param description of type String
+	 * @throws CourseNotFoundException 
 	 */
-	public void updateCourse(int courseId, String courseName, String description);
+	public void updateCourse(int courseId, String courseName, String description) throws CourseNotFoundException;
 	
 	/**
 	 * This method checks if a course is available for enrollment
 	 * @param courseId of type integer
+	 * @throws CourseNotFoundException 
 	 */
-	public Boolean checkAvailability(int courseId);
+	public Boolean checkAvailability(int courseId) throws CourseNotFoundException;
 	
 	/**
 	 * This method checks the list of courses a student is registered to

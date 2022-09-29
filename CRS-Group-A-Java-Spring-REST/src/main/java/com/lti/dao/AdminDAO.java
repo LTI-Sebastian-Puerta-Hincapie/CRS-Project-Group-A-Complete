@@ -10,6 +10,7 @@ import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
+import com.lti.exception.CourseNotFoundException;
 
 /**
  * @author Jonathan
@@ -52,7 +53,7 @@ public interface AdminDAO {
 	 * This method removes the course from the course list
 	 * @param courseId of type integer
 	 */
-	public void removeCourseDAO(int courseId);
+	public void removeCourseDAO(int courseId) throws CourseNotFoundException;
 	
 	/**
 	 * This method updates a course's information in the course list
@@ -60,7 +61,7 @@ public interface AdminDAO {
 	 * @param courseName of type String
 	 * @param description of type String
 	 */
-	public void updateCourseDAO(int courseId, String courseName, String description);
+	public void updateCourseDAO(int courseId, String courseName, String description) throws CourseNotFoundException;
 	
 	/**
 	 * This method checks if a course is available for enrollment

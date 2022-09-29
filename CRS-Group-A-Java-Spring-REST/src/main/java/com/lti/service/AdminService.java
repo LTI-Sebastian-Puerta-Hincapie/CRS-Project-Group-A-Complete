@@ -13,6 +13,7 @@ import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
 import com.lti.dao.AdminDAO;
 import com.lti.dao.AdminDAOImpl;
+import com.lti.exception.CourseNotFoundException;
 
 /**
  * @author Sebastian
@@ -48,16 +49,22 @@ public class AdminService implements AdminServiceOperation {
 		admindao.addCourseDAO(course);
 	}
 	
-	public void removeCourse(int id) {
+	public void removeCourse(int id) throws CourseNotFoundException {
 		admindao.removeCourseDAO(id);
 	}
 	
-	public void updateCourse(int id, String name, String description) {
+	public void updateCourse(int id, String name, String description) throws CourseNotFoundException {
 		admindao.updateCourseDAO(id, name, description); 
 	}
 	
-	public Boolean checkAvailability(int id) {
-		return admindao.checkAvailabilityDAO(id);
+	public Boolean checkAvailability(int id) throws CourseNotFoundException {
+		Boolean available = admindao.checkAvailabilityDAO(id);
+		if(available) {
+			return available;
+		}
+		else {
+			throw new CourseNotFoundException();
+		}
 	}
 	
 	public void viewCourses(int studentID) {
