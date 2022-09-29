@@ -58,7 +58,7 @@ public class StudentController {
 		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
 					
 			logger.info("From the registerForCourse controller method");
-			studentService.registerForCourse(studentCourse.student, studentCourse.courseId);	
+			studentService.registerForCourse(studentCourse.getStudent(), studentCourse.getCourseId());	
 			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
 		}
 	
@@ -77,7 +77,7 @@ public class StudentController {
 		{
 			
 		    logger.info("From the addCourse controller method");
-		    studentService.addCourse(studentCourse.student, studentCourse.courseId);
+		    studentService.addCourse(studentCourse.getStudent(), studentCourse.getCourseId());
 			return new ResponseEntity("Course has been successfully added", HttpStatus.OK);
 		}
 	
@@ -97,7 +97,7 @@ public class StudentController {
 		{
 				
 		    logger.info("From the dropCourse controller method");
-		    studentService.dropCourse(studentCourse.student, studentCourse.courseId);
+		    studentService.dropCourse(studentCourse.getStudent(), studentCourse.getCourseId());
 			return new ResponseEntity("Course has been successfully dropped", HttpStatus.NO_CONTENT);
 		}
 	

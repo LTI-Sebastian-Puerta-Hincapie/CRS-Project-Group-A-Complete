@@ -8,6 +8,8 @@ import com.lti.dao.PasswordDAOImpl;
 import com.lti.dao.UserDAO;
 import com.lti.dao.UserDAOImpl;
 import com.lti.exception.IncorrectPasswordException;
+import com.lti.exception.SemesterRegistrationNotApprovedException;
+import com.lti.exception.StudentNotRegisteredException;
 import com.lti.exception.UserNotFoundException;
 
 /**
@@ -20,40 +22,27 @@ public class PasswordService implements PasswordServiceOperation {
 	
 	private UserDAO userdao;
 	private PasswordDAO passwordDAO;
+	private UserService userService;
 	
 	public PasswordService() {
 		
 		userdao = new UserDAOImpl();
 		passwordDAO = new PasswordDAOImpl();
-		
+		userService = new UserService();
 	}
-		
 	
 	@Override
-	public void updatePassword(String username, String password){
+	public void updatePassword(String username, String currentPassword, String newPassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException {
 		
-		passwordDAO.updatePassword(username, password);
-		
-		System.out.println("\n--New password saved--");
-		
-	}
+		User user = userService.Login(username, currentPassword);
 
-	@Override
-	public User validateUser(String username, String password)
-			throws UserNotFoundException, IncorrectPasswordException {
+		if (user != null) {
+			
+			passwordDAO.updatePassword(username, newPassword);
+		}
 		
-		User user = userdao.LoginDAO(username);
-		if(user == null) {
-			
-			throw new UserNotFoundException();
-		}
-		else if(!password.equals(user.getPassword())) {
-			
-			throw new IncorrectPasswordException();
-		}
-		System.out.println("\n--User credentials are correct--");
-		return user;
-	
+		System.out.println("\n--Password has been updated--");
+		
 	}
 
 }

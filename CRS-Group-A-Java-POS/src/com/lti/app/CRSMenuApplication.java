@@ -168,20 +168,20 @@ public class CRSMenuApplication {
 					String currentPassword = scan.nextLine();
 
 					//save new password
-					PasswordServiceOperation passwordSerive = new PasswordService();
+					PasswordServiceOperation passwordService = new PasswordService();
 					User userForPasswordUpdate = null;
 					try {
-					userForPasswordUpdate = passwordSerive.validateUser(userName, currentPassword);
+						userForPasswordUpdate = passwordService.validateUser(userName, currentPassword);
 					} catch (UserNotFoundException e) {
-					e.printStackTrace();
+						e.printStackTrace();
 					} catch (IncorrectPasswordException e) {
-					e.printStackTrace();
+						e.printStackTrace();
 					}
 
 					if (userForPasswordUpdate != null) {
-					System.out.print("Enter new password: ");
-					String newPassword = scan.nextLine();
-					passwordSerive.updatePassword(userName, newPassword);
+						System.out.print("Enter new password: ");
+						String newPassword = scan.nextLine();
+						passwordService.updatePassword(userName, newPassword);
 					}
 					break;
 				case "exit": 
