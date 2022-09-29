@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,6 +21,7 @@ import com.lti.service.AdminService;
 import com.lti.bean.Course;
 import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
+import com.lti.exception.CourseNotFoundException;
 
 @RestController
 public class AdminController {
@@ -28,11 +30,10 @@ public class AdminController {
 	private AdminService adminservice;
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
-			value = "/admin/addprofessor/{id}/{name}/{departmentId}/{email}/{phone}/{address}")
-	public ResponseEntity addProfessor(@PathVariable("id") int id, @PathVariable("name") String name, @PathVariable("departmentId") int departmentId, 
-										@PathVariable("email") String email, @PathVariable("phone") String phone, @PathVariable("address") String address) {
-		Professor professor = new Professor(id,name,departmentId,email,phone,address);
+			method = RequestMethod.POST,
+			value = "/admin/addprofessor")
+	@ResponseBody
+	public ResponseEntity addProfessor(@RequestBody Professor professor) {
 		try {
 			adminservice.addProfessor(professor);
 		}catch (Exception e) {
@@ -69,23 +70,17 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
-			value = "admin/createregistration/{studentId}/{adminId}/{approvalStatus}/{comments}")
+			method = RequestMethod.POST,
+			value = "admin/createregistration")
 	@ResponseBody
-	public ResponseEntity createStudentRegistration(@PathVariable("studentId") int studentId, @PathVariable("adminId") int adminId,
-													@PathVariable("approvalStatus") int approvalStatus, @PathVariable("comments") String comments) {
-		Boolean approve = false;
-		if(approvalStatus > 0) {
-			approve = true;
-		}
-		SemesterRegistration reg = new SemesterRegistration(studentId,adminId,approve,comments);
+	public ResponseEntity createStudentRegistration(@RequestBody SemesterRegistration semesterRegistration) {
 		try {
-			adminservice.createStudentRegistration(reg);
+			adminservice.createStudentRegistration(semesterRegistration);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity(reg, HttpStatus.OK);
+		return new ResponseEntity(semesterRegistration, HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
@@ -104,11 +99,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
-			value = "admin/addcourse/{courseId}/{courseName}/{description}")
+			method = RequestMethod.POST,
+			value = "admin/addcourse")
 	@ResponseBody
-	public ResponseEntity addCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
-		Course course = new Course(courseId, courseName, description);
+	public ResponseEntity addCourse(@RequestBody Course course) {
 		try {
 			adminservice.addCourse(course);
 		} catch (Exception e) {
@@ -119,13 +113,15 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
+			method = RequestMethod.DELETE,
 			value = "admin/removecourse/{courseId}")
 	@ResponseBody
 	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) {
 		try {
 			adminservice.removeCourse(courseId);
-		} catch (Exception e) {
+		}catch(CourseNotFoundException ce) {
+			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
+		}catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
@@ -133,14 +129,16 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
+			method = RequestMethod.POST,
 			value = "admin/updatecourse/{courseId}/{courseName}/{description}")
 	@ResponseBody
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
 		Course course = new Course(courseId,courseName,description);
 		try {
 			adminservice.updateCourse(courseId,courseName,description);
-		} catch (Exception e) {
+		}catch(CourseNotFoundException ce) {
+			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
+		}catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
@@ -155,7 +153,9 @@ public class AdminController {
 		Boolean available;
 		try {
 			available = adminservice.checkAvailability(id);
-		} catch (Exception e) {
+		}catch(CourseNotFoundException ce) {
+			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
+		}catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
