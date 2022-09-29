@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.lti.bean.User;
@@ -19,6 +21,8 @@ import com.lti.utils.DBUtils;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
+		
+	Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 	
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
@@ -41,12 +45,15 @@ public class UserDAOImpl implements UserDAO {
 	    	  int roleId = rs.getInt("RoleId");
 	    	  user = new User(id, _username, password, roleId);
 	      }
+	      
+		  logger.info("From LoginDAO method");
+		  
 	   } catch(SQLException se){
-	      //Handle errors for JDBC
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
-	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());
 	   } 
 	   
 	   return user;
