@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.lti.service.AdminService;
 import com.lti.bean.Course;
@@ -116,15 +117,8 @@ public class AdminController {
 			method = RequestMethod.DELETE,
 			value = "admin/removecourse/{courseId}")
 	@ResponseBody
-	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) {
-		try {
-			adminservice.removeCourse(courseId);
-		}catch(CourseNotFoundException ce) {
-			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
-		}catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		
+	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) throws CourseNotFoundException {
+		adminservice.removeCourse(courseId);
 		return new ResponseEntity(courseId, HttpStatus.OK);
 	}
 	
@@ -132,16 +126,9 @@ public class AdminController {
 			method = RequestMethod.POST,
 			value = "admin/updatecourse/{courseId}/{courseName}/{description}")
 	@ResponseBody
-	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) {
+	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) throws CourseNotFoundException {
 		Course course = new Course(courseId,courseName,description);
-		try {
-			adminservice.updateCourse(courseId,courseName,description);
-		}catch(CourseNotFoundException ce) {
-			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
-		}catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		
+		adminservice.updateCourse(courseId,courseName,description);
 		return new ResponseEntity(course, HttpStatus.OK);
 	}
 	
@@ -160,5 +147,10 @@ public class AdminController {
 		}
 		
 		return new ResponseEntity(available, HttpStatus.OK);
+	}
+	
+	@ExceptionHandler(CourseNotFoundException.class)
+	public ResponseEntity courseNotFoundHandler() {
+		return new ResponseEntity("Course is not in course list", HttpStatus.NOT_FOUND);
 	}
 }
