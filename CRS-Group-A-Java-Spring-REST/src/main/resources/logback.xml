@@ -38,7 +38,7 @@
 		<appender-ref ref="STDOUT" />
 	</logger> -->
 	
-		<logger name="com.lti.restcontroller" level="debug" additivity="false">
+	<logger name="com.lti.restcontroller" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger> 
 	
@@ -47,7 +47,7 @@
 		<appender-ref ref="FILE-AUDIT" />
 	</logger>
 	
-		<logger name="com.lti.service" level="debug" additivity="false">
+	<logger name="com.lti.service" level="debug" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger> 
 	

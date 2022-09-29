@@ -53,15 +53,19 @@ public class StudentController {
 		    value = "/student/registerforcourse")
 	@ResponseBody
 		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse){
-						
+					
+			logger.info("From the registerForCourse controller method");
 			try {
 				studentService.registerForCourse(studentCourse.student, studentCourse.courseId);
 			} catch (CourseNotRegisteredException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
-						"Course has not been registered, courseId = " + studentCourse.courseId, HttpStatus.CONFLICT);
+						"Course has not been registered, courseId = " + studentCourse.courseId, HttpStatus.NOT_ACCEPTABLE);
 			} catch (StudentCourseNotFoundException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
 						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
+				
 			}	
 			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
 		}
@@ -77,10 +81,12 @@ public class StudentController {
 		    value = "/student/addcourse")
 	@ResponseBody
 		public ResponseEntity addCourse(@RequestBody StudentCourse studentCourse){
-						
+			
+		    logger.info("From the addCourse controller method");
 			try {
 				studentService.addCourse(studentCourse.student, studentCourse.courseId);
 			} catch (StudentAddCourseException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
 						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
 			}
@@ -99,13 +105,16 @@ public class StudentController {
 		    value = "/student/dropcourse")
 	@ResponseBody
 		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse){
-						
+				
+		    logger.info("From the dropCourse controller method");
 			try {
 				studentService.dropCourse(studentCourse.student, studentCourse.courseId);
 			} catch (StudentDropCourseException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
-						"Unable to drop course, courseId = " + studentCourse.courseId, HttpStatus.CONFLICT);
+						"Unable to drop course, courseId = " + studentCourse.courseId, HttpStatus.NOT_ACCEPTABLE);
 			} catch (StudentCourseNotFoundException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
 						"Course has not been added, courseId = " + studentCourse.courseId, HttpStatus.NOT_FOUND);
 			}
@@ -124,10 +133,12 @@ public class StudentController {
 	@ResponseBody
 		public ResponseEntity<List<Grade>> viewGrades(@PathVariable("id") int studentId){
 				
+		    logger.info("From the viewGrades controller method");
 		    List<Grade> grades = null;
 			try {
 				grades = studentService.viewGrades(studentId);
 			} catch (StudentCourseNotFoundException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity("No courses found", HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<List<Grade>>(grades, HttpStatus.OK);
@@ -144,11 +155,13 @@ public class StudentController {
 		    value = "/student/{id}")
 	@ResponseBody
 		public ResponseEntity<Student> getStudent(@PathVariable("id") int studentId){
-				
+			
+		    logger.info("From the getStudent controller method");
 		    Student student = null;
 		    try {
 				student = studentService.getStudent(studentId);
 			} catch (StudentNotFoundException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity("Student not found, studentId = " + studentId, HttpStatus.NOT_FOUND);
 			}
 			return new ResponseEntity<Student>(student, HttpStatus.OK);
@@ -164,7 +177,8 @@ public class StudentController {
 		    value = "/student/{id}/courses")
 	@ResponseBody
 		public ResponseEntity<List<Course>> getStudentCourses(@PathVariable("id") int studentId){
-				
+			
+		    logger.info("From the getStudentCourses controller method");
 			return new ResponseEntity<List<Course>>(studentService.getStudentCourses(studentId), HttpStatus.OK);
 		}	
 	
@@ -178,7 +192,8 @@ public class StudentController {
 		    value = "/student/{id}/registeredcourses")
 	@ResponseBody
 		public ResponseEntity<List<RegisteredCourse>> getStudentRegisteredCourses(@PathVariable("id") int studentId){
-				
+			
+		    logger.info("From the getStudentRegisteredCourses controller method");
 			return new ResponseEntity<List<RegisteredCourse>>(studentService.getStudentRegisteredCourses(studentId), HttpStatus.OK);
 		}
 		
@@ -193,6 +208,7 @@ public class StudentController {
 	@ResponseBody
 		public ResponseEntity<Payment> getStudentFee(@PathVariable("id") int studentId){
 				
+		    logger.info("From the getStudentFee controller method");
 			return new ResponseEntity<Payment>(studentService.getFee(studentId), HttpStatus.OK);
 		}
 	
@@ -206,7 +222,8 @@ public class StudentController {
 		    value = "/student/{id}/generatefee")
 	@ResponseBody
 		public ResponseEntity generateFee(@PathVariable("id") int studentId){
-				
+			
+		    logger.info("From the generateFee controller method");
 			studentService.generatePayment(studentId);
 			return new ResponseEntity("Payment bill generated for student", HttpStatus.OK);
 		}
@@ -227,13 +244,16 @@ public class StudentController {
 				@PathVariable("id") int studentId, 
 				@PathVariable("paymentMethod") String paymentMethod){
 				
+		    logger.info("From the payFee controller method");
 			try {
 				studentService.payFee(studentId, paymentMethod);
 			} catch (StudentMissingFeePaymentException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
 						"Amount due has not been paid", 
-						HttpStatus.CONFLICT);
+						HttpStatus.NOT_ACCEPTABLE);
 			} catch (StudentPaymentRecordNotFoundException e) {
+				logger.error(e.getLocalizedMessage());
 				return new ResponseEntity(
 						"Payment bill not available for this student, check if student has registered for courses", 
 						HttpStatus.NOT_FOUND);

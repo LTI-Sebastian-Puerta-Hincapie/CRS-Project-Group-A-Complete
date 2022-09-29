@@ -53,9 +53,9 @@ public class UserController {
 		} catch (IncorrectPasswordException e) {
 			return new ResponseEntity("Incorrect password entered", HttpStatus.UNAUTHORIZED);
 		} catch (SemesterRegistrationNotApprovedException e) {	
-			return new ResponseEntity("Student semester registration not approved", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity("Student semester registration not approved", HttpStatus.NOT_ACCEPTABLE);
 		} catch (StudentNotRegisteredException e) {
-			return new ResponseEntity("Student has not been registered", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity("Student has not been registered", HttpStatus.NOT_FOUND);
 		}
 	
 		return new ResponseEntity(user.getUsername() + "has successfully logged in", HttpStatus.OK);			

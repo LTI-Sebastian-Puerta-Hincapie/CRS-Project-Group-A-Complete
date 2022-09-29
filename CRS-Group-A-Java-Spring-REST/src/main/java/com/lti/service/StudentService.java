@@ -49,7 +49,7 @@ public class StudentService implements StudentServiceOperation {
 	
 	public void registerForCourse(Student student, int courseId) throws CourseNotRegisteredException, StudentCourseNotFoundException 
 	{
-		
+		logger.info("From registerForCourse service method");
 		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);
 		if(course != null) {
 			
@@ -69,6 +69,7 @@ public class StudentService implements StudentServiceOperation {
 	
 	public void addCourse(Student student, int courseId) throws StudentAddCourseException {
 		
+		logger.info("From addCourse service method");
 		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);	
 		if(course == null) {
 			int _courseId = studentDao.addCourseDAO(student, courseId);
@@ -82,6 +83,7 @@ public class StudentService implements StudentServiceOperation {
 	
 	public void dropCourse(Student student, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException {
 		
+		logger.info("From dropCourse service method");
 		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);
 		if(course != null) {
 			
@@ -102,6 +104,7 @@ public class StudentService implements StudentServiceOperation {
 
 	public List<Grade> viewGrades(int studentId) throws StudentCourseNotFoundException {
 		
+		logger.info("From viewGrades service method");
 		List<Grade> grades = studentDao.viewGradesDAO(studentId);
 		if(grades == null) {
 			throw new StudentCourseNotFoundException();
@@ -111,6 +114,7 @@ public class StudentService implements StudentServiceOperation {
 	
 	public void payFee(int studentId, String paymentMethod) throws StudentMissingFeePaymentException, StudentPaymentRecordNotFoundException {
 		
+		logger.info("From payFee service method");
 		System.out.println("\nYou have opted to pay: " + paymentMethod);
 		
 		Payment payment = studentDao.getFeeDAO(studentId);
@@ -133,6 +137,7 @@ public class StudentService implements StudentServiceOperation {
 	@Override
 	public Student getStudent(int studentId) throws StudentNotFoundException {
 		
+		logger.info("From getStudent service method");
 		Student student = studentDao.getStudentDAO(studentId);
 		
 		if(student == null) {			
@@ -144,18 +149,21 @@ public class StudentService implements StudentServiceOperation {
 	@Override
 	public List<Course> getStudentCourses(int studentId) {
 
+		logger.info("From getStudentCourses service method");
 		return studentDao.getStudentCoursesDAO(studentId);
 	}
 
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCourses(int studentId) {
 		
+		logger.info("From getStudentRegisteredCourses service method");
 		return studentDao.getStudentRegisteredCoursesDAO(studentId);
 	}
 
 	@Override
 	public void generatePayment(int studentId) {
 		
+		logger.info("From generatePayment service method");
 		List<CourseCatalog> courses = getRegisteredCourseData(studentId);
 		int totalCredits = 0;
 		int COST_PER_CREDIT = 1125;
@@ -173,24 +181,28 @@ public class StudentService implements StudentServiceOperation {
 	@Override
 	public List<CourseCatalog> getRegisteredCourseData(int studentId) {
 		
+		logger.info("From getRegisteredCourseData service method");
 		return studentDao.getRegisteredCourseDataDAO(studentId);
 	}
 
 	@Override
 	public Payment getFee(int studentId) {
 		
+		logger.info("From getFee service method");
 		return studentDao.getFeeDAO(studentId);
 	}
 
 	@Override
 	public void addStudentSemesterRegistration(int studentId) {
 		
+		logger.info("From addStudentSemesterRegistration service method");
 		studentDao.addStudentSemesterRegistrationDAO(studentId);
 	}
 
 	@Override
 	public RegisteredCourse getCourse(Student student, int courseId)  {
 
+		logger.info("From getCourse service method");
 		return studentDao.getCourseDAO(student, courseId);
 	}
 }
