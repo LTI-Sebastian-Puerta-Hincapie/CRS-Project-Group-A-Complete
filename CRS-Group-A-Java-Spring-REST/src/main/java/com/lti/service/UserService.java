@@ -1,5 +1,7 @@
 package com.lti.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -75,5 +77,17 @@ public class UserService implements UserServiceOperation {
 	public void Logout(String username) {
 		
 		System.out.println("\nYou have logged out");
+	}
+	
+	@Override
+	public User GetUser(int userId) {
+		
+		return userdao.GetUser(userId);
+	}
+
+	@Override
+	public List<User> GetUsers() {
+
+		return userdao.GetUsers();
 	}
 }

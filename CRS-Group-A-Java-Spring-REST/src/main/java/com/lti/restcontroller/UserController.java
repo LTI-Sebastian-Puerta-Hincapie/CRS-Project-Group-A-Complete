@@ -10,17 +10,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.bean.SemesterRegistration;
+import com.lti.bean.StudentCourse;
+import com.lti.bean.UpdatePassword;
 import com.lti.bean.User;
 import com.lti.dao.UserDAO;
 import com.lti.exception.IncorrectPasswordException;
+import com.lti.exception.SemesterRegistrationExistsException;
 import com.lti.exception.SemesterRegistrationNotApprovedException;
 import com.lti.exception.StudentNotRegisteredException;
 import com.lti.exception.UserNotFoundException;
+import com.lti.service.AdminService;
+import com.lti.service.PasswordService;
+import com.lti.service.PasswordServiceOperation;
 import com.lti.service.UserService;
 
 @RestController
@@ -30,6 +38,10 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PasswordService passwordService;
+	@Autowired
+	private AdminService adminService;
 	
 	/**
 	 * This controller method get a user by userId
@@ -54,5 +66,46 @@ public class UserController {
 				
 		User user = userService.Login(username, password);
 		return new ResponseEntity(user.getUsername() + "has successfully logged in", HttpStatus.OK);			
+	}
+	
+	/**
+	 * This controller method updates the user password
+	 * @param username of type String
+	 * @param password of type String
+	 * @throws StudentNotRegisteredException is thrown when student does not have a registration record
+	 * @throws SemesterRegistrationNotApprovedException is thrown when the semester registration has not been approved
+	 * @throws IncorrectPasswordException  is thrown when an incorrect password been entered by the user
+	 * @throws UserNotFoundException  is thrown when a specific user doesn't exist
+	 */
+	@ExceptionHandler({UserNotFoundException.class, IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class, StudentNotRegisteredException.class})
+	@RequestMapping(
+			produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.POST,
+		    value = "/user/updatepassword")
+	@ResponseBody
+	public ResponseEntity updatePassword(@RequestBody UpdatePassword updatePassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
+	{
+		passwordService.updatePassword(
+				updatePassword.getUsername(), updatePassword.getCurrentPassword(), updatePassword.getNewPassword());
+		return new ResponseEntity("Password has been successfully updated", HttpStatus.OK);
+	}
+	
+	/**
+	 * This controller method registers a student for the semester
+	 * @param username of type String
+	 * @param password of type String
+	 * @throws SemesterRegistrationExistsException 
+	 * @throws UserNotFoundException 
+	 */
+	@ExceptionHandler(SemesterRegistrationExistsException.class)
+	@RequestMapping(
+			produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.POST,
+		    value = "/user/semesterregistration")
+	@ResponseBody
+	public ResponseEntity addStudentSemesterRegistration(@RequestBody SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
+		
+		adminService.createStudentRegistration(semesterRegistration);
+		return new ResponseEntity("Student semester registration successfully added", HttpStatus.OK);
 	}
 }
