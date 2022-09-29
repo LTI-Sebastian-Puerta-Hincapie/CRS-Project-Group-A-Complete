@@ -10,6 +10,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.lti.bean.Course;
 import com.lti.bean.CourseCatalog;
 import com.lti.bean.Grade;
@@ -26,10 +29,11 @@ import com.lti.utils.DBUtils;
 
 public class StudentDAOImpl implements StudentDAO {
 	  
+	Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
+	
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
    
-
 	@Override
 	public void registerForCourseDAO(Student student, int courseId) {
 		
@@ -41,19 +45,24 @@ public class StudentDAOImpl implements StudentDAO {
 	      stmt.setInt(1,student.getId());
 	      stmt.setInt(2, courseId);
 	      stmt.executeUpdate();
+	      
+	      logger.info("From registerForCourseDAO method");
 
 	   } catch(SQLException se){
-	      //Handle errors for JDBC
+	      //Handle errors for JDB
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());
 	   }
 	}
 
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
+	   logger.info("From the addCourseDAO method");
 	   int _courseId = -1;
 	   try {
 		   
@@ -77,9 +86,11 @@ public class StudentDAOImpl implements StudentDAO {
 	   } catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());
 	   } 	
 	   
 	   return _courseId;
@@ -88,6 +99,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
+		logger.info("From the getCourseDAO method");
 		RegisteredCourse rcourse = null;
 	   try {
 		   
@@ -109,9 +121,11 @@ public class StudentDAOImpl implements StudentDAO {
 	   } catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
+		  logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+		  logger.error(e.getLocalizedMessage());
 	   } 	
 	   
 	   return rcourse;
@@ -120,6 +134,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public void dropCourseDAO(Student student, int courseId) {
 		
+       logger.info("From the dropCourseDAO method");
 	   try {
 
 		  conn = DBUtils.getConnection();
@@ -132,15 +147,18 @@ public class StudentDAOImpl implements StudentDAO {
 	   } catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());
 	   }		
 	}
 
 	@Override
 	public List<Grade> viewGradesDAO(int studentId) {
 		
+		logger.info("From the viewGradesDAO method");
 		List<Grade> grades = new ArrayList<Grade>();
 		Grade grade = null;
 		Course course = null;
@@ -164,9 +182,11 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }
 		   
 		   return grades;
@@ -175,6 +195,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
+	   logger.info("From the payFeeDAO method");
 	   try {
 
 		  conn = DBUtils.getConnection();
@@ -188,15 +209,18 @@ public class StudentDAOImpl implements StudentDAO {
 	   } catch(SQLException se){
 	      //Handle errors for JDBC
 	      se.printStackTrace();
+	      logger.error(se.getLocalizedMessage());
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
+	      logger.error(e.getLocalizedMessage());;
 	   }		  	
 }	   
 	
 	@Override
 	public Student getStudentDAO(int studentId) {
 		
+		logger.info("From the getStudentDAO method");
 		Student student = null;
 		   try {
 
@@ -218,9 +242,11 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }
 		   
 		   return student;
@@ -229,6 +255,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public List<Course> getStudentCoursesDAO(int studentId) {
 		
+		logger.info("From the getStudentCourseDAO method");
 		List<Course> courses = new ArrayList<Course>();
 		   try {
 
@@ -246,9 +273,11 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }
 		   
 		   return courses;
@@ -257,6 +286,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId) {
 		
+		logger.info("From the getStudentRegisteredCoursesDAO method");
 		List<RegisteredCourse> rcourses = new ArrayList<RegisteredCourse>();
 		
 		   try {
@@ -278,9 +308,11 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }
 		   
 		   return rcourses;
@@ -289,6 +321,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
+	   logger.info("From the generatePaymentDAO method");
 	   try {
 			  conn = DBUtils.getConnection();
 			  
@@ -308,15 +341,18 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }	
 	}
 
 	@Override
 	public List<CourseCatalog> getRegisteredCourseDataDAO(int studentId) {
 		
+		logger.info("From the getRegisteredCourseDataDAO method");
 		List<CourseCatalog> courses = new ArrayList<CourseCatalog>();
 		CourseCatalog course = null;
 		
@@ -345,9 +381,11 @@ public class StudentDAOImpl implements StudentDAO {
 			   } catch(SQLException se){
 			      //Handle errors for JDBC
 			      se.printStackTrace();
+			      logger.error(se.getLocalizedMessage());
 			   } catch(Exception e){
 			      //Handle errors for Class.forName
 			      e.printStackTrace();
+			      logger.error(e.getLocalizedMessage());
 			   }
 		
 		return courses;
@@ -356,6 +394,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public Payment getFeeDAO(int studentId) {
 		
+	   logger.info("From the getFeeDAO method");
 	   Payment payment = null;
 		
 	   try {
@@ -381,9 +420,11 @@ public class StudentDAOImpl implements StudentDAO {
 		   } catch(SQLException se){
 		      //Handle errors for JDBC
 		      se.printStackTrace();
+		      logger.error(se.getLocalizedMessage());
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
+		      logger.error(e.getLocalizedMessage());
 		   }
 		   
 		return payment;
