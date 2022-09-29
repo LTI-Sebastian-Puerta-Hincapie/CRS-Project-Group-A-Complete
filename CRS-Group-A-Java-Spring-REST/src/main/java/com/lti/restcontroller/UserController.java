@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,12 @@ public class UserController {
 	 * @param username of type String
 	 * @param password of type String
 	 * @return Response<User> returns user data
+	 * @throws StudentNotRegisteredException is thrown when student does not have a registration record
+	 * @throws SemesterRegistrationNotApprovedException is thrown when the semester registration has not been approved
+	 * @throws IncorrectPasswordException  is thrown when an incorrect password been entered by the user
+	 * @throws UserNotFoundException  is thrown when a specific user doesn't exist
 	 */
+	@ExceptionHandler({IncorrectPasswordException.class, SemesterRegistrationNotApprovedException.class})
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
@@ -43,21 +49,10 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity getUser(
 			@PathVariable("username") String username, 
-			@PathVariable("password") String password) {
+			@PathVariable("password") String password) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException 
+	{
 				
-		User user = null;
-		try {
-			user = userService.Login(username, password);
-		} catch (UserNotFoundException e) {	
-			return new ResponseEntity(user.getUsername() + " doesn't exist", HttpStatus.NOT_FOUND);
-		} catch (IncorrectPasswordException e) {
-			return new ResponseEntity("Incorrect password entered", HttpStatus.UNAUTHORIZED);
-		} catch (SemesterRegistrationNotApprovedException e) {	
-			return new ResponseEntity("Student semester registration not approved", HttpStatus.NOT_ACCEPTABLE);
-		} catch (StudentNotRegisteredException e) {
-			return new ResponseEntity("Student has not been registered", HttpStatus.NOT_FOUND);
-		}
-	
+		User user = userService.Login(username, password);
 		return new ResponseEntity(user.getUsername() + "has successfully logged in", HttpStatus.OK);			
 	}
 }
