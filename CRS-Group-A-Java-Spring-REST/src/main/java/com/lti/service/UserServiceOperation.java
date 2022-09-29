@@ -3,6 +3,8 @@
  */
 package com.lti.service;
 
+import java.util.List;
+
 import com.lti.bean.User;
 import com.lti.exception.IncorrectPasswordException;
 import com.lti.exception.SemesterRegistrationNotApprovedException;
@@ -32,4 +34,19 @@ public interface UserServiceOperation {
 	 * @param username of type String
 	 */
 	public void Logout(String username);
+	
+	/**
+	 * This method returns a specific user
+	 * @param userId of type integer
+	 * @exception UserNotFoundException is thrown when a user is not found
+	 * @return User returns a user
+	 */
+	public User GetUser(int userId);
+	
+	
+	/**
+	 * This method returns a list of users
+	 * @return List<User> returns a list of users
+	 */
+	public List<User> GetUsers(); 
 }

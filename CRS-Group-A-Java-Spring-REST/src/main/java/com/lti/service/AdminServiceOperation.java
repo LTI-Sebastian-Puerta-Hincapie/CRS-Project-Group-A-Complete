@@ -11,6 +11,8 @@ import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
 import com.lti.exception.CourseNotFoundException;
+import com.lti.exception.SemesterRegistrationExistsException;
+import com.lti.exception.UserNotFoundException;
 
 /**
  * @author Jonathan
@@ -41,7 +43,7 @@ public interface AdminServiceOperation {
 	 * Creates StudentRegistration in database
 	 * @param semesterRegistration of type SemesterRegistration
 	 */
-	public void createStudentRegistration(SemesterRegistration semesterRegistration);
+	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException;
 	
 	/**
 	 * This method adds a course to the course list

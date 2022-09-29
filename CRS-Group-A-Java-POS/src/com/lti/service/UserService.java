@@ -1,5 +1,7 @@
 package com.lti.service;
 
+import java.util.List;
+
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
 import com.lti.bean.User;
@@ -68,5 +70,17 @@ public class UserService implements UserServiceOperation {
 	public void Logout(String username) {
 		
 		System.out.println("\nYou have logged out");
+	}
+
+	@Override
+	public User GetUser(int userId) {
+		
+		return userdao.GetUser(userId);
+	}
+
+	@Override
+	public List<User> GetUsers() {
+
+		return userdao.GetUsers();
 	}
 }

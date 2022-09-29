@@ -11,9 +11,12 @@ import com.lti.bean.CourseCatalog;
 import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
+import com.lti.bean.User;
 import com.lti.dao.AdminDAO;
 import com.lti.dao.AdminDAOImpl;
 import com.lti.exception.CourseNotFoundException;
+import com.lti.exception.SemesterRegistrationExistsException;
+import com.lti.exception.UserNotFoundException;
 
 /**
  * @author Sebastian
@@ -24,9 +27,12 @@ import com.lti.exception.CourseNotFoundException;
 public class AdminService implements AdminServiceOperation {
 
 	private AdminDAO admindao;
-	
+	private UserService userService;
+
 	public AdminService() {
+		
 		admindao = new AdminDAOImpl();
+		userService = new UserService();
 	}
 
 	public ArrayList<ArrayList<String>> generateReportCard(int studentID) {
@@ -41,8 +47,23 @@ public class AdminService implements AdminServiceOperation {
 		admindao.approveStudentRegistrationDAO(studentID, approvalStatus); 
 	}
 	
-	public void createStudentRegistration(SemesterRegistration semesterRegistration) {
-		admindao.createStudentRegistrationDAO(semesterRegistration);
+	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
+		
+		User user = userService.GetUser(semesterRegistration.getStudentId());
+		if(user == null) {
+			
+			throw new UserNotFoundException("User doesn't exists, create an account for the user first");
+		}
+		
+		SemesterRegistration _semesterRegistration = getSemesterRegistration(semesterRegistration.getStudentId());
+		if(_semesterRegistration == null) {
+			
+			admindao.createStudentRegistrationDAO(semesterRegistration);
+		}
+		else {
+			
+			throw new SemesterRegistrationExistsException("Student has already been registered for the semester");
+		}
 	}
 	
 	public void addCourse(Course course) {
