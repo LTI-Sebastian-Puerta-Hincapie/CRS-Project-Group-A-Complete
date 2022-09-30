@@ -42,6 +42,7 @@ public class JDBCConfiguration {
 	 */
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
+		
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		jdbcTemplate.setDataSource(dataSource());
 		return jdbcTemplate;

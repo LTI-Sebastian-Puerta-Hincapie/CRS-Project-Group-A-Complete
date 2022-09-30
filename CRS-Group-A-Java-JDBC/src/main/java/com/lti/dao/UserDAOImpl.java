@@ -1,17 +1,13 @@
 package com.lti.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
@@ -23,6 +19,7 @@ import com.lti.mapper.UserMapper;
  *
  */
 
+@SuppressWarnings("deprecation")
 @Repository
 public class UserDAOImpl implements UserDAO {
 		
@@ -50,8 +47,9 @@ public class UserDAOImpl implements UserDAO {
 	
 	@Override
 	public User GetUser(int userId) {
-
-	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+	   
+		JdbcTemplate db = jdbcTemplateObject.jdbcTemplate();
+	   return db.queryForObject(
 			   SQLQueries.SELECT_USER_BY_USERID, 
 			   new Object[]{userId}, 
 			   new UserMapper());

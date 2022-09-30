@@ -1,13 +1,6 @@
 package com.lti.dao;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,7 +21,6 @@ import com.lti.mapper.GradeMapper;
 import com.lti.mapper.PaymentMapper;
 import com.lti.mapper.RegisteredCourseMapper;
 import com.lti.mapper.StudentMapper;
-import com.lti.mapper.UserMapper;
 
 /**
  * @author Sebastian
