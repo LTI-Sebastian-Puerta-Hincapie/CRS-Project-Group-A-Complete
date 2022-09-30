@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.StudentDAO;
@@ -40,12 +41,14 @@ import com.lti.exception.StudentPaymentRecordNotFoundException;
 public class StudentService implements StudentServiceOperation {
 	
 	Logger logger = LoggerFactory.getLogger(StudentService.class);
+	
+	@Autowired
 	private StudentDAO studentDao;
 	
-	public StudentService() {
-		
-		studentDao = new StudentDAOImpl();
-	}
+//	public StudentService() {
+//		
+//		studentDao = new StudentDAOImpl();
+//	}
 	
 	public void registerForCourse(Student student, int courseId) throws CourseNotRegisteredException, StudentCourseNotFoundException 
 	{
