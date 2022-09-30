@@ -51,12 +51,10 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User GetUser(int userId) {
 
-	   User user = jdbcTemplateObject.jdbcTemplate().queryForObject(
+	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
 			   SQLQueries.SELECT_USER_BY_USERID, 
 			   new Object[]{userId}, 
 			   new UserMapper());
-	
-	   return user;
 	}
 
 	@Override

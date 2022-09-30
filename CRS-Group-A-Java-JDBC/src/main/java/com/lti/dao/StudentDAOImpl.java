@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.Course;
 import com.lti.dto.CourseCatalog;
@@ -20,7 +22,8 @@ import com.lti.dto.Grade;
 import com.lti.dto.Payment;
 import com.lti.dto.RegisteredCourse;
 import com.lti.dto.Student;
-import com.lti.utils.DBUtils;
+import com.lti.mapper.RegisteredCourseMapper;
+import com.lti.mapper.UserMapper;
 
 /**
  * @author Sebastian
@@ -31,104 +34,45 @@ public class StudentDAOImpl implements StudentDAO {
 	  
 	Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
 	
-	private Connection conn = null;
-	private PreparedStatement stmt = null;
+	@Autowired
+	private JDBCConfiguration jdbcTemplateObject;
    
 	@Override
 	public void registerForCourseDAO(Student student, int courseId) {
 		
-	   try {
-
-		  conn = DBUtils.getConnection();
-		  
-	      stmt = conn.prepareStatement(SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID);
-	      stmt.setInt(1,student.getId());
-	      stmt.setInt(2, courseId);
-	      stmt.executeUpdate();
-	      
-	      logger.info("From registerForCourseDAO method");
-
-	   } catch(SQLException se){
-	      //Handle errors for JDB
-	      se.printStackTrace();
-	      logger.error(se.getLocalizedMessage());
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	      logger.error(e.getLocalizedMessage());
-	   }
+		logger.info("From the registerForCourseDAO method");
+		jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
+				student.getId(), 
+				courseId);
 	}
 
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
 	   logger.info("From the addCourseDAO method");
-	   int _courseId = -1;
-	   try {
-		   
-		  conn = DBUtils.getConnection();
-		  
-	      stmt = conn.prepareStatement(SQLQueries.INSERT_STUDENT_COURSE);
-	      stmt.setInt(1,student.getId());
-	      stmt.setInt(2, courseId);
-	      stmt.setInt(3, 0);
-	      stmt.setString(4, null);
-	      stmt.executeUpdate();	
-	      
-	      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_COURSE);
-	      stmt.setInt(1, courseId);
-	      stmt.setInt(2, student.getId());
-	      ResultSet rs = stmt.executeQuery();
-	      if(rs.next()) {
-	    	  _courseId = rs.getInt("CourseId");
-	      }
-	    
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	      logger.error(se.getLocalizedMessage());
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	      logger.error(e.getLocalizedMessage());
-	   } 	
-	   
-	   return _courseId;
+	   return jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.INSERT_STUDENT_COURSE, 
+				student.getId(),
+				courseId,
+				0,
+				null); 
 	}
 	
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the getCourseDAO method");
-		RegisteredCourse rcourse = null;
-	   try {
-		   
-		  conn = DBUtils.getConnection();
-
-	      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_COURSE);
-	      stmt.setInt(1, courseId);
-	      stmt.setInt(2, student.getId());
-	      ResultSet rs = stmt.executeQuery();
-	      
-	      if(rs.next()) {
-	    	  int _courseId = rs.getInt("CourseId");
-	    	  int studentId = rs.getInt("StudentId");
-	    	  int registeredStatus = rs.getInt("RegistrationStatus");
-	    	  String grade = rs.getString("Grade");
-	    	  rcourse = new RegisteredCourse(_courseId, studentId, registeredStatus, grade);
-	      }
-	    
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-		  logger.error(se.getLocalizedMessage());
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-		  logger.error(e.getLocalizedMessage());
-	   } 	
-	   
-	   return rcourse;
+		
+//	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+//			   SQLQueries.SELECT_USER_BY_USERID, 
+//			   new Object[]{userId}, 
+//			   new UserMapper());
+		
+		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+				SQLQueries.SELECT_STUDENT_COURSE, 
+				new Object[]{ courseId, student.getId() },
+				new RegisteredCourseMapper());
 	}
 
 	@Override
