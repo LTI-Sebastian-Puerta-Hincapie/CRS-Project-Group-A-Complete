@@ -16,9 +16,7 @@ import org.springframework.stereotype.Repository;
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.User;
-import com.lti.mapper.EmployeeMapper;
 import com.lti.mapper.UserMapper;
-import com.lti.utils.DBUtils;
 
 /**
  * @author Sebastian 
