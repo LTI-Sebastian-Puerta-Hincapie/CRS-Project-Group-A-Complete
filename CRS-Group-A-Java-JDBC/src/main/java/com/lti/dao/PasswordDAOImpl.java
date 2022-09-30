@@ -5,21 +5,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.User;
-import com.lti.utils.DBUtils;
 
 /**
- * @author  Rehmath
+ * @author  Rehmath, Sebastian
  *
  */
 
 public class PasswordDAOImpl implements PasswordDAO {
 	
-	private Connection conn = null;
-	private PreparedStatement stmt = null;
+	Logger logger = LoggerFactory.getLogger(PasswordDAOImpl.class);
 	
-	
+	@Autowired
+	private JDBCConfiguration jdbcTemplateObject;
+		
 	/**
 	 * Method to update password
      * @param username
@@ -29,21 +34,9 @@ public class PasswordDAOImpl implements PasswordDAO {
 	@Override
 	public void updatePassword(String username, String password) {
 		
-		try {	   	
-			  conn = DBUtils.getConnection();
-		      stmt = conn.prepareStatement(SQLQueries.UPDATE_USER_PASSWORD);
-		      stmt.setString(1, password);
-		      stmt.setString(2, username);
-		      stmt.executeUpdate();
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   } 
-		  
-	}
-	
-	
+       logger.info("From the updatePasswordDAO method");
+	   jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.UPDATE_USER_PASSWORD, 
+				new Object[] {password, username}); 	 
+	}	
 }
