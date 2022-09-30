@@ -6,6 +6,12 @@ public class SQLQueries {
 	public static final String SELECT_USER_BY_USERNAME = 
 			"SELECT * FROM users WHERE Username = ?";
 	
+	public static final String SELECT_ALL_USERS = 
+			"SELECT * FROM users";
+	
+	public static final String SELECT_USER_BY_USERID= 
+			"SELECT * FROM users WHERE Id = ?";
+	
 	// STUDENT
 	public static final String INSERT_STUDENT_COURSE = 
 			"INSERT INTO registeredcourse (StudentId, CourseId, RegistrationStatus, Grade) "

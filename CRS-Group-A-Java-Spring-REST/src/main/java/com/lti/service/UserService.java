@@ -1,5 +1,9 @@
 package com.lti.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.lti.bean.SemesterRegistration;
@@ -22,6 +26,7 @@ import com.lti.exception.UserNotFoundException;
 @Service
 public class UserService implements UserServiceOperation {
 	
+	Logger logger = LoggerFactory.getLogger(UserService.class);
 	private UserDAO userdao;
 	private AdminDAO admindao;
 	
@@ -36,11 +41,11 @@ public class UserService implements UserServiceOperation {
 		User user = userdao.LoginDAO(username);
 		if(user == null) {
 			
-			throw new UserNotFoundException();
+			throw new UserNotFoundException(username + " doesnt' exist");
 		}
 		else if(!password.equals(user.getPassword())) {
 			
-			throw new IncorrectPasswordException();
+			throw new IncorrectPasswordException("Incorrect password, entered password does not match our records");
 		}
 	
 		
@@ -50,7 +55,8 @@ public class UserService implements UserServiceOperation {
 			
 			if(registration == null) {
 				
-				throw new StudentNotRegisteredException();
+				throw new StudentNotRegisteredException(
+						"Student registration not found for this user, userId: " + user.getId());
 			}
 			
 			if(registration.isApprovalStatus()) {
@@ -58,7 +64,7 @@ public class UserService implements UserServiceOperation {
 				System.out.println("\n--You have logged in--");
 			}
 			else {
-				throw new SemesterRegistrationNotApprovedException(user);
+				throw new SemesterRegistrationNotApprovedException("Student semester registration not approved");
 			}
 		}
 		else {
@@ -71,5 +77,17 @@ public class UserService implements UserServiceOperation {
 	public void Logout(String username) {
 		
 		System.out.println("\nYou have logged out");
+	}
+	
+	@Override
+	public User GetUser(int userId) {
+		
+		return userdao.GetUser(userId);
+	}
+
+	@Override
+	public List<User> GetUsers() {
+
+		return userdao.GetUsers();
 	}
 }

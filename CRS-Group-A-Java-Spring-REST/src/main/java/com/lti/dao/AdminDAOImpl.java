@@ -24,8 +24,8 @@ public class AdminDAOImpl implements AdminDAO{
 	private PreparedStatement stmt = null;
 	
 	@Override
-	public void generateReportCardDAO(int StudentID) {
-
+	public ArrayList<ArrayList<String>> generateReportCardDAO(int StudentID) {
+		ArrayList<ArrayList<String>> reportCard = new ArrayList<ArrayList<String>>();
 		try{
 			System.out.println("Grades for student " + StudentID + ":");
 			conn = DBUtils.getConnection();
@@ -35,11 +35,15 @@ public class AdminDAOImpl implements AdminDAO{
 			ResultSet rs = stmt.executeQuery();
 
 			while(rs.next()) {
-				int courseID = rs.getInt("CourseID");
+				ArrayList<String> entry = new ArrayList<String>();
+				String courseID = String.valueOf(rs.getInt("CourseID"));
 				String courseName = rs.getString("CourseName");
 				String grade = rs.getString("Grade");
+				entry.add(courseID);
+				entry.add(courseName);
+				entry.add(grade);
 				
-				System.out.println(courseID + " | " + courseName + ": " + grade);
+				reportCard.add(entry);
 			}
 			
 		}catch(SQLException se){
@@ -47,6 +51,8 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		return reportCard;
 	}
 
 	@Override
@@ -145,7 +151,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 
 	@Override
-	public void removeCourseDAO(int id) {
+	public void removeCourseDAO(int id) throws CourseNotFoundException {
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
@@ -163,7 +169,7 @@ public class AdminDAOImpl implements AdminDAO{
 			stmt.setInt(1, id);
 			stmt.executeUpdate();
 		}catch(CourseNotFoundException ce) {
-			System.out.println(ce.getMessage());
+			throw new CourseNotFoundException();
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -174,7 +180,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void updateCourseDAO(int id, String name, String description) {
+	public void updateCourseDAO(int id, String name, String description) throws CourseNotFoundException {
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
@@ -195,7 +201,7 @@ public class AdminDAOImpl implements AdminDAO{
 			stmt.setInt(3, id);
 			stmt.executeUpdate();
 		}catch(CourseNotFoundException ce) {
-			System.out.println(ce.getMessage());
+			throw new CourseNotFoundException();
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -206,7 +212,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public void checkAvailabilityDAO(int id) {
+	public Boolean checkAvailabilityDAO(int id){
 		try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT Capacity, Enrolled From coursecatalog WHERE Id = ?";
@@ -216,24 +222,23 @@ public class AdminDAOImpl implements AdminDAO{
 
 			if(rs.next()) {
 				if(rs.getInt("Enrolled") < rs.getInt("Capacity")) {
-					System.out.println("Course is available");
+					return true;
 				}
 				else {
-					System.out.println("Course is full");
+					return false;
 				}
 			}
 			else {
-				throw new CourseNotFoundException();
+				return null;
 			}	
-		}catch(CourseNotFoundException ce) {
-			System.out.println(ce.getMessage());
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		} 
+		}
+		return null;
 	}
 
 	@Override

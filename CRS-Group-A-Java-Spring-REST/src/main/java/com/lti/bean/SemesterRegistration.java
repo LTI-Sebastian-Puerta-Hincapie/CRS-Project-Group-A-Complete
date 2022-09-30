@@ -22,8 +22,6 @@ public class SemesterRegistration {
 		this.comments = comments;
 	}
 
-
-
 	/**
 	 * @return the studentId
 	 */

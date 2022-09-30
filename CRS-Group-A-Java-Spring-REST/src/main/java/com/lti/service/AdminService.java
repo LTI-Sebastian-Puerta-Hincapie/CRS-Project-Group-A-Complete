@@ -11,8 +11,12 @@ import com.lti.bean.CourseCatalog;
 import com.lti.bean.Professor;
 import com.lti.bean.SemesterRegistration;
 import com.lti.bean.Student;
+import com.lti.bean.User;
 import com.lti.dao.AdminDAO;
 import com.lti.dao.AdminDAOImpl;
+import com.lti.exception.CourseNotFoundException;
+import com.lti.exception.SemesterRegistrationExistsException;
+import com.lti.exception.UserNotFoundException;
 
 /**
  * @author Sebastian
@@ -23,13 +27,16 @@ import com.lti.dao.AdminDAOImpl;
 public class AdminService implements AdminServiceOperation {
 
 	private AdminDAO admindao;
-	
+	private UserService userService;
+
 	public AdminService() {
+		
 		admindao = new AdminDAOImpl();
+		userService = new UserService();
 	}
 
-	public void generateReportCard(int studentID) {
-		admindao.generateReportCardDAO(studentID);
+	public ArrayList<ArrayList<String>> generateReportCard(int studentID) {
+		return admindao.generateReportCardDAO(studentID);
 	}
 	
 	public void addProfessor(Professor professor) {
@@ -40,24 +47,45 @@ public class AdminService implements AdminServiceOperation {
 		admindao.approveStudentRegistrationDAO(studentID, approvalStatus); 
 	}
 	
-	public void createStudentRegistration(SemesterRegistration semesterRegistration) {
-		admindao.createStudentRegistrationDAO(semesterRegistration);
+	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
+		
+		User user = userService.GetUser(semesterRegistration.getStudentId());
+		if(user == null) {
+			
+			throw new UserNotFoundException("User doesn't exists, create an account for the user first");
+		}
+		
+		SemesterRegistration _semesterRegistration = getSemesterRegistration(semesterRegistration.getStudentId());
+		if(_semesterRegistration == null) {
+			
+			admindao.createStudentRegistrationDAO(semesterRegistration);
+		}
+		else {
+			
+			throw new SemesterRegistrationExistsException("Student has already been registered for the semester");
+		}
 	}
 	
 	public void addCourse(Course course) {
 		admindao.addCourseDAO(course);
 	}
 	
-	public void removeCourse(int id) {
+	public void removeCourse(int id) throws CourseNotFoundException {
 		admindao.removeCourseDAO(id);
 	}
 	
-	public void updateCourse(int id, String name, String description) {
+	public void updateCourse(int id, String name, String description) throws CourseNotFoundException {
 		admindao.updateCourseDAO(id, name, description); 
 	}
 	
-	public void checkAvailability(int id) {
-		admindao.checkAvailabilityDAO(id);
+	public Boolean checkAvailability(int id) throws CourseNotFoundException {
+		Boolean available = admindao.checkAvailabilityDAO(id);
+		if(available) {
+			return available;
+		}
+		else {
+			throw new CourseNotFoundException();
+		}
 	}
 	
 	public void viewCourses(int studentID) {

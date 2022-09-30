@@ -50,17 +50,17 @@ public interface StudentDAO {
 	
 	/**
 	 * This method view grades for a specific student and returns a list of grades
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @return List<Grade> returns a list of grades for a specific student
 	 */
-	public List<Grade> viewGradesDAO(Student student);
+	public List<Grade> viewGradesDAO(int studentId);
 	
 	/**
 	 * This method makes a payment for the courses that the student is registered for
-	 * @param student of type Student
+	 * @param studentId of type int
 	 * @param paymentMethod of type String
 	 */
-	public void payFeeDAO(Student student, String paymentMethod);
+	public void payFeeDAO(int studentId, String paymentMethod);
 	
 	/**
 	 * This method gets the student data 
