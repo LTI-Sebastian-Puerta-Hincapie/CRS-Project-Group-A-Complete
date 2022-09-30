@@ -12,8 +12,16 @@ public class GradeMapper implements RowMapper<Grade> {
 
 	@Override
 	public Grade mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Course course = new Course();
+		course.setCourseId(rs.getInt("CourseId"));
+		course.setCourseName(rs.getString("CourseName"));
+		
+		Grade grade = new Grade(
+				rs.getString("Grade"),
+				course);
+		
+		return grade;
 	}
 
 }

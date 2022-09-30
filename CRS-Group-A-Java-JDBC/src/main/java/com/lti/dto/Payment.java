@@ -32,6 +32,24 @@ public class Payment implements Serializable {
 		this.semester = semester;
 	}
 	
+	public Payment(
+			int paymentId, 
+			int paymentAmount,
+			int studentId, 
+			LocalDate dueDate, 
+			String semester, 
+			String paymentMethod,
+			int isPaid) {
+
+		this.paymentId = paymentId;
+		this.studentId = studentId;
+		this.paymentAmount = paymentAmount;
+		this.dueDate = dueDate;
+		this.semester = semester;
+		this.paymentMethod = paymentMethod;
+		this.isPaid = isPaid;
+	}
+	
 	/**
 	 * @return the isPaid
 	 */

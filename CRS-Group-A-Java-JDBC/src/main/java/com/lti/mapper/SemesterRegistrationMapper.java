@@ -11,8 +11,14 @@ public class SemesterRegistrationMapper implements RowMapper<SemesterRegistratio
 
 	@Override
 	public SemesterRegistration mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		SemesterRegistration semesterRegistration = new SemesterRegistration(
+				rs.getInt("RegistrationId"),
+				rs.getInt("StudentId"),
+				rs.getInt("ApprovalStatus"),
+				rs.getInt("AdminId"),
+				rs.getString("Comment"));
+		return semesterRegistration;
 	}
 
 }

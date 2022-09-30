@@ -11,8 +11,12 @@ public class CourseMapper implements RowMapper<Course> {
 
 	@Override
 	public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Course course = new Course(
+				rs.getInt("CourseId"),
+				rs.getString("CourseName"),
+				rs.getString("Description"));
+		return course;
 	}
 
 }

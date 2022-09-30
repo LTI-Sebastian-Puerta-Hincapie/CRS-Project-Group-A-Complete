@@ -11,7 +11,12 @@ public class RegisteredCourseMapper implements RowMapper<RegisteredCourse> {
 
 	@Override
 	public RegisteredCourse mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
+		
+		RegisteredCourse registeredCourse = new RegisteredCourse(
+				rs.getInt("StudentId"),
+				rs.getInt("CourseId"),
+				rs.getInt("RegistrationStatus"),
+				rs.getString("Grade"));
 		return null;
 	}
 

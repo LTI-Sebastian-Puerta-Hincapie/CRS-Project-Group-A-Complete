@@ -10,18 +10,43 @@ public class SemesterRegistration implements Serializable {
 	private int studentId;
 	private int adminId;
 	private int registrationId;
-	private boolean approvalStatus;
+	private int approvalStatus;
 	private String comments;
 	
 	public SemesterRegistration() {}
 
-	public SemesterRegistration(int studentId, int adminId, boolean approvalStatus,
+	public SemesterRegistration(int studentId, int adminId, int approvalStatus,
 			String comments) {
-		super();
+
 		this.studentId = studentId;
 		this.adminId = adminId;
 		this.approvalStatus = approvalStatus;
 		this.comments = comments;
+	}
+	
+	public SemesterRegistration(int RegistrationId, int studentId, int adminId, int approvalStatus,
+			String comments) {
+
+		this.studentId = studentId;
+		this.adminId = adminId;
+		this.approvalStatus = approvalStatus;
+		this.comments = comments;
+	}
+
+	
+	
+	/**
+	 * @return the approvalStatus
+	 */
+	public int getApprovalStatus() {
+		return approvalStatus;
+	}
+
+	/**
+	 * @param approvalStatus the approvalStatus to set
+	 */
+	public void setApprovalStatus(int approvalStatus) {
+		this.approvalStatus = approvalStatus;
 	}
 
 	/**
@@ -75,27 +100,7 @@ public class SemesterRegistration implements Serializable {
 	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
 	}
-
-
-
-	/**
-	 * @return the approvalStatus
-	 */
-	public boolean isApprovalStatus() {
-		return approvalStatus;
-	}
-
-
-
-	/**
-	 * @param approvalStatus the approvalStatus to set
-	 */
-	public void setApprovalStatus(boolean approvalStatus) {
-		this.approvalStatus = approvalStatus;
-	}
-
-
-
+	
 	/**
 	 * @return the comments
 	 */

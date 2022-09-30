@@ -12,8 +12,16 @@ public class CourseCatalogMapper implements RowMapper<CourseCatalog> {
 
 	@Override
 	public CourseCatalog mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CourseCatalog courseCatalog = new CourseCatalog(
+				rs.getInt("Id"),
+				rs.getInt("ProfessorId"),
+				rs.getInt("DepartmentId"),
+				rs.getString("Prerequisite"),
+				rs.getInt("Credits"),
+				rs.getInt("Capacity"),
+				rs.getInt("Enrolled"),
+				rs.getString("Semester"));
+		return courseCatalog;
 	}
-
 }
