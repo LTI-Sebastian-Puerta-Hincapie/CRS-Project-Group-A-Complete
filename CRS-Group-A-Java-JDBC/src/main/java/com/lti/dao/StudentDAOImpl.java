@@ -25,6 +25,7 @@ import com.lti.dto.Student;
 import com.lti.mapper.CourseCatalogMapper;
 import com.lti.mapper.CourseMapper;
 import com.lti.mapper.GradeMapper;
+import com.lti.mapper.PaymentMapper;
 import com.lti.mapper.RegisteredCourseMapper;
 import com.lti.mapper.StudentMapper;
 import com.lti.mapper.UserMapper;
@@ -161,60 +162,17 @@ public class StudentDAOImpl implements StudentDAO {
 	public Payment getFeeDAO(int studentId) {
 		
 	   logger.info("From the getFeeDAO method");
-	   Payment payment = null;
-		
-	   try {
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_PAYMENT_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      if(rs.next()) {
-
-		    	  int paymentAmount = rs.getInt("PaymentAmount");
-		    	  int _studentId = rs.getInt("StudentId");
-		    	  LocalDate date = rs.getDate("DueDate").toLocalDate();
-		    	  String semester = rs.getString("Semester");
-		    	  int isPaid = rs.getInt("IsPaid");
-		    	  String paymentMethod = rs.getString("PaymentMethod");
-		    	  
-		    	  payment = new Payment(_studentId, paymentAmount, date, semester);
-		    	  payment.setIsPaid(isPaid);
-		    	  payment.setPaymentMethod(paymentMethod);
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		return payment;
+	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+				SQLQueries.SELECT_PAYMENT_BY_STUDENTID, 
+				new Object[] {studentId},
+				new PaymentMapper());
 	}
 
 	@Override
 	public void addStudentSemesterRegistrationDAO(int studentId) {
 		
-	   try {
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION);
-		      stmt.setInt(1,studentId);
-		      stmt.setInt(2,0);
-		      stmt.setString(3,null);
-		      stmt.setString(4, null);
-		      stmt.executeUpdate();
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
+	   jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION, 
+				studentId);
 	}
 }
