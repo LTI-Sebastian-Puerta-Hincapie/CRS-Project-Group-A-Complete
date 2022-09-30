@@ -1,13 +1,14 @@
 package com.lti.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.Admin;
 import com.lti.dto.Course;
@@ -16,76 +17,42 @@ import com.lti.dto.RegisteredCourse;
 import com.lti.dto.SemesterRegistration;
 import com.lti.dto.Student;
 import com.lti.exception.CourseNotFoundException;
-import com.lti.utils.DBUtils;
+import com.lti.mapper.ReportCardMapper;
 
+@Repository
 public class AdminDAOImpl implements AdminDAO{
     
-    private Connection conn = null;
-	private PreparedStatement stmt = null;
-	
+    Logger logger = LoggerFactory.getLogger(AdminDAOImpl.class);
+    
+    @Autowired
+    private JDBCConfiguration jdbcTemplateObject;
+    
 	@Override
-	public ArrayList<ArrayList<String>> generateReportCardDAO(int StudentID) {
-		ArrayList<ArrayList<String>> reportCard = new ArrayList<ArrayList<String>>();
-		try{
-			System.out.println("Grades for student " + StudentID + ":");
-			conn = DBUtils.getConnection();
-			String sql = SQLQueries.SELECT_GRADES_BY_STUDENTID;
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, StudentID);
-			ResultSet rs = stmt.executeQuery();
-
-			while(rs.next()) {
-				ArrayList<String> entry = new ArrayList<String>();
-				String courseID = String.valueOf(rs.getInt("CourseID"));
-				String courseName = rs.getString("CourseName");
-				String grade = rs.getString("Grade");
-				entry.add(courseID);
-				entry.add(courseName);
-				entry.add(grade);
-				
-				reportCard.add(entry);
-			}
-			
-		}catch(SQLException se){
-			se.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+	public List<ArrayList<String>> generateReportCardDAO(int StudentID) {
+		List<ArrayList<String>> reportCard = new ArrayList<ArrayList<String>>();
+		String sql = SQLQueries.SELECT_GRADES_BY_STUDENTID;
+		reportCard = jdbcTemplateObject.jdbcTemplate().query(sql,new ReportCardMapper());
 		
 		return reportCard;
 	}
 
 	@Override
 	public void addProfessorDAO(Professor professor) {
-		try{
-			conn = DBUtils.getConnection();
-			String sql="insert into professors values(?,?,?,?,?,?)";
-			stmt = conn.prepareStatement(sql);
-
-			int id=professor.getId();
-			String name=professor.getName();
-			int departmentID=professor.getDepartmentId();
-			String email=professor.getEmail();
-			String phone=professor.getPhone();
-			String address=professor.getAddress();
-
-			stmt.setInt(1, id);
-			stmt.setString(2,name);
-			stmt.setInt(3, departmentID);
-			stmt.setString(4, email);
-			stmt.setString(5, phone);
-			stmt.setString(6, address);
-			stmt.executeUpdate();
-		}catch(SQLException se){
-			se.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+		String sql="insert into professors values(?,?,?,?,?,?)";
+		
+		int id=professor.getId();
+		String name=professor.getName();
+		int departmentID=professor.getDepartmentId();
+		String email=professor.getEmail();
+		String phone=professor.getPhone();
+		String address=professor.getAddress();
+		
+		jdbcTemplateObject.jdbcTemplate().update(sql, id, name, departmentID,email,phone,address);
 	}
 	
 	@Override
 	public void approveStudentRegistrationDAO(int studentID, int approvalStatus) {
-		
+		/*
 		try{
 			conn = DBUtils.getConnection();
 			String sql="UPDATE semesterregistration SET ApprovalStatus = ? WHERE StudentId= ?";
@@ -102,11 +69,12 @@ public class AdminDAOImpl implements AdminDAO{
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	@Override
 	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
-		try{
+		/*try{
 			conn = DBUtils.getConnection();
 			String sql="insert into semesterregistration(StudentId,ApprovalStatus,AdminId,Comment) values(?,?,?,?)";
 			stmt = conn.prepareStatement(sql);
@@ -123,11 +91,11 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}
+		}*/
 	}
 	@Override
 	public void addCourseDAO(Course course) {
-		try{
+		/*try{
 			conn = DBUtils.getConnection();
 			String sql="insert into course values(?,?,?)";
 			stmt = conn.prepareStatement(sql);
@@ -146,13 +114,13 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 
 	@Override
 	public void removeCourseDAO(int id) throws CourseNotFoundException {
-		try{
+		/*try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
 			stmt = conn.prepareStatement(sql);
@@ -176,12 +144,12 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override
 	public void updateCourseDAO(int id, String name, String description) throws CourseNotFoundException {
-		try{
+		/*try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT * From course WHERE CourseID = ?";
 			stmt = conn.prepareStatement(sql);
@@ -208,12 +176,12 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}   
+		} */  
 	}
 
 	@Override
 	public Boolean checkAvailabilityDAO(int id){
-		try{
+		/*try{
 			conn = DBUtils.getConnection();
 			String sql = "SELECT Capacity, Enrolled From coursecatalog WHERE Id = ?";
 			stmt = conn.prepareStatement(sql);
@@ -237,13 +205,13 @@ public class AdminDAOImpl implements AdminDAO{
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
-		}
+		}*/
 		return null;
 	}
 
 	@Override
 	public void viewCourses(int studentID) {
-		
+		/*
 		System.out.println("Student " + studentID + " is registered for the following courses:");
 		   try {
 
@@ -264,12 +232,12 @@ public class AdminDAOImpl implements AdminDAO{
 		   } catch(Exception e){
 		      //Handle errors for Class.forName
 		      e.printStackTrace();
-		   }
+		   }*/
 	}
 
 	@Override
 	public SemesterRegistration getSemesterRegistrationDAO(int studentId) {
-		
+		/*
 		SemesterRegistration registration = null;
 		   try {
 
@@ -294,12 +262,13 @@ public class AdminDAOImpl implements AdminDAO{
 		      e.printStackTrace();
 		   }
 		
-		return registration;
+		return registration;*/
+		return null;
 	}
 
 	@Override
 	public void updateCourseCatalogEnrollmentForCourseDAO(int courseId) {
-		
+	/*
 	   int totalEnrolled = 0;
 	   try {
 
@@ -323,7 +292,7 @@ public class AdminDAOImpl implements AdminDAO{
 	   } catch(Exception e){
 	      //Handle errors for Class.forName
 	      e.printStackTrace();
-	   }		
+	   }	*/	
 	}
 
 }
