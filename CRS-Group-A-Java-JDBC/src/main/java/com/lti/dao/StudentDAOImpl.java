@@ -6,7 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
@@ -41,32 +45,49 @@ public class StudentDAOImpl implements StudentDAO {
 	public void registerForCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the registerForCourseDAO method");
-		jdbcTemplateObject.jdbcTemplate().update(
+		try {
+			jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
 				student.getId(), 
 				courseId);
+		} catch(IncorrectResultSizeDataAccessException e) {
+			System.out.println("Course has not been added");
+		}
 	}
 
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
 	   logger.info("From the addCourseDAO method");
-	   return jdbcTemplateObject.jdbcTemplate().update(
+	   int id = -1;
+	   try {
+		   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
 				student.getId(),
 				courseId,
 				0,
-				null); 
+				null);
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return -1;
+	   }
+	   return id;
 	}
 	
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
-		logger.info("From the getCourseDAO method");	
-		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+		logger.info("From the getCourseDAO method");
+		RegisteredCourse registeredCourse = null;
+		try {
+			registeredCourse = jdbcTemplateObject.jdbcTemplate().queryForObject(
 				SQLQueries.SELECT_STUDENT_COURSE, 
 				new Object[]{ courseId, student.getId() },
 				new RegisteredCourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		
+		return registeredCourse;
 	}
 
 	@Override
