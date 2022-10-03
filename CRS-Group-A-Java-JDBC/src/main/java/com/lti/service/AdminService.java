@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.AdminDAO;
@@ -28,14 +29,10 @@ import com.lti.exception.UserNotFoundException;
 @Service
 public class AdminService implements AdminServiceOperation {
 
+	@Autowired
 	private AdminDAO admindao;
 	private UserService userService;
 
-	public AdminService() {
-		
-		admindao = new AdminDAOImpl();
-		userService = new UserService();
-	} 
 
 	public List<Grade> generateReportCard(int studentID) {
 		return admindao.generateReportCardDAO(studentID); 
@@ -90,8 +87,8 @@ public class AdminService implements AdminServiceOperation {
 		}
 	}
 	
-	public void viewCourses(int studentID) {
-		admindao.viewCourses(studentID);
+	public List<Course> viewCourses(int studentID) {
+		return admindao.viewCourses(studentID);
 	}
 
 	@Override

@@ -74,8 +74,9 @@ public interface AdminDAO {
 	/**
 	 * This method checks the list of courses a student is registered to
 	 * @param studentID of type integer
+	 * @return 
 	 */
-	public void viewCourses(int studentID);
+	public List<Course> viewCourses(int studentID);
 	
 	/**
 	 * This method checks the list of courses a student is registered to

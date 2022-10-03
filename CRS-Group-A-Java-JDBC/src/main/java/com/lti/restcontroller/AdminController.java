@@ -49,15 +49,13 @@ public class AdminController {
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/generatereportcard/{id}")
-	public ResponseEntity generateReportCard(@PathVariable("id") int id) {
+	public ResponseEntity<List<Grade>> generateReportCard(@PathVariable("id") int id) {
+		logger.info("From the generateReportCard method");
 		List<Grade> reportCard;
-		try {
-			reportCard = adminservice.generateReportCard(id);
-		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity(reportCard, HttpStatus.OK);
+
+		reportCard = adminservice.generateReportCard(id);
+
+		return new ResponseEntity<List<Grade>>(reportCard, HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
@@ -136,8 +134,20 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/checkavailability/{id}")
+			value = "admin/viewcourses/{id}")
 	@ResponseBody
+	public ResponseEntity viewCourses(@PathVariable("id") int id) {
+		boolean available;
+		try {
+			available = adminservice.checkAvailability(id);
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(available, HttpStatus.OK);
+	}
+	
+	
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {
