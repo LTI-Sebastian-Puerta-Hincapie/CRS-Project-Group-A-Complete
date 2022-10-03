@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,19 +50,29 @@ public class UserDAOImpl implements UserDAO {
 	public User GetUser(int userId) {
 	   
 		JdbcTemplate db = jdbcTemplateObject.jdbcTemplate();
-	   return db.queryForObject(
+		User user = null;
+	    try {
+		   user = db.queryForObject(
 			   SQLQueries.SELECT_USER_BY_USERID, 
 			   new Object[]{userId}, 
 			   new UserMapper());
+	    } catch(IncorrectResultSizeDataAccessException e) {
+	    	return null;
+	    }
+	    return user;
 	}
 
 	@Override
 	public List<User> GetUsers() {
 		
-	   List<User> users = jdbcTemplateObject.jdbcTemplate().query(
+	   List<User> users = null;
+	   try {
+		   users = jdbcTemplateObject.jdbcTemplate().query(
 			   SQLQueries.SELECT_ALL_USERS,  
 			   new UserMapper());
-	
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return null;
+	   }
 	   return users;
 	}
 }

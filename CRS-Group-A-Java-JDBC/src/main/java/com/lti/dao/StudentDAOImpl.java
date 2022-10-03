@@ -45,14 +45,10 @@ public class StudentDAOImpl implements StudentDAO {
 	public void registerForCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the registerForCourseDAO method");
-		try {
-			jdbcTemplateObject.jdbcTemplate().update(
+		jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
 				student.getId(), 
 				courseId);
-		} catch(IncorrectResultSizeDataAccessException e) {
-			
-		}
 	}
 
 	@Override
@@ -88,14 +84,10 @@ public class StudentDAOImpl implements StudentDAO {
 	public void dropCourseDAO(Student student, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
-	   try {
-		   jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
-				student.getId(),
-				courseId); 		
-	   } catch(IncorrectResultSizeDataAccessException e) {
-		   System.out.println("Course has not been added");
-	   }
+	   jdbcTemplateObject.jdbcTemplate().update(
+			SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
+			student.getId(),
+			courseId); 
 	}
 
 	@Override
@@ -118,15 +110,11 @@ public class StudentDAOImpl implements StudentDAO {
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   logger.info("From the payFeeDAO method");
-	   try {
-		   jdbcTemplateObject.jdbcTemplate().query(
-				SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
-				new Object[] {1,paymentMethod,studentId},
-				new GradeMapper());	  	
-	   } catch(IncorrectResultSizeDataAccessException e) {
-		   System.out.println("Fee record has not been created");
-	   }
-}	   
+	   jdbcTemplateObject.jdbcTemplate().query(
+			SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
+			new Object[] {1,paymentMethod,studentId},
+			new GradeMapper());	
+	}	   
 	
 	@Override
 	public Student getStudentDAO(int studentId) {
@@ -180,45 +168,54 @@ public class StudentDAOImpl implements StudentDAO {
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
 	   logger.info("From the generatePaymentDAO method");
-	   try {
-		   jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
-				studentId);
-	   } catch(IncorrectResultSizeDataAccessException e) {
-		   System.out.println("No payment record exists");
-	   }
+	   jdbcTemplateObject.jdbcTemplate().update(
+			SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
+			studentId);
 	   
 	    jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
-				new Object[] { 
-						payment.getPaymentAmount(), 
-						studentId, Date.valueOf(payment.getDueDate()), 
-						payment.getSemester()});
+			SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
+			new Object[] { 
+					payment.getPaymentAmount(), 
+					studentId, Date.valueOf(payment.getDueDate()), 
+					payment.getSemester()});
 	}
 
 	@Override
 	public List<CourseCatalog> getRegisteredCourseDataDAO(int studentId) {
 		
 		logger.info("From the getRegisteredCourseDataDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<CourseCatalog> courses = null;
+		try {
+			courses = jdbcTemplateObject.jdbcTemplate().query(
 					SQLQueries.SELECT_REGISTERED_COURSE_DATA_BY_STUDENTID, 
 					new Object[] {studentId},
 					new CourseCatalogMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return courses;
 	}
 
 	@Override
 	public Payment getFeeDAO(int studentId) {
 		
 	   logger.info("From the getFeeDAO method");
-	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+	   Payment payment = null;
+	   try {
+		   payment = jdbcTemplateObject.jdbcTemplate().queryForObject(
 				SQLQueries.SELECT_PAYMENT_BY_STUDENTID, 
 				new Object[] {studentId},
 				new PaymentMapper());
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return null;
+	   }
+	   return payment;
 	}
 
 	@Override
 	public void addStudentSemesterRegistrationDAO(int studentId) {
 		
+		logger.info("From the addStudentSemesterRegistrationDAO method");
 	   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION, 
 				studentId);
