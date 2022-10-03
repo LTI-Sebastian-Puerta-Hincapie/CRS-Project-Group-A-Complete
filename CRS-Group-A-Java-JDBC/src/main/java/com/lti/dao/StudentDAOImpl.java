@@ -1,18 +1,16 @@
 package com.lti.dao;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.ObjectUtils;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
@@ -22,14 +20,20 @@ import com.lti.dto.Grade;
 import com.lti.dto.Payment;
 import com.lti.dto.RegisteredCourse;
 import com.lti.dto.Student;
+import com.lti.mapper.CourseCatalogMapper;
+import com.lti.mapper.CourseMapper;
+import com.lti.mapper.GradeMapper;
+import com.lti.mapper.PaymentMapper;
 import com.lti.mapper.RegisteredCourseMapper;
-import com.lti.mapper.UserMapper;
+import com.lti.mapper.StudentMapper;
 
 /**
  * @author Sebastian
  *
  */
 
+@SuppressWarnings("deprecation")
+@Repository
 public class StudentDAOImpl implements StudentDAO {
 	  
 	Logger logger = LoggerFactory.getLogger(StudentDAOImpl.class);
@@ -41,358 +45,149 @@ public class StudentDAOImpl implements StudentDAO {
 	public void registerForCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the registerForCourseDAO method");
-		jdbcTemplateObject.jdbcTemplate().update(
+		try {
+			jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
 				student.getId(), 
 				courseId);
+		} catch(IncorrectResultSizeDataAccessException e) {
+			System.out.println("Course has not been added");
+		}
 	}
 
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
 	   logger.info("From the addCourseDAO method");
-	   return jdbcTemplateObject.jdbcTemplate().update(
+	   int id = -1;
+	   try {
+		   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
 				student.getId(),
 				courseId,
 				0,
-				null); 
+				null);
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return -1;
+	   }
+	   return id;
 	}
 	
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the getCourseDAO method");
-		
-//	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
-//			   SQLQueries.SELECT_USER_BY_USERID, 
-//			   new Object[]{userId}, 
-//			   new UserMapper());
-		
-		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+		RegisteredCourse registeredCourse = null;
+		try {
+			registeredCourse = jdbcTemplateObject.jdbcTemplate().queryForObject(
 				SQLQueries.SELECT_STUDENT_COURSE, 
 				new Object[]{ courseId, student.getId() },
 				new RegisteredCourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		
+		return registeredCourse;
 	}
 
 	@Override
 	public void dropCourseDAO(Student student, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
-	   try {
-
-		  conn = DBUtils.getConnection();
-		  
-	      stmt = conn.prepareStatement(SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID);
-	      stmt.setInt(1,student.getId());
-	      stmt.setInt(2, courseId);
-	      stmt.executeUpdate();
-
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	      logger.error(se.getLocalizedMessage());
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	      logger.error(e.getLocalizedMessage());
-	   }		
+	   jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
+				student.getId(),
+				courseId); 		
 	}
 
 	@Override
 	public List<Grade> viewGradesDAO(int studentId) {
 		
 		logger.info("From the viewGradesDAO method");
-		List<Grade> grades = new ArrayList<Grade>();
-		Grade grade = null;
-		Course course = null;
-		   try {
-
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_GRADES_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      while(rs.next()) {
-		    	  int id = rs.getInt("CourseId");
-		    	  String name = rs.getString("CourseName");
-		    	  String _grade = rs.getString("Grade");
-		    	  
-		    	  course = new Course(id, name, null);
-		    	  grade = new Grade(_grade, course);
-		    	  grades.add(grade);
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		   return grades;
+		return jdbcTemplateObject.jdbcTemplate().query(
+				SQLQueries.SELECT_GRADES_BY_STUDENTID, 
+				new Object[] {studentId},
+				new GradeMapper());
 	}
 
 	@Override
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   logger.info("From the payFeeDAO method");
-	   try {
-
-		  conn = DBUtils.getConnection();
-		  
-	      stmt = conn.prepareStatement(SQLQueries.UPDATE_PAYMENT_BY_STUDENTID);
-	      stmt.setInt(1, 1);
-	      stmt.setString(2, paymentMethod);
-	      stmt.setInt(3,studentId);
-	      stmt.executeUpdate();
-
-	   } catch(SQLException se){
-	      //Handle errors for JDBC
-	      se.printStackTrace();
-	      logger.error(se.getLocalizedMessage());
-	   } catch(Exception e){
-	      //Handle errors for Class.forName
-	      e.printStackTrace();
-	      logger.error(e.getLocalizedMessage());;
-	   }		  	
+	   jdbcTemplateObject.jdbcTemplate().query(
+				SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
+				new Object[] {1,paymentMethod,studentId},
+				new GradeMapper());	  	
 }	   
 	
 	@Override
 	public Student getStudentDAO(int studentId) {
 		
 		logger.info("From the getStudentDAO method");
-		Student student = null;
-		   try {
-
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      if(rs.next()) {
-		    	  int id = rs.getInt("Id");
-		    	  String name = rs.getString("Name");
-		    	  int majorId = rs.getInt("MajorId");
-		    	  String email = rs.getString("Email");
-		    	  String phone = rs.getString("Phone");
-		    	  String address = rs.getString("Address");
-		    	  student = new Student(id, name, majorId, email, phone, address);
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		   return student;
+		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_STUDENT_BY_STUDENTID, 
+					new Object[] {studentId},
+					new StudentMapper());	
 	}
 
 	@Override
 	public List<Course> getStudentCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentCourseDAO method");
-		List<Course> courses = new ArrayList<Course>();
-		   try {
-
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_COURSES_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      while(rs.next()) {
-		    	  int id = rs.getInt("CourseId");
-		    	  String name = rs.getString("CourseName");
-		    	  courses.add(new Course(id, name, null));
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		   return courses;
+		return jdbcTemplateObject.jdbcTemplate().query(
+				SQLQueries.SELECT_STUDENT_COURSES_BY_STUDENTID, 
+				new Object[] {studentId},
+				new CourseMapper());
 	}
 
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentRegisteredCoursesDAO method");
-		List<RegisteredCourse> rcourses = new ArrayList<RegisteredCourse>();
-		
-		   try {
-
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      while(rs.next()) {
-		    	  
-		    	  int courseId = rs.getInt("CourseId");
-		    	  int _studentId = rs.getInt("StudentId");
-		    	  int registrationStatus = rs.getInt("RegistrationStatus");
-		    	  String grade = rs.getString("Grade");
-		    	  rcourses.add(new RegisteredCourse(courseId, _studentId, registrationStatus, grade));
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		   return rcourses;
+		return jdbcTemplateObject.jdbcTemplate().query(
+				SQLQueries.SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID, 
+				new Object[] {studentId},
+				new RegisteredCourseMapper());
 	}
 
 	@Override
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
 	   logger.info("From the generatePaymentDAO method");
-	   try {
-			  conn = DBUtils.getConnection();
-			  
-			  // delete existing payment data
-		      stmt = conn.prepareStatement(SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES);
-		      stmt.setInt(1, studentId);
-		      stmt.executeUpdate();
-			  
-		      // add new
-		      stmt = conn.prepareStatement(SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES);
-		      stmt.setInt(1, payment.getPaymentAmount());
-		      stmt.setInt(2, studentId);
-		      stmt.setDate(3,Date.valueOf(payment.getDueDate()));
-		      stmt.setString(4, payment.getSemester());
-		      stmt.executeUpdate();
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }	
+	   jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
+				studentId);
+	   
+		jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
+				new Object[] { payment.getPaymentAmount(), studentId, Date.valueOf(payment.getDueDate()), payment.getSemester()});	      	
 	}
 
 	@Override
 	public List<CourseCatalog> getRegisteredCourseDataDAO(int studentId) {
 		
 		logger.info("From the getRegisteredCourseDataDAO method");
-		List<CourseCatalog> courses = new ArrayList<CourseCatalog>();
-		CourseCatalog course = null;
-		
-		   try {
-				  conn = DBUtils.getConnection();
-				  
-			      stmt = conn.prepareStatement(SQLQueries.SELECT_REGISTERED_COURSE_DATA_BY_STUDENTID);
-			      stmt.setInt(1,studentId);
-			      ResultSet rs = stmt.executeQuery();
-			      while(rs.next()) {
-			    	  
-			    	  int courseId = rs.getInt("Id");
-			    	  int professorId = rs.getInt("ProfessorId");
-			    	  int departmentId = rs.getInt("DepartmentId");
-			    	  String prerequisite = rs.getString("Prerequisite");
-			    	  int credits = rs.getInt("Credits");
-			    	  int capacity = rs.getInt("Capacity");
-			    	  int enrolled = rs.getInt("Enrolled");
-			    	  String semester = rs.getString("Semester");	
-			    	  
-			    	  course = new CourseCatalog(courseId, professorId, departmentId, 
-			    			  prerequisite, credits, capacity , enrolled, semester);
-			    	  courses.add(course);
-			      }
-
-			   } catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			      logger.error(se.getLocalizedMessage());
-			   } catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			      logger.error(e.getLocalizedMessage());
-			   }
-		
-		return courses;
+		return jdbcTemplateObject.jdbcTemplate().query(
+					SQLQueries.SELECT_REGISTERED_COURSE_DATA_BY_STUDENTID, 
+					new Object[] {studentId},
+					new CourseCatalogMapper());
 	}
 
 	@Override
 	public Payment getFeeDAO(int studentId) {
 		
 	   logger.info("From the getFeeDAO method");
-	   Payment payment = null;
-		
-	   try {
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_PAYMENT_BY_STUDENTID);
-		      stmt.setInt(1,studentId);
-		      ResultSet rs = stmt.executeQuery();
-		      if(rs.next()) {
-
-		    	  int paymentAmount = rs.getInt("PaymentAmount");
-		    	  int _studentId = rs.getInt("StudentId");
-		    	  LocalDate date = rs.getDate("DueDate").toLocalDate();
-		    	  String semester = rs.getString("Semester");
-		    	  int isPaid = rs.getInt("IsPaid");
-		    	  String paymentMethod = rs.getString("PaymentMethod");
-		    	  
-		    	  payment = new Payment(_studentId, paymentAmount, date, semester);
-		    	  payment.setIsPaid(isPaid);
-		    	  payment.setPaymentMethod(paymentMethod);
-		      }
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		      logger.error(se.getLocalizedMessage());
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		      logger.error(e.getLocalizedMessage());
-		   }
-		   
-		return payment;
+	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+				SQLQueries.SELECT_PAYMENT_BY_STUDENTID, 
+				new Object[] {studentId},
+				new PaymentMapper());
 	}
 
 	@Override
 	public void addStudentSemesterRegistrationDAO(int studentId) {
 		
-	   try {
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION);
-		      stmt.setInt(1,studentId);
-		      stmt.setInt(2,0);
-		      stmt.setString(3,null);
-		      stmt.setString(4, null);
-		      stmt.executeUpdate();
-
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
+	   jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION, 
+				studentId);
 	}
 }

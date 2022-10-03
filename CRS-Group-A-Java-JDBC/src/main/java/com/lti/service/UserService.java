@@ -59,7 +59,7 @@ public class UserService implements UserServiceOperation {
 						"Student registration not found for this user, userId: " + user.getId());
 			}
 			
-			if(registration.isApprovalStatus()) {
+			if(registration.getApprovalStatus() == 1) {
 				
 				System.out.println("\n--You have logged in--");
 			}
