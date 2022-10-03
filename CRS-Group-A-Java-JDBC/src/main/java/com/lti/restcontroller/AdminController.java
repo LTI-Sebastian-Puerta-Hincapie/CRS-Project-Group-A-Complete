@@ -3,9 +3,12 @@ package com.lti.restcontroller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +23,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.lti.service.AdminService;
 import com.lti.dto.Course;
+import com.lti.dto.Grade;
 import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
 import com.lti.exception.CourseNotFoundException;
 
 @RestController
 public class AdminController {
+	
+	Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
 	private AdminService adminservice;
@@ -34,28 +40,22 @@ public class AdminController {
 			method = RequestMethod.POST,
 			value = "/admin/addprofessor")
 	@ResponseBody
-	public ResponseEntity addProfessor(@RequestBody Professor professor) {
-		try {
-			adminservice.addProfessor(professor);
-		}catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
-		}
-		
+	public ResponseEntity addProfessor(@RequestBody Professor professor) {	
+		logger.info("From the addProfessor controller method");
+		adminservice.addProfessor(professor);
 		return new ResponseEntity(professor, HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "admin/generatereportcard/{id}")
-	public ResponseEntity generateReportCard(@PathVariable("id") int id) {
-		ArrayList<ArrayList<String>> reportCard;
-		try {
-			reportCard = adminservice.generateReportCard(id);
-		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity(reportCard, HttpStatus.OK);
+	public ResponseEntity<List<Grade>> generateReportCard(@PathVariable("id") int id) {
+		logger.info("From the generateReportCard method");
+		List<Grade> reportCard;
+
+		reportCard = adminservice.generateReportCard(id);
+
+		return new ResponseEntity<List<Grade>>(reportCard, HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
@@ -134,8 +134,20 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/checkavailability/{id}")
+			value = "admin/viewcourses/{id}")
 	@ResponseBody
+	public ResponseEntity viewCourses(@PathVariable("id") int id) {
+		boolean available;
+		try {
+			available = adminservice.checkAvailability(id);
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(available, HttpStatus.OK);
+	}
+	
+	
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {

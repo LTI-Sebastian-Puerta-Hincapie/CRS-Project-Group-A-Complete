@@ -2,7 +2,9 @@ package com.lti.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.AdminDAO;
@@ -14,6 +16,7 @@ import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
 import com.lti.dto.Student;
 import com.lti.dto.User;
+import com.lti.dto.Grade;
 import com.lti.exception.CourseNotFoundException;
 import com.lti.exception.SemesterRegistrationExistsException;
 import com.lti.exception.UserNotFoundException;
@@ -26,17 +29,13 @@ import com.lti.exception.UserNotFoundException;
 @Service
 public class AdminService implements AdminServiceOperation {
 
+	@Autowired
 	private AdminDAO admindao;
 	private UserService userService;
 
-	public AdminService() {
-		
-		admindao = new AdminDAOImpl();
-		userService = new UserService();
-	}
 
-	public ArrayList<ArrayList<String>> generateReportCard(int studentID) {
-		return admindao.generateReportCardDAO(studentID);
+	public List<Grade> generateReportCard(int studentID) {
+		return admindao.generateReportCardDAO(studentID); 
 	}
 	
 	public void addProfessor(Professor professor) {
@@ -88,8 +87,8 @@ public class AdminService implements AdminServiceOperation {
 		}
 	}
 	
-	public void viewCourses(int studentID) {
-		admindao.viewCourses(studentID);
+	public List<Course> viewCourses(int studentID) {
+		return admindao.viewCourses(studentID);
 	}
 
 	@Override
