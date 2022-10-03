@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.lti.dao.PasswordDAO;
 import com.lti.dao.PasswordDAOImpl;
-import com.lti.dao.UserDAO;
-import com.lti.dao.UserDAOImpl;
 import com.lti.dto.User;
 import com.lti.exception.IncorrectPasswordException;
 import com.lti.exception.SemesterRegistrationNotApprovedException;
@@ -22,9 +20,7 @@ import com.lti.exception.UserNotFoundException;
 public class PasswordService implements PasswordServiceOperation {
 	
 	@Autowired
-	private UserDAO userdao;
-	@Autowired
-	private PasswordDAO passwordDAO;
+	private PasswordDAOImpl passwordDAO;
 	@Autowired
 	private UserService userService;
 	

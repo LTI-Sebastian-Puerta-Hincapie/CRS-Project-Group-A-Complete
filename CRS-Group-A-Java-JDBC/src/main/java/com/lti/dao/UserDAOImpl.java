@@ -37,10 +37,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User LoginDAO(String username) {
 		
-	   User user = jdbcTemplateObject.jdbcTemplate().queryForObject(
+	   User user = null;
+	   try {
+		   user = jdbcTemplateObject.jdbcTemplate().queryForObject(
 			   SQLQueries.SELECT_USER_BY_USERNAME, 
 			   new Object[]{username}, 
 			   new UserMapper());
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return null;
+	   }
 	
 	   return user;
 	}
