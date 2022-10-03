@@ -8,16 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.User;
-import com.lti.exception.IncorrectPasswordException;
-import com.lti.exception.StudentNotRegisteredException;
-import com.lti.exception.UserNotFoundException;
 import com.lti.mapper.UserMapper;
-import com.lti.service.SemesterRegistrationNotApprovedExceptionS;
 
 /**
  * @author Sebastian 

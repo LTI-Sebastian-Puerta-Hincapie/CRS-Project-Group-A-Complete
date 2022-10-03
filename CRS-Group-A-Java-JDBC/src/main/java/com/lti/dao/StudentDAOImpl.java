@@ -6,11 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ObjectUtils;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
@@ -41,6 +38,11 @@ public class StudentDAOImpl implements StudentDAO {
 	@Autowired
 	private JDBCConfiguration jdbcTemplateObject;
    
+	/**
+	 * This method registers a student to a specific course
+	 * @param student of type Student
+	 * @param userId of type int
+	 */
 	@Override
 	public void registerForCourseDAO(Student student, int courseId) {
 		
@@ -51,6 +53,12 @@ public class StudentDAOImpl implements StudentDAO {
 				courseId);
 	}
 
+	/**
+	 * This method registers a student to a specific course
+	 * @param student of type Student
+	 * @param courseId of type int
+	 * @return int returns the course id of the course just added
+	 */
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
@@ -63,6 +71,13 @@ public class StudentDAOImpl implements StudentDAO {
 				null);
 	}
 	
+	/**
+	 * This method gets a specific registered course for a specific student
+	 * @param student of type Student
+	 * @param courseId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return RegisteredCourse returns a registered course
+	 */
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
@@ -80,6 +95,11 @@ public class StudentDAOImpl implements StudentDAO {
 		return registeredCourse;
 	}
 
+	/**
+	 * This method drops a course for a specific student
+	 * @param student of type Student
+	 * @param courseId of type int
+	 */
 	@Override
 	public void dropCourseDAO(Student student, int courseId) {
 		
@@ -90,6 +110,12 @@ public class StudentDAOImpl implements StudentDAO {
 			courseId); 
 	}
 
+	/**
+	 * This method gets a list of grades for a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return RegisteredCourse returns a registered course
+	 */
 	@Override
 	public List<Grade> viewGradesDAO(int studentId) {
 		
@@ -106,6 +132,11 @@ public class StudentDAOImpl implements StudentDAO {
 		return grades;
 	}
 
+	/**
+	 * This method updates the payment status for a specific student
+	 * @param studentId of type int
+	 * @param paymentMethod of type String
+	 */
 	@Override
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
@@ -116,6 +147,12 @@ public class StudentDAOImpl implements StudentDAO {
 			new GradeMapper());	
 	}	   
 	
+	/**
+	 * This method gets a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return Student returns a student
+	 */
 	@Override
 	public Student getStudentDAO(int studentId) {
 		
