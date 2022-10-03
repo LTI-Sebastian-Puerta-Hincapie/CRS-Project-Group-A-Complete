@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.AdminDAO;
@@ -27,14 +28,11 @@ import com.lti.exception.UserNotFoundException;
 public class UserService implements UserServiceOperation {
 	
 	Logger logger = LoggerFactory.getLogger(UserService.class);
-	private UserDAO userdao;
-	private AdminDAO admindao;
 	
-	public UserService() {
-		
-		userdao = new UserDAOImpl();
-		admindao = new AdminDAOImpl();
-	}
+	@Autowired
+	private UserDAO userdao;
+	@Autowired
+	private AdminDAO admindao;
 		
 	public User Login(String username, String password) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
 	{		
