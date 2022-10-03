@@ -79,12 +79,7 @@ public class AdminService implements AdminServiceOperation {
 	
 	public Boolean checkAvailability(int id) throws CourseNotFoundException {
 		Boolean available = admindao.checkAvailabilityDAO(id);
-		if(available) {
-			return available;
-		}
-		else {
-			throw new CourseNotFoundException();
-		}
+		return available;
 	}
 	
 	public List<Course> viewCourses(int studentID) {
