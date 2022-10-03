@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.lti.dto.Admin;
 import com.lti.dto.Course;
+import com.lti.dto.Grade;
 import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
 import com.lti.dto.Student;
@@ -23,7 +24,7 @@ public interface AdminDAO {
 	 * This method generates a report card for the student
 	 * @param StudentID of type integer
 	 */
-	public List<ArrayList<String>> generateReportCardDAO(int StudentID);
+	public List<Grade> generateReportCardDAO(int StudentID);
 	
 	/**
 	 * This method adds a professor to the database

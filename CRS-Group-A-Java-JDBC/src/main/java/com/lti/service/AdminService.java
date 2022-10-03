@@ -2,6 +2,7 @@ package com.lti.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
 import com.lti.dto.Student;
 import com.lti.dto.User;
+import com.lti.dto.Grade;
 import com.lti.exception.CourseNotFoundException;
 import com.lti.exception.SemesterRegistrationExistsException;
 import com.lti.exception.UserNotFoundException;
@@ -33,10 +35,10 @@ public class AdminService implements AdminServiceOperation {
 		
 		admindao = new AdminDAOImpl();
 		userService = new UserService();
-	}
+	} 
 
-	public ArrayList<ArrayList<String>> generateReportCard(int studentID) {
-		return admindao.generateReportCardDAO(studentID);
+	public List<Grade> generateReportCard(int studentID) {
+		return admindao.generateReportCardDAO(studentID); 
 	}
 	
 	public void addProfessor(Professor professor) {

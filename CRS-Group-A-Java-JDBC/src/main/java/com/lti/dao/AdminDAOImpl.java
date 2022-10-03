@@ -12,12 +12,13 @@ import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.Admin;
 import com.lti.dto.Course;
+import com.lti.dto.Grade;
 import com.lti.dto.Professor;
 import com.lti.dto.RegisteredCourse;
 import com.lti.dto.SemesterRegistration;
 import com.lti.dto.Student;
 import com.lti.exception.CourseNotFoundException;
-import com.lti.mapper.ReportCardMapper;
+import com.lti.mapper.GradeMapper;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -28,26 +29,23 @@ public class AdminDAOImpl implements AdminDAO{
     private JDBCConfiguration jdbcTemplateObject;
     
 	@Override
-	public List<ArrayList<String>> generateReportCardDAO(int StudentID) {
-		List<ArrayList<String>> reportCard = new ArrayList<ArrayList<String>>();
+	public List<Grade> generateReportCardDAO(int StudentID) {
+		List<Grade> reportCard = new ArrayList<Grade>();
 		String sql = SQLQueries.SELECT_GRADES_BY_STUDENTID;
-		reportCard = jdbcTemplateObject.jdbcTemplate().query(sql,new ReportCardMapper());
+		reportCard = jdbcTemplateObject.jdbcTemplate().query(sql,new GradeMapper());
 		
 		return reportCard;
 	}
 
 	@Override
 	public void addProfessorDAO(Professor professor) {
-		String sql="insert into professors values(?,?,?,?,?,?)";
+		try {
+			String sql="insert into professors values(?,?,?,?,?,?)";
+			jdbcTemplateObject.jdbcTemplate().update(sql, professor.getId(), professor.getName(), professor.getDepartmentId(),professor.getEmail(),professor.getPhone(),professor.getAddress());
+		} catch(Exception e) {
+			System.out.println("Professor has not been added"); 
+		}
 		
-		int id=professor.getId();
-		String name=professor.getName();
-		int departmentID=professor.getDepartmentId();
-		String email=professor.getEmail();
-		String phone=professor.getPhone();
-		String address=professor.getAddress();
-		
-		jdbcTemplateObject.jdbcTemplate().update(sql, id, name, departmentID,email,phone,address);
 	}
 	
 	@Override

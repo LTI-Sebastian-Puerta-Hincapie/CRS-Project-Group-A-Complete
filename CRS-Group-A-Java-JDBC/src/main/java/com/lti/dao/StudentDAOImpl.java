@@ -51,7 +51,7 @@ public class StudentDAOImpl implements StudentDAO {
 				student.getId(), 
 				courseId);
 		} catch(IncorrectResultSizeDataAccessException e) {
-			System.out.println("Course has not been added");
+			
 		}
 	}
 
