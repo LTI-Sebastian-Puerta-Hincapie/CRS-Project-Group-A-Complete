@@ -59,18 +59,12 @@ public class StudentDAOImpl implements StudentDAO {
 	public int addCourseDAO(Student student, int courseId) {
 		
 	   logger.info("From the addCourseDAO method");
-	   int id = -1;
-	   try {
-		   jdbcTemplateObject.jdbcTemplate().update(
+	   return jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
 				student.getId(),
 				courseId,
 				0,
 				null);
-	   } catch(IncorrectResultSizeDataAccessException e) {
-		   return -1;
-	   }
-	   return id;
 	}
 	
 	@Override
@@ -94,73 +88,112 @@ public class StudentDAOImpl implements StudentDAO {
 	public void dropCourseDAO(Student student, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
-	   jdbcTemplateObject.jdbcTemplate().update(
+	   try {
+		   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
 				student.getId(),
 				courseId); 		
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   System.out.println("Course has not been added");
+	   }
 	}
 
 	@Override
 	public List<Grade> viewGradesDAO(int studentId) {
 		
 		logger.info("From the viewGradesDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<Grade> grades = null;
+		try {
+			grades = jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_GRADES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new GradeMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return grades;
 	}
 
 	@Override
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   logger.info("From the payFeeDAO method");
-	   jdbcTemplateObject.jdbcTemplate().query(
+	   try {
+		   jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
 				new Object[] {1,paymentMethod,studentId},
 				new GradeMapper());	  	
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   System.out.println("Fee record has not been created");
+	   }
 }	   
 	
 	@Override
 	public Student getStudentDAO(int studentId) {
 		
 		logger.info("From the getStudentDAO method");
-		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+		Student student = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().queryForObject(
 					SQLQueries.SELECT_STUDENT_BY_STUDENTID, 
 					new Object[] {studentId},
-					new StudentMapper());	
+					new StudentMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return student;
 	}
 
 	@Override
 	public List<Course> getStudentCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentCourseDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<Course> courses = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new CourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return courses;
 	}
 
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentRegisteredCoursesDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<RegisteredCourse> rcourses = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new RegisteredCourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return rcourses;
 	}
 
 	@Override
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
 	   logger.info("From the generatePaymentDAO method");
-	   jdbcTemplateObject.jdbcTemplate().update(
+	   try {
+		   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
 				studentId);
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   System.out.println("No payment record exists");
+	   }
 	   
-		jdbcTemplateObject.jdbcTemplate().update(
+	    jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
-				new Object[] { payment.getPaymentAmount(), studentId, Date.valueOf(payment.getDueDate()), payment.getSemester()});	      	
+				new Object[] { 
+						payment.getPaymentAmount(), 
+						studentId, Date.valueOf(payment.getDueDate()), 
+						payment.getSemester()});
 	}
 
 	@Override
