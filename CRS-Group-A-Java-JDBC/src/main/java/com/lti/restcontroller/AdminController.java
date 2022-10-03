@@ -147,7 +147,10 @@ public class AdminController {
 		return new ResponseEntity(available, HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "admin/checkavailable/{id}")
+	@ResponseBody
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {
