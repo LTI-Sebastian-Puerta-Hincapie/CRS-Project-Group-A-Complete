@@ -1,7 +1,10 @@
-com.lti.app
-com.lti.bean
+com.lti.application
+com.lti.configuration
 com.lti.constant
 com.lti.dao
+com.lti.dto
 com.lti.exception
+com.lti.mapper
+com.lti.restcontroller
 com.lti.service
 com.lti.utils
