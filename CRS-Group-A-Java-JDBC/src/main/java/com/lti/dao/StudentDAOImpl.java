@@ -169,6 +169,12 @@ public class StudentDAOImpl implements StudentDAO {
 		return student;
 	}
 
+	/**
+	 * This method gets all courses for a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<Course> returns a list of courses
+	 */
 	@Override
 	public List<Course> getStudentCoursesDAO(int studentId) {
 		
@@ -185,6 +191,12 @@ public class StudentDAOImpl implements StudentDAO {
 		return courses;
 	}
 
+	/**
+	 * This method gets a list of registered students
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<RegisteredCourse> returns a list of registered courses
+	 */
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId) {
 		
@@ -201,6 +213,11 @@ public class StudentDAOImpl implements StudentDAO {
 		return rcourses;
 	}
 
+	/**
+	 * This method generates a bill for a specific student
+	 * @param studentId of type int
+	 * @param payment of type Payment
+	 */
 	@Override
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
@@ -217,6 +234,12 @@ public class StudentDAOImpl implements StudentDAO {
 					payment.getSemester()});
 	}
 
+	/**
+	 * This method gets a list of registered courses with more details
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<CourseCatalog> returns a list of courses with details from the course catalog
+	 */
 	@Override
 	public List<CourseCatalog> getRegisteredCourseDataDAO(int studentId) {
 		
@@ -233,6 +256,12 @@ public class StudentDAOImpl implements StudentDAO {
 		return courses;
 	}
 
+	/**
+	 * This method gets/view the bill for the semester
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return Payment returns a payment
+	 */
 	@Override
 	public Payment getFeeDAO(int studentId) {
 		
@@ -249,6 +278,10 @@ public class StudentDAOImpl implements StudentDAO {
 	   return payment;
 	}
 
+	/**
+	 * This method add a student registration
+	 * @param studentId of type int
+	 */
 	@Override
 	public void addStudentSemesterRegistrationDAO(int studentId) {
 		
