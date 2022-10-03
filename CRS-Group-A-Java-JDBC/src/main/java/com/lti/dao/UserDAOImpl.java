@@ -13,7 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
 import com.lti.dto.User;
+import com.lti.exception.IncorrectPasswordException;
+import com.lti.exception.StudentNotRegisteredException;
+import com.lti.exception.UserNotFoundException;
 import com.lti.mapper.UserMapper;
+import com.lti.service.SemesterRegistrationNotApprovedExceptionS;
 
 /**
  * @author Sebastian 
@@ -29,6 +33,12 @@ public class UserDAOImpl implements UserDAO {
 	@Autowired
 	private JDBCConfiguration jdbcTemplateObject;
 
+	
+	/**
+	 * This method returns a user, if a user exists
+	 * @param username of type String
+	 * @return User returns a user
+	 */
 	@Override
 	public User LoginDAO(String username) {
 		
@@ -40,12 +50,21 @@ public class UserDAOImpl implements UserDAO {
 	   return user;
 	}
 
+	/**
+	 * This method logs out a user
+	 * @param username of type String
+	 */
 	@Override
 	public void LogoutDAO(String username) {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * This method gets a specific user by user ID
+	 * @param userId of type int
+	 * @return User returns a user
+	 */
 	@Override
 	public User GetUser(int userId) {
 	   
@@ -62,6 +81,11 @@ public class UserDAOImpl implements UserDAO {
 	    return user;
 	}
 
+	
+	/**
+	 * This method gets a list of all students in the system
+	 * @return List<User> returns a list of users
+	 */
 	@Override
 	public List<User> GetUsers() {
 		
