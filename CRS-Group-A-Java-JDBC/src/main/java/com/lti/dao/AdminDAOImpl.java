@@ -56,7 +56,8 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void approveStudentRegistrationDAO(int studentID, int approvalStatus) {
 		try{
-			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID, approvalStatus, studentID);
+			jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID, approvalStatus, studentID);
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
@@ -66,9 +67,9 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Override
 	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
-		try{
+		try {
 			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_SEMESTERREGISTRATION, semesterRegistration.getStudentId(), semesterRegistration.getApprovalStatus(), semesterRegistration.getAdminId(), semesterRegistration.getComments());
-		}catch(Exception e){
+		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}

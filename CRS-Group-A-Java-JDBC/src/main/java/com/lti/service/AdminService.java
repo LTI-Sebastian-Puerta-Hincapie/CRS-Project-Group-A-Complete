@@ -31,6 +31,7 @@ public class AdminService implements AdminServiceOperation {
 
 	@Autowired
 	private AdminDAO admindao;
+	@Autowired
 	private UserService userService;
 
 

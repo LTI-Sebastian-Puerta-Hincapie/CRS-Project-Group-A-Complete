@@ -31,6 +31,7 @@ public class UserService implements UserServiceOperation {
 	
 	@Autowired
 	private UserDAO userdao;
+	
 	@Autowired
 	private AdminDAO admindao;
 		
