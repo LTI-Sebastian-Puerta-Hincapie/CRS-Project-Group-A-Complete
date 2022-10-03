@@ -6,11 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ObjectUtils;
 
 import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
@@ -41,38 +38,46 @@ public class StudentDAOImpl implements StudentDAO {
 	@Autowired
 	private JDBCConfiguration jdbcTemplateObject;
    
+	/**
+	 * This method registers a student to a specific course
+	 * @param student of type Student
+	 * @param userId of type int
+	 */
 	@Override
 	public void registerForCourseDAO(Student student, int courseId) {
 		
 		logger.info("From the registerForCourseDAO method");
-		try {
-			jdbcTemplateObject.jdbcTemplate().update(
+		jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
 				student.getId(), 
 				courseId);
-		} catch(IncorrectResultSizeDataAccessException e) {
-			
-		}
 	}
 
+	/**
+	 * This method registers a student to a specific course
+	 * @param student of type Student
+	 * @param courseId of type int
+	 * @return int returns the course id of the course just added
+	 */
 	@Override
 	public int addCourseDAO(Student student, int courseId) {
 		
 	   logger.info("From the addCourseDAO method");
-	   int id = -1;
-	   try {
-		   jdbcTemplateObject.jdbcTemplate().update(
+	   return jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
 				student.getId(),
 				courseId,
 				0,
 				null);
-	   } catch(IncorrectResultSizeDataAccessException e) {
-		   return -1;
-	   }
-	   return id;
 	}
 	
+	/**
+	 * This method gets a specific registered course for a specific student
+	 * @param student of type Student
+	 * @param courseId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return RegisteredCourse returns a registered course
+	 */
 	@Override
 	public RegisteredCourse getCourseDAO(Student student, int courseId) {
 		
@@ -90,102 +95,197 @@ public class StudentDAOImpl implements StudentDAO {
 		return registeredCourse;
 	}
 
+	/**
+	 * This method drops a course for a specific student
+	 * @param student of type Student
+	 * @param courseId of type int
+	 */
 	@Override
 	public void dropCourseDAO(Student student, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
 	   jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
-				student.getId(),
-				courseId); 		
+			SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
+			student.getId(),
+			courseId); 
 	}
 
+	/**
+	 * This method gets a list of grades for a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return RegisteredCourse returns a registered course
+	 */
 	@Override
 	public List<Grade> viewGradesDAO(int studentId) {
 		
 		logger.info("From the viewGradesDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<Grade> grades = null;
+		try {
+			grades = jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_GRADES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new GradeMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return grades;
 	}
 
+	/**
+	 * This method updates the payment status for a specific student
+	 * @param studentId of type int
+	 * @param paymentMethod of type String
+	 */
 	@Override
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   logger.info("From the payFeeDAO method");
 	   jdbcTemplateObject.jdbcTemplate().query(
-				SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
-				new Object[] {1,paymentMethod,studentId},
-				new GradeMapper());	  	
-}	   
+			SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
+			new Object[] {1,paymentMethod,studentId},
+			new GradeMapper());	
+	}	   
 	
+	/**
+	 * This method gets a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return Student returns a student
+	 */
 	@Override
 	public Student getStudentDAO(int studentId) {
 		
 		logger.info("From the getStudentDAO method");
-		return jdbcTemplateObject.jdbcTemplate().queryForObject(
+		Student student = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().queryForObject(
 					SQLQueries.SELECT_STUDENT_BY_STUDENTID, 
 					new Object[] {studentId},
-					new StudentMapper());	
+					new StudentMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return student;
 	}
 
+	/**
+	 * This method gets all courses for a specific student
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<Course> returns a list of courses
+	 */
 	@Override
 	public List<Course> getStudentCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentCourseDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<Course> courses = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new CourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return courses;
 	}
 
+	/**
+	 * This method gets a list of registered students
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<RegisteredCourse> returns a list of registered courses
+	 */
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId) {
 		
 		logger.info("From the getStudentRegisteredCoursesDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<RegisteredCourse> rcourses = null;
+		try {
+			jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new RegisteredCourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return rcourses;
 	}
 
+	/**
+	 * This method generates a bill for a specific student
+	 * @param studentId of type int
+	 * @param payment of type Payment
+	 */
 	@Override
 	public void generatePaymentDAO(int studentId, Payment payment) {
 		
 	   logger.info("From the generatePaymentDAO method");
 	   jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
-				studentId);
+			SQLQueries.DELETE_PAYMENT_FOR_STUDENT_COURSES, 
+			studentId);
 	   
-		jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
-				new Object[] { payment.getPaymentAmount(), studentId, Date.valueOf(payment.getDueDate()), payment.getSemester()});	      	
+	    jdbcTemplateObject.jdbcTemplate().update(
+			SQLQueries.INSERT_PAYMENT_FOR_STUDENT_COURSES, 
+			new Object[] { 
+					payment.getPaymentAmount(), 
+					studentId, Date.valueOf(payment.getDueDate()), 
+					payment.getSemester()});
 	}
 
+	/**
+	 * This method gets a list of registered courses with more details
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<CourseCatalog> returns a list of courses with details from the course catalog
+	 */
 	@Override
 	public List<CourseCatalog> getRegisteredCourseDataDAO(int studentId) {
 		
 		logger.info("From the getRegisteredCourseDataDAO method");
-		return jdbcTemplateObject.jdbcTemplate().query(
+		List<CourseCatalog> courses = null;
+		try {
+			courses = jdbcTemplateObject.jdbcTemplate().query(
 					SQLQueries.SELECT_REGISTERED_COURSE_DATA_BY_STUDENTID, 
 					new Object[] {studentId},
 					new CourseCatalogMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return courses;
 	}
 
+	/**
+	 * This method gets/view the bill for the semester
+	 * @param studentId of type int
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return Payment returns a payment
+	 */
 	@Override
 	public Payment getFeeDAO(int studentId) {
 		
 	   logger.info("From the getFeeDAO method");
-	   return jdbcTemplateObject.jdbcTemplate().queryForObject(
+	   Payment payment = null;
+	   try {
+		   payment = jdbcTemplateObject.jdbcTemplate().queryForObject(
 				SQLQueries.SELECT_PAYMENT_BY_STUDENTID, 
 				new Object[] {studentId},
 				new PaymentMapper());
+	   } catch(IncorrectResultSizeDataAccessException e) {
+		   return null;
+	   }
+	   return payment;
 	}
 
+	/**
+	 * This method add a student registration
+	 * @param studentId of type int
+	 */
 	@Override
 	public void addStudentSemesterRegistrationDAO(int studentId) {
 		
+		logger.info("From the addStudentSemesterRegistrationDAO method");
 	   jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_SEMESTER_REGISTRATION, 
 				studentId);
