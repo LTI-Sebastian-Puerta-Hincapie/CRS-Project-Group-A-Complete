@@ -1,0 +1,34 @@
+CRS – Group A – Database Schema
+
+Database: CRS-GROUP-A
+
+
+Tables/Entities:
+
+	Users(Id, Username, Password, RoleId)
+
+	Students(Id, Name, Major, Email, Phone, Address)
+
+	Professor(Id, Name, Department, Email, Phone, Address)
+
+	Admin(Id, Name, Email, Phone, Address)
+
+	RegisteredCourse(StudentId, CourseId, RegistrationStatus, Grade)
+	
+	Course(CourseId, CourseName, Description)
+	
+	CourseCatalog(Id, ProfessorId, DepartmentId, Prerequisite, Credits, Capacity, Enrolled, Semester)
+	
+	Department(DepartmentId, DepartmentName, Description)
+	
+	Role(RoleId, RoleName, Description)
+	
+	Payment(PaymentId, PaymentAmount, StudentId, DueDate, Semester)
+	
+	ProfessorCourses(ProfessorId, CourseId)
+	
+	SemesterRegistration(RegistrationId, StudentId, ApprovalStatus, AdminId, Comment)
+	
+	Major(MajorId, MajorName, Description)
+
+
