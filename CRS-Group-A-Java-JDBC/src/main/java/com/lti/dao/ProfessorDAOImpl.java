@@ -80,7 +80,6 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 			return null;
 		}	
 		return professor;
-	
 	}
 
 	@Override

@@ -42,8 +42,9 @@ public class ProfessorController {
 
 	}
 
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, 
-			value = "/enrolled/students/{courseId}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET, 
+			value = "professor/enrolled/course/{courseId}")
 	@ResponseBody
 	public ResponseEntity viewEnrolledStudents(@PathVariable("courseId") String courseId) throws NoEnrolledStudentsFoundException{
 
