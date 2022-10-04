@@ -58,11 +58,9 @@ public class ProfessorController {
 			method = RequestMethod.GET, 
 			value = "/professor/{professorId}/courses")
 	@ResponseBody
-	public ResponseEntity getProfessorCourses(@PathVariable("professorId") int professorId) throws ProfessorNotRegisteredForCourseException {
+	public ResponseEntity<List<CourseCatalog>> getProfessorCourses(@PathVariable("professorId") int professorId) throws ProfessorNotRegisteredForCourseException {
 
-		List<CourseCatalog> courseEnrollmentList = professorServiceOperation
-				.getProfessorCourses(professorId);
-
+		List<CourseCatalog> courseEnrollmentList = professorServiceOperation.getProfessorCourses(professorId);
 		return new ResponseEntity<List<CourseCatalog>>(courseEnrollmentList, HttpStatus.OK);
 	}
 	
