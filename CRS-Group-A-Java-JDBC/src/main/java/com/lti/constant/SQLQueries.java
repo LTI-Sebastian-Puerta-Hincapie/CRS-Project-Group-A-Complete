@@ -71,7 +71,7 @@ public class SQLQueries {
 			"UPDATE registeredcourse SET Grade = ? WHERE StudentId = ? AND CourseId = ?";
 	
 	public static final String SELECT_PROFESSOR_COURSES_BY_PROFESSORID = 
-			"SELECT pc.CourseId, cc.Credits, cc.Capacity, cc.Enrolled, cc.Semester "
+			"SELECT cc.Id, pc.ProfessorId, cc.DepartmentId, cc.Prerequisite, cc.Credits, cc.Capacity, cc.Enrolled, cc.Semester "
 			+ "FROM professorcourses pc "
 			+ "JOIN coursecatalog cc "
 			+ " ON pc.CourseId = cc.Id "
