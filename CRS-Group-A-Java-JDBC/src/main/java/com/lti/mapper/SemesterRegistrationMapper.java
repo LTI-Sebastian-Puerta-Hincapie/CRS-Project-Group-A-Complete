@@ -15,8 +15,8 @@ public class SemesterRegistrationMapper implements RowMapper<SemesterRegistratio
 		SemesterRegistration semesterRegistration = new SemesterRegistration(
 				rs.getInt("RegistrationId"),
 				rs.getInt("StudentId"),
-				rs.getInt("ApprovalStatus"),
 				rs.getInt("AdminId"),
+				rs.getInt("ApprovalStatus"),
 				rs.getString("Comment"));
 		return semesterRegistration;
 	}

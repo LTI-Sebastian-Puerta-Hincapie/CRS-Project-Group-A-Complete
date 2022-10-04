@@ -31,6 +31,7 @@ public class UserService implements UserServiceOperation {
 	
 	@Autowired
 	private UserDAO userdao;
+	
 	@Autowired
 	private AdminDAO admindao;
 		
@@ -57,11 +58,8 @@ public class UserService implements UserServiceOperation {
 						"Student registration not found for this user, userId: " + user.getId());
 			}
 			
-			if(registration.getApprovalStatus() == 1) {
+			if(registration.getApprovalStatus() != 1) {
 				
-				System.out.println("\n--You have logged in--");
-			}
-			else {
 				throw new SemesterRegistrationNotApprovedException("Student semester registration not approved");
 			}
 		}
@@ -69,6 +67,21 @@ public class UserService implements UserServiceOperation {
 			
 			System.out.println("\n--You have logged in--");
 		}
+		return user;
+	}
+	
+	public User updateLogin(String username, String password) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
+	{		
+		User user = userdao.LoginDAO(username);
+		if(user == null) {
+			
+			throw new UserNotFoundException(username + " doesnt' exist");
+		}
+		else if(!password.equals(user.getPassword())) {
+			
+			throw new IncorrectPasswordException("Incorrect password, entered password does not match our records");
+		}
+		System.out.println("\n--You have logged in--");
 		return user;
 	}
 	

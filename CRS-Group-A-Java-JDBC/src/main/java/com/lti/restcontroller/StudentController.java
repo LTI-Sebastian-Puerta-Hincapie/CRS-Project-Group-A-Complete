@@ -52,7 +52,7 @@ public class StudentController {
 	 */
 //	@ExceptionHandler({CourseNotRegisteredException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
-		    method = RequestMethod.POST,
+		    method = RequestMethod.PUT,
 		    value = "/student/registerforcourse")
 	@ResponseBody
 		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
@@ -68,7 +68,6 @@ public class StudentController {
 	 * @throws StudentAddCourseException is thrown when a course has not been added
 	 * @return ResponseEntity returns a status
 	 */
-//	@ExceptionHandler(StudentAddCourseException.class)
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.POST,
 		    value = "/student/addcourse")
@@ -94,8 +93,7 @@ public class StudentController {
 		    value = "/student/dropcourse")
 	@ResponseBody
 		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse) throws StudentDropCourseException, StudentCourseNotFoundException
-		{
-				
+		{				
 		    logger.info("From the dropCourse controller method");
 		    studentService.dropCourse(studentCourse.getStudent(), studentCourse.getCourseId());
 			return new ResponseEntity("Course has been successfully dropped", HttpStatus.NO_CONTENT);
@@ -208,7 +206,7 @@ public class StudentController {
 	 */
 //	@ExceptionHandler({StudentMissingFeePaymentException.class, StudentPaymentRecordNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
-		    method = RequestMethod.POST,
+		    method = RequestMethod.PUT,
 		    value = "/student/{id}/payfee/{paymentMethod}")
 	@ResponseBody
 		public ResponseEntity payFee(

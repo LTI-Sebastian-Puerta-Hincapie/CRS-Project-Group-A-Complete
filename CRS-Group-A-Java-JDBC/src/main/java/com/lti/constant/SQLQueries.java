@@ -23,7 +23,7 @@ public class SQLQueries {
 	public static final String SELECT_STUDENT_BY_STUDENTID = "SELECT * FROM students WHERE Id = ?";
 	
 	public static final String SELECT_STUDENT_COURSES_BY_STUDENTID = 
-			"SELECT rc.CourseId, c.CourseName "
+			"SELECT rc.CourseId, c.CourseName, c.Description "
 			+ "FROM registeredcourse rc "
 			+ "JOIN course c "
 			+ "  ON rc.CourseId = c.CourseId "
@@ -105,4 +105,25 @@ public class SQLQueries {
 	
 	public static final String UPDATE_ENROLLMENT_COURSE_CATALOG_BY_COURSEID = 
 			"UPDATE coursecatalog SET Enrolled = ? WHERE Id = ?";
+	
+	public static final String INSERT_PROFESSOR = 
+			"insert into professors values(?,?,?,?,?,?)";
+	
+	public static final String UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID = 
+			"UPDATE semesterregistration SET ApprovalStatus = ?, Comment = ? WHERE StudentId = ?";
+	
+	public static final String INSERT_SEMESTERREGISTRATION = 
+			"insert into semesterregistration(StudentId,ApprovalStatus,AdminId,Comment) values(?,?,?,?)";
+	
+	public static final String INSERT_COURSE = 
+			"insert into course values(?,?,?)";
+	
+	public static final String DELETE_COURSE_BY_COURSEID = 
+			"DELETE from course where CourseID=?";
+	
+	public static final String UPDATE_COURSE_BY_COURSEID = 
+			"UPDATE course SET CourseName=?, Description=? WHERE CourseID=?";
+	
+	public static final String SELECT_COURSECATALOG_BY_COURSEID = 
+			"SELECT * From coursecatalog WHERE Id = ?";
 }

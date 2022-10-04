@@ -48,7 +48,7 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/generatereportcard/{id}")
+			value = "/admin/generatereportcard/{id}")
 	public ResponseEntity<List<Grade>> generateReportCard(@PathVariable("id") int id) {
 		logger.info("From the generateReportCard method");
 		List<Grade> reportCard;
@@ -59,8 +59,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.GET,
-			value = "admin/approve/{studentID}/{approvalStatus}")
+			method = RequestMethod.PUT,
+			value = "/admin/approve/{studentID}/{approvalStatus}")
 	public ResponseEntity approveStudentRegistration(@PathVariable("studentID") int studentID, @PathVariable("approvalStatus") int approvalStatus) {
 		try {
 			adminservice.approveStudentRegistration(studentID, approvalStatus);
@@ -72,21 +72,23 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.POST,
-			value = "admin/createregistration")
+			value = "/admin/createregistration")
 	@ResponseBody
 	public ResponseEntity createStudentRegistration(@RequestBody SemesterRegistration semesterRegistration) {
+		
 		try {
 			adminservice.createStudentRegistration(semesterRegistration);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity(semesterRegistration, HttpStatus.OK);
+		return new ResponseEntity(
+				"Successfully registered student with ID: " + semesterRegistration.getStudentId(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/getregistration/{studentId}")
+			value = "/admin/getregistration/{studentId}")
 	@ResponseBody
 	public ResponseEntity getSemesterRegistration(@PathVariable("studentId") int studentId) {
 		SemesterRegistration reg;
@@ -101,7 +103,7 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.POST,
-			value = "admin/addcourse")
+			value = "/admin/addcourse")
 	@ResponseBody
 	public ResponseEntity addCourse(@RequestBody Course course) {
 		try {
@@ -115,7 +117,7 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.DELETE,
-			value = "admin/removecourse/{courseId}")
+			value = "/admin/removecourse/{courseId}")
 	@ResponseBody
 	public ResponseEntity removeCourse(@PathVariable("courseId") int courseId) throws CourseNotFoundException {
 		adminservice.removeCourse(courseId);
@@ -123,8 +125,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.POST,
-			value = "admin/updatecourse/{courseId}/{courseName}/{description}")
+			method = RequestMethod.PUT,
+			value = "/admin/updatecourse/{courseId}/{courseName}/{description}")
 	@ResponseBody
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) throws CourseNotFoundException {
 		Course course = new Course(courseId,courseName,description);
@@ -134,20 +136,18 @@ public class AdminController {
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/viewcourses/{id}")
+			value = "/admin/viewcourses/{id}")
 	@ResponseBody
-	public ResponseEntity viewCourses(@PathVariable("id") int id) {
-		boolean available;
-		try {
-			available = adminservice.checkAvailability(id);
-		} catch (CourseNotFoundException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity(available, HttpStatus.OK);
+	public ResponseEntity<List<Course>> viewCourses(@PathVariable("id") int id) {
+		
+		List<Course> courses = adminservice.viewCourses(id);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.GET,
+			value = "/admin/checkavailable/{id}")
+	@ResponseBody
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
 		try {

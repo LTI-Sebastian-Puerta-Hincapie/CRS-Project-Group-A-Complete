@@ -1,11 +1,10 @@
 package com.lti.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.PasswordDAO;
 import com.lti.dao.PasswordDAOImpl;
-import com.lti.dao.UserDAO;
-import com.lti.dao.UserDAOImpl;
 import com.lti.dto.User;
 import com.lti.exception.IncorrectPasswordException;
 import com.lti.exception.SemesterRegistrationNotApprovedException;
@@ -20,21 +19,15 @@ import com.lti.exception.UserNotFoundException;
 @Service
 public class PasswordService implements PasswordServiceOperation {
 	
-	private UserDAO userdao;
-	private PasswordDAO passwordDAO;
+	@Autowired
+	private PasswordDAOImpl passwordDAO;
+	@Autowired
 	private UserService userService;
-	
-	public PasswordService() {
-		
-		userdao = new UserDAOImpl();
-		passwordDAO = new PasswordDAOImpl();
-		userService = new UserService();
-	}
 	
 	@Override
 	public void updatePassword(String username, String currentPassword, String newPassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException {
 		
-		User user = userService.Login(username, currentPassword);
+		User user = userService.updateLogin(username, currentPassword);
 
 		if (user != null) {
 			

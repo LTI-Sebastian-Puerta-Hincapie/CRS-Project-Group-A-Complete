@@ -45,11 +45,6 @@ public class StudentService implements StudentServiceOperation {
 	@Autowired
 	private StudentDAO studentDao;
 	
-//	public StudentService() {
-//		
-//		studentDao = new StudentDAOImpl();
-//	}
-	
 	public void registerForCourse(Student student, int courseId) throws CourseNotRegisteredException, StudentCourseNotFoundException 
 	{
 		logger.info("From registerForCourse service method");

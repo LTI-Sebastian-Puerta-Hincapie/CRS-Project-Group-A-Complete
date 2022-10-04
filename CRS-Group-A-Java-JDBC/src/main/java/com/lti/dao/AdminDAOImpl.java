@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.lti.configuration.JDBCConfiguration;
@@ -45,8 +46,7 @@ public class AdminDAOImpl implements AdminDAO{
 	public void addProfessorDAO(Professor professor) {
 		
 		try {
-			String sql="insert into professors values(?,?,?,?,?,?)";
-			jdbcTemplateObject.jdbcTemplate().update(sql, professor.getId(), professor.getName(), professor.getDepartmentId(),professor.getEmail(),professor.getPhone(),professor.getAddress());
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_PROFESSOR, professor.getId(), professor.getName(), professor.getDepartmentId(),professor.getEmail(),professor.getPhone(),professor.getAddress());
 		} catch(Exception e) {
 			System.out.println("Professor has not been added"); 
 		}
@@ -55,10 +55,12 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Override
 	public void approveStudentRegistrationDAO(int studentID, int approvalStatus) {
-		
 		try{
-			String sql="UPDATE semesterregistration SET ApprovalStatus = ? WHERE StudentId= ?";
-			jdbcTemplateObject.jdbcTemplate().update(sql, approvalStatus, studentID);
+			jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID, 
+					approvalStatus,
+					"Approved",
+					studentID);
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
@@ -68,10 +70,14 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Override
 	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
-		try{
-			String sql="insert into semesterregistration(StudentId,ApprovalStatus,AdminId,Comment) values(?,?,?,?)";
-			jdbcTemplateObject.jdbcTemplate().update(sql, semesterRegistration.getStudentId(), semesterRegistration.getApprovalStatus(), semesterRegistration.getAdminId(), semesterRegistration.getComments());
-		}catch(Exception e){
+		try {
+			jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.INSERT_SEMESTERREGISTRATION, 
+					semesterRegistration.getStudentId(), 
+					semesterRegistration.getApprovalStatus(), 
+					semesterRegistration.getAdminId(), 
+					semesterRegistration.getComments());
+		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
@@ -79,8 +85,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void addCourseDAO(Course course) {
 		try{
-			String sql="insert into course values(?,?,?)";
-			jdbcTemplateObject.jdbcTemplate().update(sql, course.getCourseId(), course.getCourseName(), course.getDescription());
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_COURSE, course.getCourseId(), course.getCourseName(), course.getDescription());
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
@@ -91,8 +96,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void removeCourseDAO(int id) throws CourseNotFoundException {
 		try{
-			String sql="DELETE from course where CourseID=?";
-			jdbcTemplateObject.jdbcTemplate().update(sql, id);
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.DELETE_COURSE_BY_COURSEID, id);
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
@@ -102,8 +106,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void updateCourseDAO(int id, String name, String description) throws CourseNotFoundException {
 		try{
-			String sql = "UPDATE course SET CourseName=?, Description=? WHERE CourseID=?";
-			jdbcTemplateObject.jdbcTemplate().update(sql, name, description, id);
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.UPDATE_COURSE_BY_COURSEID, name, description, id);
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
@@ -113,9 +116,8 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public Boolean checkAvailabilityDAO(int id){
 		try{
-			String sql = "SELECT * From coursecatalog WHERE Id = ?";
 			CourseCatalog course = jdbcTemplateObject.jdbcTemplate().queryForObject(
-					sql, 
+					SQLQueries.SELECT_COURSECATALOG_BY_COURSEID, 
 					new Object[] {id},
 					new CourseCatalogMapper());
 			if(course.getEnrolled() < course.getCapacity()) {
@@ -149,9 +151,9 @@ public class AdminDAOImpl implements AdminDAO{
 						SQLQueries.SELECT_SEMESTER_REGISTRATION_BY_STUDENTID, 
 						new Object[] {studentId},
 						new SemesterRegistrationMapper());
-		   } catch(Exception e){
+		   } catch(IncorrectResultSizeDataAccessException e){
 		      //Handle errors for Class.forName
-		      e.printStackTrace();
+		      return null;
 		   }
 		
 		return registration;

@@ -1,187 +1,101 @@
 package com.lti.dao;
 import java.util.List;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lti.configuration.JDBCConfiguration;
 import com.lti.constant.SQLQueries;
-import com.lti.dto.Course;
 import com.lti.dto.CourseCatalog;
 import com.lti.dto.CourseEnrollment;
 import com.lti.dto.Grade;
 import com.lti.dto.Professor;
-import com.lti.dto.Student;
-import com.lti.utils.DBUtils;
-import com.lti.exception.NoEnrolledStudentsFoundException;
+import com.lti.mapper.CourseCatalogMapper;
+import com.lti.mapper.CourseEnrollmentMapper;
+import com.lti.mapper.ProfessorMapper;
 
-
+@SuppressWarnings("deprecation")
+@Service
 public class ProfessorDAOImpl implements ProfessorDAO {
-    
-    public List<Grade> addGradesDAO(String student, int courseId, String grade) {
-        // TODO Auto-generated method stub
-    	 try {  
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID);
-		      
-		      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
-		      stmt.setString(1, grade);
-		      stmt.setString(2,student);
-		      stmt.setInt(3, courseId);
-		      stmt.executeUpdate();	
-		    
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
 	
-
-        return null;
-    }
-    
-
-
+	Logger logger = LoggerFactory.getLogger(ProfessorDAOImpl.class);
 	
-	private Connection conn = null;
-	private PreparedStatement stmt = null;
+	@Autowired
+	private JDBCConfiguration jdbcTemplateObject;
+    
+	public List<Grade> addGradesDAO(String studentId, int courseId, String grade) {
+		
+		
+		try {
+		jdbcTemplateObject.jdbcTemplate().update(SQLQueries.UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID,
+				new Object[] { grade, studentId, courseId });
+		}catch (Exception e) {
+		}
+		
+		return null;
+	
+	}
 	
 	@Override
 	public void addGradesDAO(int studentId, int courseId, String grade) {
 		
-	   try {  
-		   
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID);
-		      
-		    
-		    
-		      
-		      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
-		      stmt.setString(1, grade);
-		      stmt.setInt(2,studentId);
-		      stmt.setInt(3, courseId);
-		      stmt.executeUpdate();	
-		    
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
+		try {
+		jdbcTemplateObject.jdbcTemplate().update(
+				SQLQueries.UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID, 
+				new Object[] { grade, studentId, courseId});	
+		}catch (Exception e) {
+		}
+		
+	
 	}
-
 
 	@Override
 	public List<CourseEnrollment> viewEnrolledStudentsDAO(int courseId) {
 		
-		List<CourseEnrollment> courseEnrollment = new ArrayList<CourseEnrollment>();
-		CourseEnrollment courseEnrollmentEntry; 
-		   try {  
-				  conn = DBUtils.getConnection();
-				  
-			      stmt = conn.prepareStatement(SQLQueries.SELECT_STUDENT_ENROLLMENT_BY_COURSEID);
-			      
-			    
-			      
-			      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
-			      stmt.setInt(1, courseId);
-			      ResultSet rs = stmt.executeQuery();
-			      
-			      if(rs==null) {
-			    	  throw new NoEnrolledStudentsFoundException();
-			    	  }
-			    
-			      while(rs.next()) {
-			    	  int _courseId = rs.getInt("CourseId");
-			    	  int studentId = rs.getInt("studentId");
-			    	  String studentName = rs.getString("Name");
-			    	  courseEnrollmentEntry = new CourseEnrollment(_courseId, studentId, studentName);
-			    	  courseEnrollment.add(courseEnrollmentEntry);
-			      }
-			      
-			   } catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   } catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }
-		   
-		   return courseEnrollment;
-	}
+		logger.info("From the viewEnrolledStudentsDAO method");
+		
+		try {
+		return jdbcTemplateObject.jdbcTemplate().query(SQLQueries.SELECT_STUDENT_ENROLLMENT_BY_COURSEID,
+				new Object[] {courseId}, new CourseEnrollmentMapper());
+		}catch (Exception e) {
+		}
+		
+		return null;
+		
+		}
 
 	@Override
 	public Professor getProfessorDAO(int professorId) {
 		
+		logger.info("From the getProfessorDAO method");
 		Professor professor = null;
-		   try {  
-				  conn = DBUtils.getConnection();
-				  
-			      stmt = conn.prepareStatement(SQLQueries.SELECT_PROFESSOR_BY_PROFESSORID);
-			      stmt.setInt(1,professorId);
-			      ResultSet rs = stmt.executeQuery();
-			      if(rs.next()) {
-			    	  int id = rs.getInt("Id");
-			    	  String name = rs.getString("Name");
-			    	  int departmentId = rs.getInt("DepartmentId");
-			    	  String email = rs.getString("Email");
-			    	  String phone = rs.getString("Phone");
-			    	  String address = rs.getString("Address");
-			    	  professor = new Professor(id, name, departmentId, email, phone, address);
-			      }
-			    
-			   } catch(SQLException se){
-			      //Handle errors for JDBC
-			      se.printStackTrace();
-			   } catch(Exception e){
-			      //Handle errors for Class.forName
-			      e.printStackTrace();
-			   }
-		   return professor;
+		try {
+			professor = jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_PROFESSOR_BY_PROFESSORID, 
+					new Object[] {professorId},
+					new ProfessorMapper());
+		} catch (Exception e) {
+			return null;
+		}	
+		return professor;
 	}
 
 	@Override
 	public List<CourseCatalog> getProfessorCoursesDAO(int professorId) {
 		
-		List<CourseCatalog> courses = new ArrayList<CourseCatalog>();
-		CourseCatalog course = null;
+		logger.info("From the getProfessorCoursesDAO method");
+		try {
+		return jdbcTemplateObject.jdbcTemplate().query(
+					SQLQueries.SELECT_PROFESSOR_COURSES_BY_PROFESSORID, 
+					new Object[] {professorId},
+					new CourseCatalogMapper());
+		}catch (Exception e) {
+		}
 		
-	   try {  
-			  conn = DBUtils.getConnection();
-			  
-		      stmt = conn.prepareStatement(SQLQueries.SELECT_PROFESSOR_COURSES_BY_PROFESSORID);
-		      
-		      //TODO: Update the Professor interfaces + classes to pass in a Grade (String)
-		      stmt.setInt(1,professorId);
-		      ResultSet rs = stmt.executeQuery();	
-		      while(rs.next()) {
-		    	  
-		    	  int courseId = rs.getInt("CourseId");
-		    	  int credits = rs.getInt("Credits");
-		    	  int capacity = rs.getInt("Capacity");
-		    	  int enrolled = rs.getInt("Enrolled");
-		    	  String semester = rs.getString("Semester");
-		    	  course = new CourseCatalog(courseId, 0, 0, null, credits, capacity, enrolled, semester);
-		    	  courses.add(course);
-		      }
-		    
-		   } catch(SQLException se){
-		      //Handle errors for JDBC
-		      se.printStackTrace();
-		   } catch(Exception e){
-		      //Handle errors for Class.forName
-		      e.printStackTrace();
-		   }
-	   
-	   return courses;
+		return null;
+		
 	}
 
 }
