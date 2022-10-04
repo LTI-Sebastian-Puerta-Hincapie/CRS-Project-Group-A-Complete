@@ -110,7 +110,7 @@ public class SQLQueries {
 			"insert into professors values(?,?,?,?,?,?)";
 	
 	public static final String UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID = 
-			"UPDATE semesterregistration SET ApprovalStatus = ? WHERE StudentId= ?";
+			"UPDATE semesterregistration SET ApprovalStatus = ?, Comment = ? WHERE StudentId = ?";
 	
 	public static final String INSERT_SEMESTERREGISTRATION = 
 			"insert into semesterregistration(StudentId,ApprovalStatus,AdminId,Comment) values(?,?,?,?)";

@@ -125,7 +125,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
-			method = RequestMethod.POST,
+			method = RequestMethod.PUT,
 			value = "/admin/updatecourse/{courseId}/{courseName}/{description}")
 	@ResponseBody
 	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) throws CourseNotFoundException {
@@ -138,20 +138,15 @@ public class AdminController {
 			method = RequestMethod.GET,
 			value = "/admin/viewcourses/{id}")
 	@ResponseBody
-	public ResponseEntity viewCourses(@PathVariable("id") int id) {
-		boolean available;
-		try {
-			available = adminservice.checkAvailability(id);
-		} catch (CourseNotFoundException e) {
-			// TODO Auto-generated catch block
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity(available, HttpStatus.OK);
+	public ResponseEntity<List<Course>> viewCourses(@PathVariable("id") int id) {
+		
+		List<Course> courses = adminservice.viewCourses(id);
+		return new ResponseEntity<List<Course>>(courses, HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
-			value = "admin/checkavailable/{id}")
+			value = "/admin/checkavailable/{id}")
 	@ResponseBody
 	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
 		Boolean available;
