@@ -23,7 +23,7 @@ public class SQLQueries {
 	public static final String SELECT_STUDENT_BY_STUDENTID = "SELECT * FROM students WHERE Id = ?";
 	
 	public static final String SELECT_STUDENT_COURSES_BY_STUDENTID = 
-			"SELECT rc.CourseId, c.CourseName "
+			"SELECT rc.CourseId, c.CourseName, c.Description "
 			+ "FROM registeredcourse rc "
 			+ "JOIN course c "
 			+ "  ON rc.CourseId = c.CourseId "

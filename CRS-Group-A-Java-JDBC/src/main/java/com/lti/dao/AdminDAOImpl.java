@@ -68,7 +68,12 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
 		try {
-			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_SEMESTERREGISTRATION, semesterRegistration.getStudentId(), semesterRegistration.getApprovalStatus(), semesterRegistration.getAdminId(), semesterRegistration.getComments());
+			jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.INSERT_SEMESTERREGISTRATION, 
+					semesterRegistration.getStudentId(), 
+					semesterRegistration.getApprovalStatus(), 
+					semesterRegistration.getAdminId(), 
+					semesterRegistration.getComments());
 		} catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();

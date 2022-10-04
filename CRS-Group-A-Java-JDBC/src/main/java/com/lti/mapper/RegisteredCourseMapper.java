@@ -13,11 +13,11 @@ public class RegisteredCourseMapper implements RowMapper<RegisteredCourse> {
 	public RegisteredCourse mapRow(ResultSet rs, int rowNum) throws SQLException {
 		
 		RegisteredCourse registeredCourse = new RegisteredCourse(
-				rs.getInt("StudentId"),
 				rs.getInt("CourseId"),
+				rs.getInt("StudentId"),
 				rs.getInt("RegistrationStatus"),
 				rs.getString("Grade"));
-		return null;
+		return registeredCourse;
 	}
 
 }

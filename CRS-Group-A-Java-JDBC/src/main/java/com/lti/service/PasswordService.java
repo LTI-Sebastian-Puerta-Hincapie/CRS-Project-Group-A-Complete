@@ -27,7 +27,7 @@ public class PasswordService implements PasswordServiceOperation {
 	@Override
 	public void updatePassword(String username, String currentPassword, String newPassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException {
 		
-		User user = userService.Login(username, currentPassword);
+		User user = userService.updateLogin(username, currentPassword);
 
 		if (user != null) {
 			

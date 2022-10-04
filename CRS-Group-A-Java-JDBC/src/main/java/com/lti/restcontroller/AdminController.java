@@ -75,13 +75,15 @@ public class AdminController {
 			value = "/admin/createregistration")
 	@ResponseBody
 	public ResponseEntity createStudentRegistration(@RequestBody SemesterRegistration semesterRegistration) {
+		
 		try {
 			adminservice.createStudentRegistration(semesterRegistration);
 		} catch (Exception e) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity(semesterRegistration, HttpStatus.OK);
+		return new ResponseEntity(
+				"Successfully registered student with ID: " + semesterRegistration.getStudentId(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,

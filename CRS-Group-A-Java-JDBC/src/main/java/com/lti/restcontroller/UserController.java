@@ -66,7 +66,7 @@ public class UserController {
 	{
 				
 		User user = userService.Login(username, password);
-		return new ResponseEntity(user.getUsername() + "has successfully logged in", HttpStatus.OK);			
+		return new ResponseEntity(user.getUsername() + " has successfully logged in", HttpStatus.OK);			
 	}
 	
 	/**
@@ -87,7 +87,9 @@ public class UserController {
 	public ResponseEntity updatePassword(@RequestBody UpdatePassword updatePassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
 	{
 		passwordService.updatePassword(
-				updatePassword.getUsername(), updatePassword.getCurrentPassword(), updatePassword.getNewPassword());
+				updatePassword.getUsername(), 
+				updatePassword.getCurrentPassword(), 
+				updatePassword.getNewPassword());
 		return new ResponseEntity("Password has been successfully updated", HttpStatus.OK);
 	}
 	

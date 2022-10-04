@@ -141,10 +141,9 @@ public class StudentDAOImpl implements StudentDAO {
 	public void payFeeDAO(int studentId, String paymentMethod) {
 		
 	   logger.info("From the payFeeDAO method");
-	   jdbcTemplateObject.jdbcTemplate().query(
+	   jdbcTemplateObject.jdbcTemplate().update(
 			SQLQueries.UPDATE_PAYMENT_BY_STUDENTID, 
-			new Object[] {1,paymentMethod,studentId},
-			new GradeMapper());	
+			new Object[] {1,paymentMethod,studentId});	
 	}	   
 	
 	/**
@@ -159,7 +158,7 @@ public class StudentDAOImpl implements StudentDAO {
 		logger.info("From the getStudentDAO method");
 		Student student = null;
 		try {
-			jdbcTemplateObject.jdbcTemplate().queryForObject(
+			student = jdbcTemplateObject.jdbcTemplate().queryForObject(
 					SQLQueries.SELECT_STUDENT_BY_STUDENTID, 
 					new Object[] {studentId},
 					new StudentMapper());
@@ -181,7 +180,7 @@ public class StudentDAOImpl implements StudentDAO {
 		logger.info("From the getStudentCourseDAO method");
 		List<Course> courses = null;
 		try {
-			jdbcTemplateObject.jdbcTemplate().query(
+			courses = jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new CourseMapper());
@@ -203,7 +202,7 @@ public class StudentDAOImpl implements StudentDAO {
 		logger.info("From the getStudentRegisteredCoursesDAO method");
 		List<RegisteredCourse> rcourses = null;
 		try {
-			jdbcTemplateObject.jdbcTemplate().query(
+			rcourses = jdbcTemplateObject.jdbcTemplate().query(
 				SQLQueries.SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID, 
 				new Object[] {studentId},
 				new RegisteredCourseMapper());
