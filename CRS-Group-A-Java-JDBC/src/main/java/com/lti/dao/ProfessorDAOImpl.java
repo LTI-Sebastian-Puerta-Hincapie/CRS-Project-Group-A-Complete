@@ -70,16 +70,16 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 	public Professor getProfessorDAO(int professorId) {
 		
 		logger.info("From the getProfessorDAO method");
-		
+		Professor professor = null;
 		try {
-		return jdbcTemplateObject.jdbcTemplate().queryForObject(
-				SQLQueries.SELECT_PROFESSOR_BY_PROFESSORID, 
-				new Object[] {professorId},
-				new ProfessorMapper());
-		}catch (Exception e) {
-		}
-		
-		return null;
+			professor = jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_PROFESSOR_BY_PROFESSORID, 
+					new Object[] {professorId},
+					new ProfessorMapper());
+		} catch (Exception e) {
+			return null;
+		}	
+		return professor;
 	
 	}
 

@@ -32,14 +32,12 @@ public class ProfessorController {
 	@Autowired
 	ProfessorServiceOperation professorServiceOperation;
 
-	@RequestMapping(produces = MediaType.APPLICATION_JSON, method = RequestMethod.GET, value = "/professors/{professorId}")
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+			method = RequestMethod.GET, value = "/professors/{professorId}")
 	@ResponseBody
-	public ResponseEntity getProfessor(@PathVariable("professorId") String professorId) throws ProfessorNotFoundException {
+	public ResponseEntity<Professor> getProfessor(@PathVariable("professorId") int professorId) throws ProfessorNotFoundException {
 		
-		Professor professor = null;
-		
-		professor = professorServiceOperation.getProfessor(Integer.parseInt(professorId));
-		
+		Professor professor = professorServiceOperation.getProfessor(professorId);	
 		return new ResponseEntity<Professor>(professor, HttpStatus.OK);
 
 	}
