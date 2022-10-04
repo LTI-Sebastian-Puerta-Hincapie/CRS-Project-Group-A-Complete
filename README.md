@@ -10,7 +10,7 @@ Documentation folder contains Project JavaDoc
 
 Note:
 
-db-schema folder contains:
+db folder contains:
 
 1) database design
 
