@@ -1,20 +1,15 @@
 package com.lti.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lti.dao.AdminDAO;
-import com.lti.dao.AdminDAOImpl;
-import com.lti.dto.Admin;
+import com.lti.dao.UserDAO;
 import com.lti.dto.Course;
-import com.lti.dto.CourseCatalog;
 import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
-import com.lti.dto.Student;
 import com.lti.dto.User;
 import com.lti.dto.Grade;
 import com.lti.exception.CourseNotFoundException;
@@ -31,9 +26,9 @@ public class AdminService implements AdminServiceOperation {
 
 	@Autowired
 	private AdminDAO admindao;
+	
 	@Autowired
-	private UserService userService; 
-
+	private UserDAO userDao;
 
 	public List<Grade> generateReportCard(int studentID) {
 		return admindao.generateReportCardDAO(studentID); 
@@ -49,7 +44,7 @@ public class AdminService implements AdminServiceOperation {
 	
 	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
 		
-		User user = userService.GetUser(semesterRegistration.getStudentId()); 
+		User user = userDao.GetUser(semesterRegistration.getStudentId()); 
 		if(user == null) {
 			
 			throw new UserNotFoundException("User doesn't exists, create an account for the user first");
