@@ -15,6 +15,7 @@ export class CourseComponentComponent implements OnInit {
   ];
 
   studentCourses:Array<Course> = new Array();
+  studentRegisteredCourses:Array<Course> = new Array();
 
   constructor() { }
 
@@ -44,8 +45,13 @@ export class CourseComponentComponent implements OnInit {
     console.log(this.studentCourses);
   }
 
-  registerCourse() {
+  registerCourse(courseId: number) {
     console.log("register course method");
+
+    // pre-condition
+    if(this.studentRegisteredCourses.find(x => x.getCourseId() == courseId) != undefined) return;
+
+    this.studentRegisteredCourses.push(this.studentCourses.filter(x => x.getCourseId() == courseId)[0]);
   }
 
   makePayment() {

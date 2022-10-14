@@ -1,0 +1,28 @@
+.student-body {
+    padding: 5em;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 30% 45% 25%;
+}
+
+.courses-container {
+    grid-column: 1;
+    padding: 2em;
+}
+
+.student-added-courses-container {
+    grid-column: 2;
+    padding: 2em;
+}
+
+.card {
+    display: block;
+    margin-top: 0.25em;
+}
+
+.student-registered-courses-container {
+    grid-column: 3;
+    padding: 2em;
+}
