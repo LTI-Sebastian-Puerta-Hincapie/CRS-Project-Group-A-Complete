@@ -1,1 +1,35 @@
-<p>course-component works!</p>
+<div class="student-body">
+    <h1> Hello Student </h1><br>
+    <div class="main-container" style="display: grid;">
+        <h2> COURSES: </h2><br>
+        <div class="courses-container">
+            <ul style="list-style-type: none;">
+                <li *ngFor="let course of courses">
+                    <div class="card" style="display: block; padding: 0.5em; font-weight: bold;">
+                        {{course.getCourseName() | uppercase}} 
+                        <button type="button" class="btn btn-success" 
+                            style= "margin: 1em;" 
+                            (click)="addCourse(course.getCourseId())">
+                            Add (+)
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div><br>
+        <div class="student-courses-container">
+            <h2> CART: </h2>
+            <ul style="list-style-type: none;">
+                <li *ngFor="let course of studentCourses">
+                    <div class="card" style="display: block; padding: 0.5em; font-weight: bold;">
+                        {{course.getCourseName() | uppercase}} 
+                        <button type="button" class="btn btn-danger" 
+                            style= "margin: 1em;" 
+                            (click)="dropCourse(course.getCourseId())">
+                            Drop (-)
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div><br>
+    </div>
+</div>
