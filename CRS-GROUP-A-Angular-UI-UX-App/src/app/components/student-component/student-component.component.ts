@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from 'src/app/models/course';
 
 @Component({
   selector: 'app-student-component',
@@ -7,17 +8,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentComponentComponent implements OnInit {
 
+  courses:Array<Course> = [
+    new Course(1, "Biology 1", "Biology"),
+    new Course(2, "Biology 2", "Biology"),
+    new Course(3, "Biology 3", "Biology")
+  ];
+
+  studentCourses:Array<Course> = new Array();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  addCourse() {
+  addCourse(courseId: number) {
     console.log("add course method");
+
+    // pre-condition
+    if(this.studentCourses.find(x => x.getCourseId() == courseId) != undefined) return;
+
+    this.studentCourses.push(this.courses.filter(x => x.getCourseId() == courseId)[0]);
   }
 
-  dropCourse() {
+  dropCourse(courseId: number) {
     console.log("drop course method");
+    
+    // pre-condition
+    if(this.studentCourses.find(x => x.getCourseId() == courseId) == undefined) return;
+
+    let element = this.courses.filter(x => x.getCourseId() == courseId)[0];
+    let index = this.courses.indexOf(element, 0);
+    this.studentCourses.splice(index, 1);
+    // delete this.studentCourses[index];
+    
+    console.log(this.studentCourses);
   }
 
   registerCourse() {

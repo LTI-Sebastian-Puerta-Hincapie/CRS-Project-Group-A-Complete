@@ -1,1 +1,32 @@
-<p>student-component works!</p>
+<h1> Hello Student </h1><br>
+<h2> AVAILABLE COURSES: </h2><br>
+<div>
+    <ul style="list-style-type: none;">
+        <li *ngFor="let course of courses">
+            <div class="card" style="display: block; padding: 0.5em; font-weight: bold;">
+                {{course.getCourseName() | uppercase}} 
+                <button type="button" class="btn btn-success" 
+                    style= "margin: 1em;" 
+                    (click)="addCourse(course.getCourseId())">
+                    Add (+)
+                </button>
+            </div>
+        </li>
+    </ul>
+</div><br>
+
+<h2> Added Courses </h2>
+<div>
+    <ul style="list-style-type: none;">
+        <li *ngFor="let course of studentCourses">
+            <div class="card" style="display: block; padding: 0.5em; font-weight: bold;">
+                {{course.getCourseName() | uppercase}} 
+                <button type="button" class="btn btn-danger" 
+                    style= "margin: 1em;" 
+                    (click)="dropCourse(course.getCourseId())">
+                    Drop (-)
+                </button>
+            </div>
+        </li>
+    </ul>
+</div><br>

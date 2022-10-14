@@ -1,4 +1,4 @@
-export class Course{
+export class Course {
 	
 	private courseId: number;
 	private courseName: string;
