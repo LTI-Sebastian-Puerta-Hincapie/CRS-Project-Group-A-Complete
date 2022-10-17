@@ -9,6 +9,7 @@ import { UpdatePasswordComponentComponent } from './components/update-password-c
 import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
 import { SemesterRegistrationComponentComponent } from './components/semester-registration-component/semester-registration-component.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { SemesterRegistrationComponentComponent } from './components/semester-re
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

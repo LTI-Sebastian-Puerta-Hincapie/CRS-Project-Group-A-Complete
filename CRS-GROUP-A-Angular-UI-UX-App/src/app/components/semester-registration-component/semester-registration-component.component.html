@@ -11,11 +11,18 @@
         </div>
         <div class="mb-3 mt-3">
             <label for="studentId" class="form-label">Student ID:</label>
-            <input type="studentId" class="form-control" id="studentId" placeholder="Enter Student ID" name="studentId">
+            <input 
+                type="studentId" 
+                class="form-control" 
+                id="studentId" 
+                placeholder="Enter Student ID" 
+                name="studentId" 
+                [(ngModel)]="studentId">
+
+            <a type="submit" class="button" (click)="semesterRegistration(studentId)">
+                Create Registration
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </a>
         </div>
-        <a type="submit" class="button" href="">
-            Create Registration
-            <i class="fa-solid fa-right-to-bracket"></i>
-        </a>
     </form>
 </div>
