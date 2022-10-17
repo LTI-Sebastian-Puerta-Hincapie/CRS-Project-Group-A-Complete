@@ -1,44 +1,45 @@
-.container-students-complete {
+.container-student-complete {
     display: grid;
-    grid-template-rows: 10% 10% 30% 10% 30%;
+    grid-template-rows: auto;
     padding: 5em;
 }
 
-.container-login
-{
+.container-welcome {
     grid-row: 1;
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.6);
+}
+
+.container-login {
+    grid-row: 2;
     padding: 1em;
     margin-top: 2em;
     background-color: rgb(28, 19, 156, 0.5);
 }
 
-.container-update-password
-{
-    grid-row: 2;
+.container-update-password {
+    grid-row: 3;
     padding: 1em;
     margin-top: 2em;
     background-color: rgba(81, 72, 206, 0.4);
 }
 
-.container-courses
-{
-    grid-row: 3;
+.container-courses {
+    grid-row: 4;
     padding: 1em;
     margin-top: 2em;
     background-color: rgba(81, 72, 206, 0.3);
 }
 
-.container-payment
-{
-    grid-row: 4;
+.container-payment {
+    grid-row: 5;
     padding: 1em;
     margin-top: 2em;
     background-color: rgba(81, 72, 206, 0.2);
 }
 
-.container-student-view
-{
-    grid-row: 5;
+.container-student-view{
+    grid-row: 6;
     padding: 1em;
     margin-top: 2em;
     background-color: rgba(81, 72, 206, 0.1);

@@ -3,6 +3,25 @@
 @import url("https://fonts.googleapis.com/css?family=Playfair+Display");
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
+:root {
+
+    --default-font-family: "Playfair Display";
+
+    --primary-color: rgb(28, 74, 172);
+    --primary-color-dark: darkblue;
+    --primary-background-color: rgb(108, 184, 255);
+    --secondary-color: rgb(95, 164, 233);
+    --side-pane-background-color:rgba(203, 203, 209, 0.90);
+    --home-pane-background-color: rgba(166, 166, 179, 0.85);
+    --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 .button,
 .button:visited {
     display: inline-block;
