@@ -3,16 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentComponentComponent } from './components/student-component/student-component.component';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { CourseComponentComponent } from './components/course-component/course-component.component';
+import { UpdatePasswordComponentComponent } from './components/update-password-component/update-password-component.component';
+import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
+import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentComponentComponent,
     LoginComponentComponent,
-    CourseComponentComponent
+    CourseComponentComponent,
+    UpdatePasswordComponentComponent,
+    PaymentComponentComponent,
+    StudentViewComponentComponent
   ],
   imports: [
     BrowserModule,
