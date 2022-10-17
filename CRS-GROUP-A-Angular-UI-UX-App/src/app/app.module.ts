@@ -8,6 +8,7 @@ import { CourseComponentComponent } from './components/course-component/course-c
 import { UpdatePasswordComponentComponent } from './components/update-password-component/update-password-component.component';
 import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
+import { SemesterRegistrationComponentComponent } from './components/semester-registration-component/semester-registration-component.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { StudentViewComponentComponent } from './components/student-view-compone
     CourseComponentComponent,
     UpdatePasswordComponentComponent,
     PaymentComponentComponent,
-    StudentViewComponentComponent
+    StudentViewComponentComponent,
+    SemesterRegistrationComponentComponent
   ],
   imports: [
     BrowserModule,
