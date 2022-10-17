@@ -28,21 +28,38 @@ export class CourseComponentComponent implements OnInit {
     // pre-condition
     if(this.studentCourses.find(x => x.getCourseId() == courseId) != undefined) return;
 
-    this.studentCourses.push(this.courses.filter(x => x.getCourseId() == courseId)[0]);
+    let element = this.courses.find(x => x.getCourseId() == courseId);
+    if(element != undefined) {
+      this.studentCourses.push(element);
+    }
+
+    console.log(this.studentCourses);
   }
 
   dropCourse(courseId: number) {
     console.log("drop course method");
     
     // pre-condition
-    if(this.studentCourses.find(x => x.getCourseId() == courseId) == undefined) return;
+    if(this.studentCourses.find(x => x.getCourseId() == courseId) == undefined) 
+    {
+      return;
+    }
 
-    let element = this.courses.filter(x => x.getCourseId() == courseId)[0];
-    let index = this.courses.indexOf(element, 0);
-    this.studentCourses.splice(index, 1);
-    // delete this.studentCourses[index];
-    
+    let element = this.courses.find(x => x.getCourseId() == courseId);
+    if(element != undefined) {
+
+      // added courses
+      let index = this.studentCourses.indexOf(element, 0);
+      this.studentCourses.splice(index, 1);
+
+      // registered courses
+      let index2 = this.studentRegisteredCourses.indexOf(element, 0);
+      this.studentRegisteredCourses.splice(index2, 1);
+    }
+
+
     console.log(this.studentCourses);
+    console.log(this.studentRegisteredCourses);
   }
 
   registerCourse(courseId: number) {
@@ -51,7 +68,12 @@ export class CourseComponentComponent implements OnInit {
     // pre-condition
     if(this.studentRegisteredCourses.find(x => x.getCourseId() == courseId) != undefined) return;
 
-    this.studentRegisteredCourses.push(this.studentCourses.filter(x => x.getCourseId() == courseId)[0]);
+    let element = this.studentCourses.find(x => x.getCourseId() == courseId);
+    if(element != undefined) {
+      this.studentRegisteredCourses.push(element);
+    }
+
+    console.log(this.studentRegisteredCourses);
   }
 
   makePayment() {
