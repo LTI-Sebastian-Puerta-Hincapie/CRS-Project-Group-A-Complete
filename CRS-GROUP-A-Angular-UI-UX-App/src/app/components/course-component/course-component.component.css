@@ -1,6 +1,17 @@
+.courses-view {
+    margin: 0 auto;
+    max-width: 80rem;
+    min-width: 30rem;
+}
+
+.courses-component {
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
 .main-container {
     display: grid;
-    grid-template-columns: 30% 45% 25%;
+    grid-template-columns: 30% 40% 30%;
 }
 
 .courses-container {
@@ -13,12 +24,12 @@
     padding: 2em;
 }
 
-.card {
-    display: block;
-    margin-top: 0.25em;
-}
-
 .student-registered-courses-container {
     grid-column: 3;
     padding: 2em;
+}
+
+.card {
+    display: block;
+    margin-top: 0.25em;
 }
