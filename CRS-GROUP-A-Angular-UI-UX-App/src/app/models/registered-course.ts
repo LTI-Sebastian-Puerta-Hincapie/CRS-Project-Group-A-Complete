@@ -1,63 +1,46 @@
 export class RegisteredCourse {
 	
-	private CourseId: number;
-	private StudentId: number;
-	private RegisteredStatus: number;
-	private Grade: string;
+	private courseId: number;
+	private studentId: number;
+	private registeredStatus: number;
+	private grade: string;
 	
 	constructor(courseId: number, studentId: number, registeredStatus: number, grade: string) {
-		this.CourseId = courseId;
-		this.StudentId = studentId;
-		this.RegisteredStatus = registeredStatus;
-		this.Grade = grade;
+		this.courseId = courseId;
+		this.studentId = studentId;
+		this.registeredStatus = registeredStatus;
+		this.grade = grade;
 	}
 	
-	/**
-	 * @return the courseId
-	 */
 	getCourseId(): number {
-		return this.CourseId;
+		return this.courseId;
 	}
-	/**
-	 * @param courseId the courseId to set
-	 */
+
 	setCourseId(courseId: number) {
-		this.CourseId = courseId;
+		this.courseId = courseId;
 	}
-	/**
-	 * @return the studentId
-	 */
+
 	getStudentId(): number {
-		return this.StudentId;
+		return this.studentId;
 	}
-	/**
-	 * @param studentId the studentId to set
-	 */
+
 	setStudentId(studentId: number) {
-		this.StudentId = studentId;
+		this.studentId = studentId;
 	}
-	/**
-	 * @return the registeredStatus
-	 */
+
 	getRegisteredStatus(): number {
-		return this.RegisteredStatus;
+		return this.registeredStatus;
 	}
-	/**
-	 * @param registeredStatus the registeredStatus to set
-	 */
+
 	setRegisteredStatus(registeredStatus: number) {
-		this.RegisteredStatus = registeredStatus;
+		this.registeredStatus = registeredStatus;
 	}
-	/**
-	 * @return the grade
-	 */
+
 	getGrade(): string {
-		return this.Grade;
+		return this.grade;
 	}
-	/**
-	 * @param grade the grade to set
-	 */
+
 	setGrade(grade: string) {
-		this.Grade = grade;
+		this.grade = grade;
 	}	
 }

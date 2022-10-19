@@ -23,6 +23,12 @@ constructor(private httpClient:HttpClient) { }
     return this.httpClient.get(uri, {headers:this.headers});
   }
 
+  getCourse(courseId:number):Observable<any> {
+    console.log("Get course service method");
+    let uri:string = "http://localhost:7003/courses/" + courseId; 
+    return this.httpClient.get(uri, {headers:this.headers});
+  }
+
   getRegisteredCourses():Observable<any> {
     console.log("Get registered courses service method");
     let uri:string = "http://localhost:7005/registeredcourses"; 
@@ -39,14 +45,14 @@ constructor(private httpClient:HttpClient) { }
   // PUT
   updateRegisteredCourse(course:RegisteredCourse):Observable<any> {
     console.log("Update registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses/update/" + course.getStudentId() + "/" + course.getCourseId();
+    let uri:string = "http://localhost:7005/registeredcourses/update/" + course.getStudentId();
     return this.httpClient.put<any>(uri, course);
   }
 
   // DELETE
   deleteRegisteredCourse(course:RegisteredCourse):Observable<any> {
     console.log("Delete registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses/delete/" + course.getStudentId() + "/" + course.getCourseId();
+    let uri:string = "http://localhost:7005/registeredcourses/delete/" + course.getStudentId();
     return this.httpClient.delete<any>(uri, {headers:this.headers});
   }
 }

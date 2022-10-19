@@ -19,10 +19,10 @@ export class CourseComponentComponent implements OnInit {
 
   studentCourses:Array<Course> = new Array();
   studentRegisteredCourses:Array<Course> = new Array();
-  viewRegisteredCoursesData:Array<string> = new Array();
 
-  coursesData:any;
-  registeredCoursesData:any;
+  getCourseData:any;  
+  getCoursesData:any;
+  getAddedCoursesData:any; 
 
   constructor(private _httpService:CourseServiceService) { }
 
@@ -90,17 +90,27 @@ export class CourseComponentComponent implements OnInit {
 
     this._httpService.getCourses().subscribe((res:any[]) => {
       console.log(res);
-      this.coursesData=res;
+      this.getCoursesData=res;
     })
   }
 
-  getRegisteredCourses() {
+  getCourse(courseId:number) {
 
-    console.log("Get registered courses method");
+    console.log("Get course method");
+
+    this._httpService.getCourse(courseId).subscribe((res:any[]) => {
+      console.log(res);
+      this.getCourseData=res;
+    })
+  }
+
+  getAddedCourses() {
+
+    console.log("Get added courses method");
 
     this._httpService.getRegisteredCourses().subscribe((res:any[]) => {
       console.log(res);
-      this.registeredCoursesData=res;
+      this.getAddedCoursesData=res;
     })
   }
 
@@ -109,6 +119,7 @@ export class CourseComponentComponent implements OnInit {
     console.log("Calling create registered course method");
     
     let registeredCourse = new RegisteredCourse(courseId, 100, 0, "");
+
     this._httpService.createRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
@@ -123,7 +134,6 @@ export class CourseComponentComponent implements OnInit {
       console.log(res);
     })
   }
-
   
   deleteRegisteredCourse(courseId:number) {
 
