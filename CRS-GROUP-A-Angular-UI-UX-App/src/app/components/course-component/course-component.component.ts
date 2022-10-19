@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from 'src/app/models/course';
+import { RegisteredCourse } from 'src/app/models/registered-course';
+import { CourseServiceService } from 'src/app/services/course-service.service';
 
 @Component({
   selector: 'app-course-component',
@@ -8,6 +10,7 @@ import { Course } from 'src/app/models/course';
 })
 export class CourseComponentComponent implements OnInit {
 
+  // in memory data - demo purposes
   courses:Array<Course> = [
     new Course(1, "Biology 1", "Biology"),
     new Course(2, "Biology 2", "Biology"),
@@ -17,7 +20,9 @@ export class CourseComponentComponent implements OnInit {
   studentCourses:Array<Course> = new Array();
   studentRegisteredCourses:Array<Course> = new Array();
 
-  constructor() { }
+  getData:any;
+
+  constructor(private _httpService:CourseServiceService) { }
 
   ngOnInit(): void {
   }
@@ -76,19 +81,42 @@ export class CourseComponentComponent implements OnInit {
     console.log(this.studentRegisteredCourses);
   }
 
-  makePayment() {
-    console.log("make payment method");
+  // service methods
+  getRegisteredCourses() {
+
+    console.log("Get registered courses method");
+
+    this._httpService.getRegisteredCourses().subscribe((res:any[]) => {
+      console.log(res);
+      this.getData=res;
+    })
   }
 
-  viewStudent() {
-    console.log("view student method");
+  public createSemesterRegistration(registeredCourse:RegisteredCourse) {
+
+    console.log("Calling create registered course method");
+    
+    this._httpService.createRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+      console.log(res);
+    })
   }
 
-  viewAddedCourses() {
-    console.log("view added courses method");
+  public updateSemesterRegistration(registeredCourse:RegisteredCourse) {
+
+    console.log("Calling update registered course method");
+
+    this._httpService.updateRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+      console.log(res);
+    })
   }
 
-  viewRegisteredCourses() {
-    console.log("view registered courses method");
+  
+  deleteSemesterRegistration(registeredCourse:RegisteredCourse){
+
+    console.log("Calling delete registered course method");
+
+    this._httpService.deleteRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+      console.log(res);
+    })
   }
 }

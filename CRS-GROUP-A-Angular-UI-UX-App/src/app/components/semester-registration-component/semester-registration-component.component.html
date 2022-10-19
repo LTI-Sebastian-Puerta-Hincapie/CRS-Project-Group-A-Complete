@@ -2,6 +2,7 @@
     <div class="semester-registration-component">
         <h2 style="text-align: center;">SEMESTER REGISTRATION</h2>
         <form class="semesterRegistrationForm">
+            <h3>Add Registration</h3>
             <div class="mb-3 mt-3">
                 <label for="username" class="form-label">Admin Username:</label>
                 <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
@@ -20,8 +21,34 @@
                     name="studentId" 
                     [(ngModel)]="studentId"><br>
     
-                <a type="submit" class="button" (click)="semesterRegistration(studentId)">
+                <a type="submit" class="button" (click)="createSemesterRegistration(studentId)">
                     Create Registration
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
+            </div>
+        </form><br>
+        <form class="semesterRegistrationForm">
+            <h3>Approve Registration</h3>
+            <div class="mb-3 mt-3">
+                <label for="username" class="form-label">Admin Username:</label>
+                <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Admin Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter current password" name="password">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="studentId" class="form-label">Student ID:</label>
+                <input 
+                    type="studentId" 
+                    class="form-control" 
+                    id="studentId" 
+                    placeholder="Enter Student ID" 
+                    name="studentId" 
+                    [(ngModel)]="studentId"><br>
+    
+                <a type="submit" class="button" (click)="updateSemesterRegistration(studentId)">
+                    Update Registration
                     <i class="fa-solid fa-right-to-bracket"></i>
                 </a>
             </div>

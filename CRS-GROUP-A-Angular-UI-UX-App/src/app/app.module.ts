@@ -10,6 +10,7 @@ import { PaymentComponentComponent } from './components/payment-component/paymen
 import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
 import { SemesterRegistrationComponentComponent } from './components/semester-registration-component/semester-registration-component.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

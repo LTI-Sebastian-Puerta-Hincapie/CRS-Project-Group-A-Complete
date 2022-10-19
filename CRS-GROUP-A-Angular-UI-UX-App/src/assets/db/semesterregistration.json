@@ -1,3 +1,12 @@
 {
-    "semesterregistration": []
-  }
+  "semesterregistration": [
+    {
+      "registrationId": 1,
+      "studentId": "1",
+      "adminId": 1,
+      "approvalStatus": 1,
+      "comments": "Appoved",
+      "id": 1
+    }
+  ]
+}
