@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SemesterRegistration } from 'src/app/models/semester-registration';
 import { User } from 'src/app/models/user';
 
@@ -12,12 +12,6 @@ export class SemesterRegistrationComponentComponent implements OnInit {
   studentId = 0;
   userName = "";
   password = "";
-
-  public users:Array<User> = [
-    new User(1, "admin", "test", 1),    //admin
-    new User(10, "rwu", "welcome", 2),   // professor
-    new User(1000, "tparker", "welcome", 3) // student
-];
 
   semesterRegistrationList:Array<SemesterRegistration> = [
     new SemesterRegistration(10, 1, 0, "Pending Approval"),
