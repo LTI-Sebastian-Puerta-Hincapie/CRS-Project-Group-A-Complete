@@ -4,13 +4,18 @@
         <div class="main-container">
             <div class="courses-container">
                 <h4> COURSES: </h4><br>
-                <ul style="list-style-type: none;">
-                    <li *ngFor="let course of courses">
+                <button type="button" class="btn btn-success" 
+                    style= "margin: 1em;" 
+                    (click)="getCourses()">
+                    View Available Courses
+                </button>
+                    <ul style="list-style-type: none;">
+                    <li *ngFor="let course of coursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.getCourseName() | uppercase}} 
+                            {{course.courseName | uppercase}} 
                             <button type="button" class="btn btn-success" 
                                 style= "margin: 1em;" 
-                                (click)="addCourse(course.getCourseId())">
+                                (click)="createRegisteredCourse(course.courseId)">
                                 Add (+)
                             </button>
                         </div>
@@ -19,18 +24,23 @@
             </div>
             <div class="student-added-courses-container">
                 <h4> ADDED COURSES: </h4><br>
+                <button type="button" class="btn btn-success" 
+                    style= "margin: 1em;" 
+                    (click)="getRegisteredCourses()">
+                    View Registered ourses
+                </button>
                 <ul style="list-style-type: none;">
-                    <li *ngFor="let course of studentCourses">
+                    <li *ngFor="let course of registeredCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.getCourseName() | uppercase}} 
+                            {{course.courseName | uppercase}} 
                         <button type="button" class="btn btn-warning" 
                             style= "margin: 1em;" 
-                            (click)="registerCourse(course.getCourseId())">
+                            (click)="updateRegisteredCourse(course.courseId)">
                             Register
                         </button>
                             <button type="button" class="btn btn-danger" 
                                 style= "margin: 1em;" 
-                                (click)="dropCourse(course.getCourseId())">
+                                (click)="deleteRegisteredCourse(course.courseId)">
                                 Drop
                             </button>
                         </div>

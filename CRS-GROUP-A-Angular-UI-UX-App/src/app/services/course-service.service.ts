@@ -17,8 +17,14 @@ constructor(private httpClient:HttpClient) { }
 
   // USER SERVICE METHODS
   // GET 
+  getCourses():Observable<any> {
+    console.log("Get courses service method");
+    let uri:string = "http://localhost:7003/courses"; 
+    return this.httpClient.get(uri, {headers:this.headers});
+  }
+
   getRegisteredCourses():Observable<any> {
-    console.log("Get semester registartion servie method");
+    console.log("Get registered courses service method");
     let uri:string = "http://localhost:7005/registeredcourses"; 
     return this.httpClient.get(uri, {headers:this.headers});
   }

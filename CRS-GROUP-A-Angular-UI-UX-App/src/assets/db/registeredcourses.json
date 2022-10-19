@@ -1,3 +1,18 @@
 {
-    "registeredcourses": []
-  }
+  "registeredcourses": [
+    {
+      "CourseId": "201",
+      "StudentId": 100,
+      "RegisteredStatus": 0,
+      "Grade": "",
+      "id": 1
+    },
+    {
+      "CourseId": "201",
+      "StudentId": 100,
+      "RegisteredStatus": 0,
+      "Grade": "",
+      "id": 2
+    }
+  ]
+}

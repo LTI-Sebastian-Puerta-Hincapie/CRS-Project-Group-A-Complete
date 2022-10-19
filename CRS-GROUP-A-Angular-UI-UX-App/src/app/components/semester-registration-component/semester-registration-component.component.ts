@@ -94,7 +94,7 @@ export class SemesterRegistrationComponentComponent implements OnInit {
 
     console.log("Calling update semester registration method");
 
-    let semesterRegistration = new SemesterRegistration(studentId, 1, 1, "Appoved");
+    let semesterRegistration = new SemesterRegistration(studentId, 1, 1, "Approved");
     this._httpService.updateSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
       console.log(res);
     })

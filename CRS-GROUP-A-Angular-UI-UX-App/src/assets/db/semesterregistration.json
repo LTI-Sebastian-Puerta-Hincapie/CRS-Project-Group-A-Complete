@@ -5,8 +5,16 @@
       "studentId": "1",
       "adminId": 1,
       "approvalStatus": 1,
-      "comments": "Appoved",
+      "comments": "Approved",
       "id": 1
+    },
+    {
+      "registrationId": 1,
+      "studentId": "2",
+      "adminId": 1,
+      "approvalStatus": 1,
+      "comments": "Approved",
+      "id": 2
     }
   ]
 }

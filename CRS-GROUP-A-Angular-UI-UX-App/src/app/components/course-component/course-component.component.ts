@@ -19,8 +19,10 @@ export class CourseComponentComponent implements OnInit {
 
   studentCourses:Array<Course> = new Array();
   studentRegisteredCourses:Array<Course> = new Array();
+  viewRegisteredCoursesData:Array<string> = new Array();
 
-  getData:any;
+  coursesData:any;
+  registeredCoursesData:any;
 
   constructor(private _httpService:CourseServiceService) { }
 
@@ -82,39 +84,52 @@ export class CourseComponentComponent implements OnInit {
   }
 
   // service methods
+  getCourses() {
+
+    console.log("Get courses method");
+
+    this._httpService.getCourses().subscribe((res:any[]) => {
+      console.log(res);
+      this.coursesData=res;
+    })
+  }
+
   getRegisteredCourses() {
 
     console.log("Get registered courses method");
 
     this._httpService.getRegisteredCourses().subscribe((res:any[]) => {
       console.log(res);
-      this.getData=res;
+      this.registeredCoursesData=res;
     })
   }
 
-  public createSemesterRegistration(registeredCourse:RegisteredCourse) {
+  public createRegisteredCourse(courseId:number) {
 
     console.log("Calling create registered course method");
     
+    let registeredCourse = new RegisteredCourse(courseId, 100, 0, "");
     this._httpService.createRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
 
-  public updateSemesterRegistration(registeredCourse:RegisteredCourse) {
+  public updateRegisteredCourse(courseId:number) {
 
     console.log("Calling update registered course method");
 
+    let registeredCourse = new RegisteredCourse(courseId, 100, 1, "");
     this._httpService.updateRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
 
   
-  deleteSemesterRegistration(registeredCourse:RegisteredCourse){
+  deleteRegisteredCourse(courseId:number) {
 
     console.log("Calling delete registered course method");
 
+    let registeredCourse = new RegisteredCourse(courseId, 100, 0, "");
     this._httpService.deleteRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
