@@ -1,0 +1,7 @@
+{
+    "/courses": "/courses",
+    "/courses/get/:id": "/courses/:id",
+    "/courses/create": "/courses",
+    "/courses/update/:id": "/courses/:id",
+    "/courses/delete/:id": "/courses/:id"
+}
