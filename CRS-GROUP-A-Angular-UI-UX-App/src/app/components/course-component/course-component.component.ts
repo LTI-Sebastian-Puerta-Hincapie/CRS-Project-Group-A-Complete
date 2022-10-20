@@ -129,7 +129,8 @@ export class CourseComponentComponent implements OnInit {
     
     let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, 0, "");
 
-    this._httpService.createRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+    this._httpService.createRegisteredCourse(registeredCourse)
+        .subscribe((res:any[]) => {
       console.log(res);
     })
   }

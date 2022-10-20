@@ -40,7 +40,8 @@ constructor(private httpClient:HttpClient) { }
   // POST
   createRegisteredCourse(course:RegisteredCourse):Observable<any> {
     console.log("Create registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses/create";
+    // let uri:string = "http://localhost:7005/registeredcourses/create";
+    let uri:string = "http://localhost:8092/student/addcourse";
     return this.httpClient.post<any>(uri, course);
   }
 
