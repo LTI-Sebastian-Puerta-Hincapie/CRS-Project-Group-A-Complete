@@ -102,6 +102,14 @@ public interface StudentServiceOperation {
 	 */
 	public List<RegisteredCourse> getStudentRegisteredCourses(int studentId) throws CourseNotRegisteredException;
 	
+	
+	/**
+	 * This method gets all registered courses
+	 * @exception CourseNotRegisteredException is thrown when a course has not been registered
+	 * @return List<RegisteredCourse> returns a list of registered courses
+	 */
+	public List<RegisteredCourse> getRegisteredCourses() throws CourseNotRegisteredException;
+	
 	/**
 	 * This method add payment data (amount, due date, semester, etc.) to the system
 	 * @param studentId of type integer

@@ -2,6 +2,7 @@
     "/registeredcourses": "/registeredcourses",
     "/registeredcourses/get/:id": "/registeredcourses/:id",
     "/registeredcourses/create": "/registeredcourses",
-    "/registeredcourses/update/:studentId": "/registeredcourses/:studentId",
-    "/registeredcourses/delete/:studentId": "/registeredcourses/:studentId"
+    "/registeredcourses/update/:id": "/registeredcourses/:id",
+    "/registeredcourses/delete/:id": "/registeredcourses/:id"
+    
 }

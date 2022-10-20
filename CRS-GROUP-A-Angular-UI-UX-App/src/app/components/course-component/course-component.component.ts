@@ -23,11 +23,11 @@ export class CourseComponentComponent implements OnInit {
   getCourseData:any;  
   getCoursesData:any;
   getAddedCoursesData:any; 
+  getRegisteredCoursesData:any;
 
   constructor(private _httpService:CourseServiceService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addCourse(courseId: number) {
     console.log("add course method");
@@ -114,33 +114,41 @@ export class CourseComponentComponent implements OnInit {
     })
   }
 
-  public createRegisteredCourse(courseId:number) {
+  getRegisteredCourses() {
+     console.log("Get registered courses method");
+
+     this.getAddedCourses();
+     
+     this.getRegisteredCoursesData = this.getAddedCoursesData
+      .filter((x: { registeredStatus: number; }) => x.registeredStatus == 1);
+  }
+
+  public createRegisteredCourse(course:any) {
 
     console.log("Calling create registered course method");
     
-    let registeredCourse = new RegisteredCourse(courseId, 100, 0, "");
+    let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, 0, "");
 
     this._httpService.createRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
 
-  public updateRegisteredCourse(courseId:number) {
+  public updateRegisteredCourse(course:any, status:number) {
 
     console.log("Calling update registered course method");
 
-    let registeredCourse = new RegisteredCourse(courseId, 100, 1, "");
-    this._httpService.updateRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+    let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, status, "");
+    this._httpService.updateRegisteredCourse(course.id, registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
   
-  deleteRegisteredCourse(courseId:number) {
+  deleteRegisteredCourse(course:any) {
 
     console.log("Calling delete registered course method");
 
-    let registeredCourse = new RegisteredCourse(courseId, 100, 0, "");
-    this._httpService.deleteRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
+    this._httpService.deleteRegisteredCourse(course.id).subscribe((res:any[]) => {
       console.log(res);
     })
   }

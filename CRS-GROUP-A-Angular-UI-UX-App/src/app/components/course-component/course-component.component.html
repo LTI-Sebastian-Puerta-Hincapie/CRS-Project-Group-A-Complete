@@ -15,7 +15,7 @@
                             {{course.courseName| uppercase}} 
                             <button type="button" class="btn btn-success" 
                                 style= "margin: 1em;" 
-                                (click)="createRegisteredCourse(course.courseId)">
+                                (click)="createRegisteredCourse(course)">
                                 Add (+)
                             </button>
                         </div>
@@ -32,41 +32,42 @@
                 <ul style="list-style-type: none;">
                     <li *ngFor="let course of getAddedCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseId}} 
-                        <button type="button" class="btn btn-warning" 
-                            style= "margin: 1em;" 
-                            (click)="updateRegisteredCourse(course.courseId)">
-                            Register
-                        </button>
-                        <button type="button" class="btn btn-danger" 
-                            style= "margin: 1em;" 
-                            (click)="deleteRegisteredCourse(course.courseId)">
-                            Drop
-                        </button>
+                            {{course.courseName}} 
+                            <button type="button" class="btn btn-warning" 
+                                style= "margin: 1em;" 
+                                (click)="updateRegisteredCourse(course, 1)">
+                                Register
+                            </button>
+                            <button type="button" class="btn btn-danger" 
+                                style= "margin: 1em;" 
+                                (click)="deleteRegisteredCourse(course)">
+                                Drop
+                            </button>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="student-registered-courses-container">
                 <h4> REGISTERED COURSES: </h4><br>
+                <button type="button" class="btn btn-primary" 
+                    style= "margin: 1em;" 
+                    (click)="getRegisteredCourses()">
+                    View Registered Courses
+                </button>
                 <ul style="list-style-type: none;">
-                    <li *ngFor="let course of getAddedCoursesData">
+                    <li *ngFor="let course of getRegisteredCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseId}} 
+                            {{course.courseName}} 
+                            <button type="button" class="btn btn-danger" 
+                                style= "margin: 1em;" 
+                                (click)="updateRegisteredCourse(course, 0)">
+                                Unregister
+                            </button>
                         </div>
-                        <!-- <button type="button" class="btn btn-danger" 
-                            style= "margin: 1em;" 
-                            (click)="deleteRegisteredCourse(course.getCourseId())">
-                            Remove
-                        </button> -->
                     </li>
                 </ul>
             </div>
         </div>
-        <a type="submit" class="button" href="">
-            Submit
-            <i class="fa-solid fa-right-to-bracket"></i>
-        </a>
     </div>
     
 </div>

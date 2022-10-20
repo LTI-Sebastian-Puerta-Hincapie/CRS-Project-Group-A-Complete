@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ import com.lti.exception.StudentPaymentRecordNotFoundException;
 import com.lti.service.StudentService;
 
 @RestController
+@CrossOrigin
 public class StudentController {
 	
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
@@ -160,6 +162,22 @@ public class StudentController {
 		    logger.info("From the getStudentRegisteredCourses controller method");
 			return new ResponseEntity<List<RegisteredCourse>>(studentService.getStudentRegisteredCourses(studentId), HttpStatus.OK);
 		}
+	
+	/**
+	 * This controller method gets a list of registered courses for a specific student
+	 * @param studentId of type int 
+	 * @return ResponseEntity<List<RegisteredCourse>> returns a status with a list of registered courses
+	 */
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.GET,
+		    value = "/registeredcourses")
+	@ResponseBody
+		public ResponseEntity<List<RegisteredCourse>> getRegisteredCourses(){
+			
+		    logger.info("From the getStudentRegisteredCourses controller method");
+			return new ResponseEntity<List<RegisteredCourse>>(studentService.getRegisteredCourses(), HttpStatus.OK);
+		}
+		
 		
 	/**
 	 * This controller method gets payment due for a specific student

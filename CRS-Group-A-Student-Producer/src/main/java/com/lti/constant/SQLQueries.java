@@ -35,6 +35,8 @@ public class SQLQueries {
 	public static final String SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID = 
 			"SELECT * FROM registeredcourse WHERE StudentId = ? AND RegistrationStatus = 1";
 	
+	public static final String SELECT_REGISTERED_COURSES = "SELECT * FROM registeredcourse";
+	
 	public static final String DELETE_PAYMENT_FOR_STUDENT_COURSES = "DELETE FROM payment WHERE StudentId = ?";
 	
 	public static final String INSERT_PAYMENT_FOR_STUDENT_COURSES = 

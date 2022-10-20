@@ -1,12 +1,14 @@
 export class RegisteredCourse {
 	
 	private courseId: number;
+	private courseName:string;
 	private studentId: number;
 	private registeredStatus: number;
 	private grade: string;
 	
-	constructor(courseId: number, studentId: number, registeredStatus: number, grade: string) {
+	constructor(courseId: number, courseName:string, studentId: number, registeredStatus: number, grade: string) {
 		this.courseId = courseId;
+		this.courseName = courseName;
 		this.studentId = studentId;
 		this.registeredStatus = registeredStatus;
 		this.grade = grade;
@@ -18,6 +20,14 @@ export class RegisteredCourse {
 
 	setCourseId(courseId: number) {
 		this.courseId = courseId;
+	}
+
+	getCourseName(): string {
+		return this.courseName;
+	}
+
+	setCourseName(courseName: string) {
+		this.courseName = courseName;
 	}
 
 	getStudentId(): number {

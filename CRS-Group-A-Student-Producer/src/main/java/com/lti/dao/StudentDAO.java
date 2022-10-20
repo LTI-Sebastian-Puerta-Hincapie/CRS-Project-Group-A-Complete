@@ -84,6 +84,12 @@ public interface StudentDAO {
 	public List<RegisteredCourse> getStudentRegisteredCoursesDAO(int studentId);
 	
 	/**
+	 * This method gets all registered courses 
+	 * @return List<RegisteredCourse> returns a list of registered courses
+	 */
+	public List<RegisteredCourse> getRegisteredCoursesDAO();
+	
+	/**
 	 * This method add payment data (amount, due date, semester, etc.) to the system
 	 * @param studentId of type integer
 	 * @param Payment returns a payment for a specific student
