@@ -95,6 +95,13 @@ public interface StudentServiceOperation {
 	public List<Course> getStudentCourses(int studentId) throws StudentCourseNotFoundException;
 	
 	/**
+	 * This method gets all courses 
+	 * @exception StudentCourseNotFoundException is thrown when a student course is not found
+	 * @return List<Course> returns a list of courses
+	 */
+	public List<Course> getCourses() throws StudentCourseNotFoundException;
+	
+	/**
 	 * This method gets all registered courses for a specific student
 	 * @param studentId of type integer
 	 * @exception CourseNotRegisteredException is thrown when a course has not been registered

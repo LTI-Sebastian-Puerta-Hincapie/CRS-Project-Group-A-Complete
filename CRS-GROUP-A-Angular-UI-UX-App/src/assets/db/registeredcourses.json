@@ -1,20 +1,3 @@
 {
-  "registeredcourses": [
-    {
-      "courseId": "201",
-      "courseName": "Biology 1",
-      "studentId": 100,
-      "registeredStatus": 0,
-      "grade": "",
-      "id": 1
-    },
-    {
-      "courseId": "301",
-      "courseName": "Psychology 1",
-      "studentId": 100,
-      "registeredStatus": 0,
-      "grade": "",
-      "id": 2
-    }
-  ]
+  "registeredcourses": []
 }

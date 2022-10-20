@@ -20,10 +20,10 @@ export class CourseComponentComponent implements OnInit {
   studentCourses:Array<Course> = new Array();
   studentRegisteredCourses:Array<Course> = new Array();
 
-  getCourseData:any;  
-  getCoursesData:any;
-  getAddedCoursesData:any; 
-  getRegisteredCoursesData:any;
+  getCourseData:any;  // get data for one course
+  getCoursesData:any;    // data for all courses
+  getAddedCoursesData:any;  // added courses
+  getRegisteredCoursesData:any;   // registered courses
 
   constructor(private _httpService:CourseServiceService) { }
 
@@ -118,7 +118,7 @@ export class CourseComponentComponent implements OnInit {
      console.log("Get registered courses method");
 
      this.getAddedCourses();
-     
+
      this.getRegisteredCoursesData = this.getAddedCoursesData
       .filter((x: { registeredStatus: number; }) => x.registeredStatus == 1);
   }

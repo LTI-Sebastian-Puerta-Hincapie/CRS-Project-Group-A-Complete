@@ -19,7 +19,8 @@ constructor(private httpClient:HttpClient) { }
   // GET 
   getCourses():Observable<any> {
     console.log("Get courses service method");
-    let uri:string = "http://localhost:7003/courses"; 
+    // let uri:string = "http://localhost:7003/courses"; 
+    let uri:string = "http://localhost:8092/student/courses"; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
 
@@ -31,8 +32,8 @@ constructor(private httpClient:HttpClient) { }
 
   getRegisteredCourses():Observable<any> {
     console.log("Get registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses"; 
-    // let uri:string = "http://localhost:8092/registeredcourses"; 
+    // let uri:string = "http://localhost:7005/registeredcourses"; 
+    let uri:string = "http://localhost:8092/student/registeredcourses"; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
 

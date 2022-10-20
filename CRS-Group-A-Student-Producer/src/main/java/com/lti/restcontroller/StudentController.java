@@ -146,6 +146,20 @@ public class StudentController {
 			
 		    logger.info("From the getStudentCourses controller method");
 			return new ResponseEntity<List<Course>>(studentService.getStudentCourses(studentId), HttpStatus.OK);
+		}
+	
+	/**
+	 * This controller method gets all courses 
+	 * @return ResponseEntity<List<Course>> returns a status with a list of courses
+	 */
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.GET,
+		    value = "/student/courses")
+	@ResponseBody
+		public ResponseEntity<List<Course>> getCourses(){
+			
+		    logger.info("From the getCourses controller method");
+			return new ResponseEntity<List<Course>>(studentService.getCourses(), HttpStatus.OK);
 		}	
 	
 	/**
@@ -170,7 +184,7 @@ public class StudentController {
 	 */
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
-		    value = "/registeredcourses")
+		    value = "/student/registeredcourses")
 	@ResponseBody
 		public ResponseEntity<List<RegisteredCourse>> getRegisteredCourses(){
 			

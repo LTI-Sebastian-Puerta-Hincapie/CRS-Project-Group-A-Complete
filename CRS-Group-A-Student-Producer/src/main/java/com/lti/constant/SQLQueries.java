@@ -19,6 +19,9 @@ public class SQLQueries {
 			+ "  ON rc.CourseId = c.CourseId "
 			+ "WHERE rc.StudentId = ?";
 	
+	public static final String SELECT_STUDENT_COURSES = 
+			"SELECT * FROM course";
+	
 	public static final String DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID = 
 			"DELETE FROM registeredcourse WHERE StudentId = ? AND CourseId = ?";
 	

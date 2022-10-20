@@ -189,6 +189,26 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 		return courses;
 	}
+	
+	/**
+	 * This method gets all courses
+	 * @exception IncorrectResultSizeDataAccessException is caught when there no matching data
+	 * @return List<Course> returns a list of courses
+	 */
+	@Override
+	public List<Course> getCoursesDAO() {
+		
+		logger.info("From the getCourseDAO method");
+		List<Course> courses = null;
+		try {
+			courses = jdbcTemplateObject.jdbcTemplate().query(
+				SQLQueries.SELECT_STUDENT_COURSES, 
+				new CourseMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return null;
+		}
+		return courses;
+	}
 
 	/**
 	 * This method gets a list of registered students

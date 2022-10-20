@@ -4,5 +4,4 @@
     "/registeredcourses/create": "/registeredcourses",
     "/registeredcourses/update/:id": "/registeredcourses/:id",
     "/registeredcourses/delete/:id": "/registeredcourses/:id"
-    
 }

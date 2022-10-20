@@ -145,6 +145,13 @@ public class StudentService implements StudentServiceOperation {
 		logger.info("From getStudentCourses service method");
 		return studentDao.getStudentCoursesDAO(studentId);
 	}
+	
+	@Override
+	public List<Course> getCourses() {
+
+		logger.info("From getCourses service method");
+		return studentDao.getCoursesDAO();
+	}
 
 	@Override
 	public List<RegisteredCourse> getStudentRegisteredCourses(int studentId) {

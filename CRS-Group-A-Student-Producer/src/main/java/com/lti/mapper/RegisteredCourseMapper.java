@@ -14,8 +14,9 @@ public class RegisteredCourseMapper implements RowMapper<RegisteredCourse> {
 		
 		RegisteredCourse registeredCourse = new RegisteredCourse(
 				rs.getInt("CourseId"),
+				rs.getString("CourseName"),
 				rs.getInt("StudentId"),
-				rs.getInt("RegistrationStatus"),
+				rs.getInt("RegistrationStatus"), 
 				rs.getString("Grade"));
 		return registeredCourse;
 	}

@@ -77,6 +77,12 @@ public interface StudentDAO {
 	public List<Course> getStudentCoursesDAO(int studentId);
 	
 	/**
+	 * This method gets all courses
+	 * @return List<Course> returns a list of courses
+	 */
+	public List<Course> getCoursesDAO();
+	
+	/**
 	 * This method gets all registered courses for a specific student
 	 * @param studentId of type integer
 	 * @return List<RegisteredCourse> returns a list of registered courses
