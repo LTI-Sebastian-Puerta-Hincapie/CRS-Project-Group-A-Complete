@@ -1,7 +1,7 @@
 .courses-view {
     margin: 0 auto;
     max-width: 80rem;
-    min-width: 30rem;
+    min-width: 40rem;
 }
 
 .courses-component {
@@ -11,25 +11,27 @@
 
 .main-container {
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: 33% 33% 33%;
 }
 
 .courses-container {
     grid-column: 1;
-    padding: 2em;
+    padding: 1em;
 }
 
 .student-added-courses-container {
     grid-column: 2;
-    padding: 2em;
+    padding: 1em;
+    display: block;
 }
 
 .student-registered-courses-container {
     grid-column: 3;
-    padding: 2em;
+    padding: 1em;
 }
 
 .card {
-    display: block;
+    /* display: block; */
     margin-top: 0.25em;
+    max-width: 230px;
 }

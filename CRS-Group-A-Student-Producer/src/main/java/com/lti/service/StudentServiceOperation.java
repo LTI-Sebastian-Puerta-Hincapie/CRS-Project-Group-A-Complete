@@ -29,37 +29,45 @@ public interface StudentServiceOperation {
 	
 	/**
 	 * This method registers a student for a specific course 
-	 * @param student of type Student
-	 * @param courseId of type integer
+	 * @param registeredCourse of type RegisteredCourse
 	 * @exception StudentCourseRegistrationNotFoundException is thrown when a student has not been registered for a course
 	 * @exception StudentCourseNotFoundException is thrown when a student course is not found
 	 */
-	public void registerForCourse(Student student, int courseId) throws CourseNotRegisteredException, StudentCourseNotFoundException;
+	public void registerForCourse(RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException;
+	
+	
+	/**
+	 * This method unregisters a student for a specific course 
+	 * @param registeredCourse of type RegisteredCourse
+	 * @exception StudentCourseRegistrationNotFoundException is thrown when a student has not been registered for a course
+	 * @exception StudentCourseNotFoundException is thrown when a student course is not found
+	 */
+	public void unRegisterForCourse(RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException;
 	
 	/**
 	 * This method adds a course for a specific student
-	 * @param student of type Student
-	 * @param courseId of type integer
+	 * @param registeredCourse of type RegisteredCourse
 	 * @exception StudentAddCourseException is thrown when adding a course fails
 	 */
-	public void addCourse(Student student, int courseId) throws StudentAddCourseException;
+	public void addCourse(RegisteredCourse registeredCourse) throws StudentAddCourseException;
 	
 	/**
 	 * This method gets a course for a specific student and courseId
-	 * @param student of type Student
+	 * @param studentId of type integer
 	 * @param courseId of type integer
 	 * @return RegisteredCourse returns a registered course
 	 */
-	public RegisteredCourse getCourse(Student student, int courseId);
+	public RegisteredCourse getCourse(int studentId, int courseId);
+	
 	
 	/**
 	 * This method drops a course for a specific student
-	 * @param student of type Student
+	 * @param studentId of type integer
 	 * @param courseId of type integer
 	 * @exception StudentDropCourseException when dropping course fails
 	 * @exception StudentCourseNotFoundException when a course is not found
 	 */
-	public void dropCourse(Student student, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException;
+	public void dropCourse(int studentId, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException;
 	
 	/**
 	 * This method view grades for a specific student and returns a list of grades

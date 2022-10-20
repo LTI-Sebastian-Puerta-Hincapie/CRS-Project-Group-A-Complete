@@ -51,18 +51,36 @@ public class StudentController {
 //	@ExceptionHandler({CourseNotRegisteredException.class, StudentCourseNotFoundException.class})
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.PUT,
-		    value = "/student/registerforcourse")
+		    value = "/student/registercourse")
 	@ResponseBody
-		public ResponseEntity registerForCourse(@RequestBody StudentCourse studentCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
+		public ResponseEntity registerForCourse(@RequestBody RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
 					
 			logger.info("From the registerForCourse controller method");
-			studentService.registerForCourse(studentCourse.getStudent(), studentCourse.getCourseId());	
+			studentService.registerForCourse(registeredCourse);	
+			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
+		}
+	
+	/**
+	 * This controller method registers a student to a specific course
+	 * @param studentCourse of type StudentCourse object
+	 * @throws StudentCourseNotFoundException is thrown when a specific course for a student is not found
+	 * @throws CourseNotRegisteredException is thrown when a course has not been registered for a specific student
+	 * @return ResponseEntity returns a status
+	 */
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+		    method = RequestMethod.PUT,
+		    value = "/student/unregistercourse")
+	@ResponseBody
+		public ResponseEntity unRegisterForCourse(@RequestBody RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException{
+					
+			logger.info("From the registerForCourse controller method");
+			studentService.unRegisterForCourse(registeredCourse);	
 			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
 		}
 	
 	/**
 	 * This controller method adds a course for a specific student
-	 * @param studentCourse of type StudentCourse object
+	 * @param registeredCourse of type RegisteredCourse object
 	 * @throws StudentAddCourseException is thrown when a course has not been added
 	 * @return ResponseEntity returns a status
 	 */
@@ -70,11 +88,11 @@ public class StudentController {
 		    method = RequestMethod.POST,
 		    value = "/student/addcourse")
 	@ResponseBody
-		public ResponseEntity addCourse(@RequestBody StudentCourse studentCourse) throws StudentAddCourseException 
+		public ResponseEntity addCourse(@RequestBody RegisteredCourse registeredCourse) throws StudentAddCourseException 
 		{
 			
 		    logger.info("From the addCourse controller method");
-		    studentService.addCourse(studentCourse.getStudent(), studentCourse.getCourseId());
+		    studentService.addCourse(registeredCourse);
 			return new ResponseEntity("Course has been successfully added", HttpStatus.OK);
 		}
 	
@@ -90,10 +108,10 @@ public class StudentController {
 		    method = RequestMethod.DELETE,
 		    value = "/student/dropcourse")
 	@ResponseBody
-		public ResponseEntity dropCourse(@RequestBody StudentCourse studentCourse) throws StudentDropCourseException, StudentCourseNotFoundException
+		public ResponseEntity dropCourse(@RequestBody RegisteredCourse registeredCourse) throws StudentDropCourseException, StudentCourseNotFoundException
 		{				
 		    logger.info("From the dropCourse controller method");
-		    studentService.dropCourse(studentCourse.getStudent(), studentCourse.getCourseId());
+		    studentService.dropCourse(registeredCourse.getStudentId(), registeredCourse.getCourseId());
 			return new ResponseEntity("Course has been successfully dropped", HttpStatus.NO_CONTENT);
 		}
 	

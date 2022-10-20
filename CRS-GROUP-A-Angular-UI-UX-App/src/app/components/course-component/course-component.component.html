@@ -3,7 +3,7 @@
         <h2 style="text-align: center;"> COURSES REGISTRATION </h2><br>
         <div class="main-container">
             <div class="courses-container">
-                <h4> COURSES: </h4><br>
+                <h4> COURSES </h4><br>
                 <button type="button" class="btn btn-primary" 
                     style= "margin: 1em;" 
                     (click)="getCourses()">
@@ -12,10 +12,10 @@
                     <ul style="list-style-type: none;">
                     <li *ngFor="let course of getCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseName| uppercase}} 
+                            {{course.courseName}} ({{course.courseId}})
                             <button type="button" class="btn btn-success" 
                                 style= "margin: 1em;" 
-                                (click)="createRegisteredCourse(course)">
+                                (click)="addCourse(course)">
                                 Add (+)
                             </button>
                         </div>
@@ -23,7 +23,7 @@
                 </ul>
             </div>
             <div class="student-added-courses-container">
-                <h4> ADDED COURSES: </h4><br>
+                <h4> ADDED COURSES </h4><br>
                 <button type="button" class="btn btn-primary" 
                     style= "margin: 1em;" 
                     (click)="getAddedCourses()">
@@ -33,22 +33,24 @@
                     <li *ngFor="let course of getAddedCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
                             {{course.courseName}} 
-                            <button type="button" class="btn btn-warning" 
-                                style= "margin: 1em;" 
-                                (click)="updateRegisteredCourse(course, 1)">
-                                Register
-                            </button>
-                            <button type="button" class="btn btn-danger" 
-                                style= "margin: 1em;" 
-                                (click)="deleteRegisteredCourse(course)">
-                                Drop
-                            </button>
+                            <div>
+                                <button type="button" class="btn btn-warning" 
+                                    style= "margin: 1em;" 
+                                    (click)="registerCourse(course)">
+                                    Register
+                                </button>
+                                <button type="button" class="btn btn-danger" 
+                                    style= "margin: 1em;" 
+                                    (click)="dropCourse(course)">
+                                    Drop
+                                </button>
+                            </div>
                         </div>
                     </li>
                 </ul>
             </div>
             <div class="student-registered-courses-container">
-                <h4> REGISTERED COURSES: </h4><br>
+                <h4> REGISTERED COURSES </h4><br>
                 <button type="button" class="btn btn-primary" 
                     style= "margin: 1em;" 
                     (click)="getRegisteredCourses()">
@@ -58,9 +60,9 @@
                     <li *ngFor="let course of getRegisteredCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
                             {{course.courseName}} 
-                            <button type="button" class="btn btn-danger" 
+                            <button type="button" class="btn btn-warning" 
                                 style= "margin: 1em;" 
-                                (click)="updateRegisteredCourse(course, 0)">
+                                (click)="unRegisterCourse(course)">
                                 Unregister
                             </button>
                         </div>
@@ -69,5 +71,4 @@
             </div>
         </div>
     </div>
-    
 </div>

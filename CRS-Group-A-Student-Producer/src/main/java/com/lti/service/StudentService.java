@@ -36,55 +36,69 @@ public class StudentService implements StudentServiceOperation {
 	@Autowired
 	private StudentDAO studentDao;
 	
-	public void registerForCourse(Student student, int courseId) throws CourseNotRegisteredException, StudentCourseNotFoundException 
+	public void registerForCourse(RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException 
 	{
 		logger.info("From registerForCourse service method");
-		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);
+		RegisteredCourse course = studentDao.getCourseDAO(registeredCourse.getStudentId(), registeredCourse.getCourseId());
 		if(course != null) {
 			
-			studentDao.registerForCourseDAO(student, courseId);
+			studentDao.courseRegistrationDAO(registeredCourse);
 			
-			course = studentDao.getCourseDAO(student, courseId);
+			course = studentDao.getCourseDAO(registeredCourse.getStudentId(), registeredCourse.getCourseId());
 			
 			if(course.getRegisteredStatus() == 0) {
 				throw new CourseNotRegisteredException(
-						"\nCourse not registered, courseId: " + courseId + " studentId: " + student.getId());
+						"\nCourse not registered, courseId: " + registeredCourse.getCourseId() + " studentId: " + registeredCourse.getStudentId());
 			}
 		}
 		else {
 			
 			throw new StudentCourseNotFoundException(
-					"\nCourse not found, courseId: " + courseId + " studentId: " + student.getId());
+					"\nCourse not found, courseId: " + registeredCourse.getCourseId() + " studentId: " + registeredCourse.getStudentId());
 		}
 	}
 	
-	public void addCourse(Student student, int courseId) throws StudentAddCourseException {
+	public void unRegisterForCourse(RegisteredCourse registeredCourse) throws CourseNotRegisteredException, StudentCourseNotFoundException 
+	{
+		logger.info("From unRegisterForCourse service method");
+		RegisteredCourse course = studentDao.getCourseDAO(registeredCourse.getStudentId(), registeredCourse.getCourseId());
+		if(course != null) {			
+			studentDao.courseRegistrationDAO(registeredCourse);
+		}
+		else {
+			
+			throw new StudentCourseNotFoundException(
+					"\nCourse not found, courseId: " + registeredCourse.getCourseId() + " studentId: " + registeredCourse.getStudentId());
+		}
+	}
+	
+	public void addCourse(RegisteredCourse registeredCourse) throws StudentAddCourseException {
 		
 		logger.info("From addCourse service method");
-		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);	
+		RegisteredCourse course = studentDao.getCourseDAO(registeredCourse.getStudentId(), registeredCourse.getCourseId());	
 		if(course == null) {
-			int _courseId = studentDao.addCourseDAO(student, courseId);
+			int _courseId = studentDao.addCourseDAO(registeredCourse);
 			if(_courseId < 0) {
 				throw new StudentAddCourseException(
-						"\nCourse was not added, courseId: " + courseId + " studentId: " + student.getId());
+						"\nCourse was not added, courseId: " + registeredCourse.getCourseId() + " studentId: " + registeredCourse.getStudentId());
 			}
 			System.out.println("\n--Course has been added --");
 		}
 		else System.out.println("\nCourse has already been added for this student");
 	}
 	
-	public void dropCourse(Student student, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException {
+	public void dropCourse(int studentId, int courseId) throws StudentDropCourseException, StudentCourseNotFoundException {
 		
 		logger.info("From dropCourse service method");
-		RegisteredCourse course = studentDao.getCourseDAO(student, courseId);
+		RegisteredCourse course = studentDao.getCourseDAO(studentId, courseId);
 		if(course != null) {
 			
-			studentDao.dropCourseDAO(student, courseId);
+			studentDao.dropCourseDAO(studentId, courseId);
 			
-			course = studentDao.getCourseDAO(student, courseId);
+			course = studentDao.getCourseDAO(studentId, courseId);
 			if(course != null) {
 				throw new StudentDropCourseException(
-						"\nUnable to drop course, courseId: " + courseId + " studentId: " + student.getId());
+						"\nUnable to drop course, courseId: " + courseId + " studentId: " + studentId);
 			}
 			else {
 				System.out.println("\nCourse has been dropped");
@@ -207,9 +221,9 @@ public class StudentService implements StudentServiceOperation {
 	}
 
 	@Override
-	public RegisteredCourse getCourse(Student student, int courseId)  {
+	public RegisteredCourse getCourse(int studentId, int courseId)  {
 
 		logger.info("From getCourse service method");
-		return studentDao.getCourseDAO(student, courseId);
+		return studentDao.getCourseDAO(studentId, courseId);
 	}
 }

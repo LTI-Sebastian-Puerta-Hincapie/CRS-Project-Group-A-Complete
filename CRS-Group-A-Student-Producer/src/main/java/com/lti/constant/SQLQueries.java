@@ -4,8 +4,8 @@ public class SQLQueries {
 	
 	// STUDENT
 	public static final String INSERT_STUDENT_COURSE = 
-			"INSERT INTO registeredcourse (StudentId, CourseId, RegistrationStatus, Grade) "
-			+ "VALUES (?, ?, ?, ?)";
+			"INSERT INTO registeredcourse (StudentId, CourseId, CourseName, RegistrationStatus, Grade) "
+			+ "VALUES (?, ?, ?, ?, ?)";
 	
 	public static final String SELECT_STUDENT_COURSE = 
 			"SELECT * FROM registeredcourse WHERE CourseId = ? AND StudentId = ?";
@@ -33,7 +33,7 @@ public class SQLQueries {
 			+ "WHERE rc.StudentId = ?";
 	
 	public static final String UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID = 
-			"UPDATE registeredcourse SET RegistrationStatus = 1 WHERE StudentId = ? AND CourseId = ?";
+			"UPDATE registeredcourse SET RegistrationStatus = ? WHERE StudentId = ? AND CourseId = ?";
 	
 	public static final String SELECT_STUDENT_REGISTERED_COURSES_BY_STUDENTID = 
 			"SELECT * FROM registeredcourse WHERE StudentId = ? AND RegistrationStatus = 1";

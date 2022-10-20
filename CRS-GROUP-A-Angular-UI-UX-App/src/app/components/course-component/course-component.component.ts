@@ -29,7 +29,7 @@ export class CourseComponentComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  addCourse(courseId: number) {
+  addCourseArr(courseId: number) {
     console.log("add course method");
 
     // pre-condition
@@ -43,7 +43,7 @@ export class CourseComponentComponent implements OnInit {
     console.log(this.studentCourses);
   }
 
-  dropCourse(courseId: number) {
+  dropCourseArr(courseId: number) {
     console.log("drop course method");
     
     // pre-condition
@@ -69,7 +69,7 @@ export class CourseComponentComponent implements OnInit {
     console.log(this.studentRegisteredCourses);
   }
 
-  registerCourse(courseId: number) {
+  registerCourseArr(courseId: number) {
     console.log("register course method");
 
     // pre-condition
@@ -123,33 +123,43 @@ export class CourseComponentComponent implements OnInit {
       .filter((x: { registeredStatus: number; }) => x.registeredStatus == 1);
   }
 
-  public createRegisteredCourse(course:any) {
+  public addCourse(course:any) {
 
     console.log("Calling create registered course method");
     
     let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, 0, "");
-
+    console.log(registeredCourse);
     this._httpService.createRegisteredCourse(registeredCourse)
         .subscribe((res:any[]) => {
       console.log(res);
     })
   }
 
-  public updateRegisteredCourse(course:any, status:number) {
+  public registerCourse(course:any) {
 
     console.log("Calling update registered course method");
 
-    let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, status, "");
-    this._httpService.updateRegisteredCourse(course.id, registeredCourse).subscribe((res:any[]) => {
+    let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, 1, "");
+    this._httpService.registerCourse(registeredCourse).subscribe((res:any[]) => {
+      console.log(res);
+    })
+  }
+
+  public unRegisterCourse(course:any) {
+
+    console.log("Calling update registered course method");
+
+    let registeredCourse = new RegisteredCourse(course.courseId, course.courseName, 100, 0, "");
+    this._httpService.unRegisterCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
   
-  deleteRegisteredCourse(course:any) {
+  dropCourse(course:any) {
 
     console.log("Calling delete registered course method");
 
-    this._httpService.deleteRegisteredCourse(course.id).subscribe((res:any[]) => {
+    this._httpService.deleteRegisteredCourse(course).subscribe((res:any[]) => {
       console.log(res);
     })
   }

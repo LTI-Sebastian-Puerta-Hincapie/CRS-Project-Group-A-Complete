@@ -20,33 +20,31 @@ public interface StudentDAO {
 
 	/**
 	 * This method registers a student for a specific course 
-	 * @param student of type integer
-	 * @param courseId of type integer
+	 * @param registeredCourse of type RegisteredCourse
 	 */
-	public void registerForCourseDAO(Student student, int courseId);
+	public void courseRegistrationDAO(RegisteredCourse registeredCourse);
 	
 	/**
 	 * This method adds a course for a specific student
-	 * @param student of type Student
-	 * @param courseId of type integer
+	 * @param registeredCourse of type RegisteredCourse
 	 * @return Integer returns the courseId
 	 */
-	public int addCourseDAO(Student student, int courseId);
+	public int addCourseDAO(RegisteredCourse registeredCourse);
 	
 	/**
 	 * This method gets a course for a specific student and courseId
-	 * @param student of type Student
+	 * @param studentId of type integer
 	 * @param courseId of type integer
 	 * @return RegisteredCourse returns a register course
 	 */
-	public RegisteredCourse getCourseDAO(Student student, int courseId);
+	public RegisteredCourse getCourseDAO(int studentId, int courseId);
 	
 	/**
 	 * This method drops a course for a specific student
-	 * @param student of type Student
+	 * @param studentId of type integer
 	 * @param courseId of type integer
 	 */
-	public void dropCourseDAO(Student student, int courseId);
+	public void dropCourseDAO(int studentId, int courseId);
 	
 	/**
 	 * This method view grades for a specific student and returns a list of grades

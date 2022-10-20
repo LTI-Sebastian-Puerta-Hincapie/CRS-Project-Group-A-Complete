@@ -1,13 +1,21 @@
-.display-student-component {
+.student-component {
     margin-left: 5em;
     margin-right: 5em;
+    background-color: rgb(28, 19, 156, 0.15);
+    padding: 2em;
+    /* max-width: 60rem; */
+    text-align: center;
 }
+
+.student-components {
+    margin-top: 1em;
+}
+
 .route-link {
     margin-left: 0.5em;
 }
 
 .student-welcome-header {
     text-align: left;
-    background-color: rgb(28, 19, 156, 0.15);
     padding: 1em;
 }

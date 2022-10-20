@@ -44,31 +44,32 @@ public class StudentDAOImpl implements StudentDAO {
 	 * @param userId of type int
 	 */
 	@Override
-	public void registerForCourseDAO(Student student, int courseId) {
+	public void courseRegistrationDAO(RegisteredCourse registeredCourse) {
 		
-		logger.info("From the registerForCourseDAO method");
+		logger.info("From the courseRegistrationDAO method");
 		jdbcTemplateObject.jdbcTemplate().update(
-				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID, 
-				student.getId(), 
-				courseId);
+				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID,
+				registeredCourse.getRegisteredStatus(),
+				registeredCourse.getStudentId(), 
+				registeredCourse.getCourseId());
 	}
 
 	/**
 	 * This method registers a student to a specific course
-	 * @param student of type Student
-	 * @param courseId of type int
+	 * @param registeredCourse of type RegisteredCourse
 	 * @return int returns the course id of the course just added
 	 */
 	@Override
-	public int addCourseDAO(Student student, int courseId) {
+	public int addCourseDAO(RegisteredCourse registeredCourse) {
 		
 	   logger.info("From the addCourseDAO method");
 	   return jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
-				student.getId(),
-				courseId,
-				0,
-				null);
+				registeredCourse.getStudentId(),
+				registeredCourse.getCourseId(),
+				registeredCourse.getCourseName(),
+				registeredCourse.getRegisteredStatus(),
+				registeredCourse.getGrade());
 	}
 	
 	/**
@@ -79,14 +80,14 @@ public class StudentDAOImpl implements StudentDAO {
 	 * @return RegisteredCourse returns a registered course
 	 */
 	@Override
-	public RegisteredCourse getCourseDAO(Student student, int courseId) {
+	public RegisteredCourse getCourseDAO(int studentId, int courseId) {
 		
 		logger.info("From the getCourseDAO method");
 		RegisteredCourse registeredCourse = null;
 		try {
 			registeredCourse = jdbcTemplateObject.jdbcTemplate().queryForObject(
 				SQLQueries.SELECT_STUDENT_COURSE, 
-				new Object[]{ courseId, student.getId() },
+				new Object[]{ courseId, studentId },
 				new RegisteredCourseMapper());
 		} catch(IncorrectResultSizeDataAccessException e) {
 			return null;
@@ -101,12 +102,12 @@ public class StudentDAOImpl implements StudentDAO {
 	 * @param courseId of type int
 	 */
 	@Override
-	public void dropCourseDAO(Student student, int courseId) {
+	public void dropCourseDAO(int studentId, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
 	   jdbcTemplateObject.jdbcTemplate().update(
 			SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
-			student.getId(),
+			studentId,
 			courseId); 
 	}
 

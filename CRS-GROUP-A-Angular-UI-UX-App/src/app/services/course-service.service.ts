@@ -46,16 +46,31 @@ constructor(private httpClient:HttpClient) { }
   }
 
   // PUT
-  updateRegisteredCourse(id:number, course:RegisteredCourse):Observable<any> {
-    console.log("Update registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses/update/" + id;
+  registerCourse(course:RegisteredCourse):Observable<any> {
+    console.log("register course service method");
+    // let uri:string = "http://localhost:7005/registeredcourses/update/" + id;
+    let uri:string = "http://localhost:8092/student/registercourse";
+    return this.httpClient.put<any>(uri, course);
+  }
+
+  unRegisterCourse(course:RegisteredCourse):Observable<any> {
+    console.log("unegister course service method");
+    // let uri:string = "http://localhost:7005/registeredcourses/update/" + id;
+    let uri:string = "http://localhost:8092/student/unregistercourse";
     return this.httpClient.put<any>(uri, course);
   }
 
   // DELETE
-  deleteRegisteredCourse(id:number):Observable<any> {
+  deleteRegisteredCourse(course:any):Observable<any> {
     console.log("Delete registered courses service method");
-    let uri:string = "http://localhost:7005/registeredcourses/delete/" + id;
-    return this.httpClient.delete<any>(uri, {headers:this.headers});
+    let registeredCourse = new RegisteredCourse(
+                                  course.courseId,
+                                  course.courseName,
+                                  course.studentId,
+                                  course.registeredStatus,
+                                  course.grade);
+    // let uri:string = "http://localhost:7005/registeredcourses/delete/" + id;
+    let uri:string = "http://localhost:8092/student/dropcourse";
+    return this.httpClient.delete<any>(uri, {body:registeredCourse});
   }
 }
