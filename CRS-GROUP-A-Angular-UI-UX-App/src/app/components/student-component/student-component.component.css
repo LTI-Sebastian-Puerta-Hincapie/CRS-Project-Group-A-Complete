@@ -1,14 +1,13 @@
 .display-student-component {
     margin-left: 5em;
     margin-right: 5em;
-    text-align: center;
 }
 .route-link {
     margin-left: 0.5em;
 }
 
 .student-welcome-header {
-    text-align:left;
+    text-align: left;
     background-color: rgb(28, 19, 156, 0.15);
     padding: 1em;
 }
