@@ -15,7 +15,8 @@ import { StudentComponentComponent } from './components/student-component/studen
 import { AdminComponentComponent } from './components/admin-component/admin-component.component';
 import { ProfessorComponentComponent } from './components/professor-component/professor-component.component';
 import { HeaderComponentComponent } from './components/header-component/header-component.component';
-import { FooterComponentComponent } from './components/footer-component/footer-component.component'
+import { FooterComponentComponent } from './components/footer-component/footer-component.component';
+import { NavBarComponentComponent } from './components/nav-bar-component/nav-bar-component.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FooterComponentComponent } from './components/footer-component/footer-c
     AdminComponentComponent,
     ProfessorComponentComponent,
     HeaderComponentComponent,
-    FooterComponentComponent
+    FooterComponentComponent,
+    NavBarComponentComponent
   ],
   imports: [
     BrowserModule,

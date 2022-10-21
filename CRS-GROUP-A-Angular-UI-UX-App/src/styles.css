@@ -12,8 +12,12 @@
     --primary-background-color: rgb(108, 184, 255);
     --secondary-color: rgb(95, 164, 233);
     --side-pane-background-color:rgba(203, 203, 209, 0.90);
-    --home-pane-background-color: rgba(166, 166, 179, 0.85);
+    --home-pane-background-color: rgb(28, 19, 156, 0.45);
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
+}
+
+header, footer {
+    background-color: var(--home-pane-background-color);
 }
 
 img {

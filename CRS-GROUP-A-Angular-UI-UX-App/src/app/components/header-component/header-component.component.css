@@ -1,57 +1,77 @@
-.container-welcome-complete {
-    display: grid;
-    grid-template-rows: auto;
-    padding: 5em;
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
 }
 
-.container-welcome {
-    grid-row: 1;
-    padding: 1em;
-    background-color: rgb(28, 19, 156, 0.15);
+.header-brand-icon .brand-1 {
+    font-family: var(--default-font-family);
+    font-size: 3em;
 }
 
-.container-semester-registration {
-    grid-row: 2;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgb(28, 19, 156, 0.15);
+.header-brand-icon .brand-2 {
+    font-family: var(--default-font-family);
+    font-size: 1em;
 }
 
-.container-login {
-    grid-row: 3;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgb(28, 19, 156, 0.15);
+.header-title {
+    font-family: var(--default-font-family);
+    font-size: 3em;
 }
 
-.container-update-password {
-    grid-row: 4;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgba(81, 72, 206, 0.15);
+.header-profile-icon {
+    margin-top: 0.5em;
+    font-size: 2em;
 }
 
-.container-courses {
-    grid-row: 5;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgba(81, 72, 206, 0.15);
+.header-menu-dropdown {
+    position: relative;
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--primary-color-dark);
+    min-width: 160px;
+    width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    font-size: 0.50em;
+    font-family: var(--default-font-family);
 }
 
-.container-payment {
-    grid-row: 6;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgba(81, 72, 206, 0.15);
+.dropdown-content a {
+    padding: 10px;
+    text-decoration: none;
+    display: block;
 }
 
-.container-student-view{
-    grid-row: 7;
-    padding: 1em;
-    margin-top: 2em;
-    background-color: rgba(81, 72, 206, 0.15);
+.dropdown-content a:hover {
+    background-color: orange;
 }
 
-.route-link {
+.header-menu-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.header-menu-dropdown:hover .fa-bars {
+    background-color: var(--primary-color-dark);
+}
+
+.menu-dropdown-item {
+    color: white;
+}
+
+.fa-house, 
+.fa-right-to-bracket,
+.fa-user,
+.fa-question,
+.fa-pen-to-square,
+.fa-user-plus {
     margin-left: 0.5em;
+}
+
+.modal-content {
+    font-size: 0.5em;
 }

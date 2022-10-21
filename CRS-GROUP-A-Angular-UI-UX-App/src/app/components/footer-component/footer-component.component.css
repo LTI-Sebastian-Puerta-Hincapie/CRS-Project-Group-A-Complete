@@ -1,0 +1,16 @@
+footer {
+    text-align: center;
+}
+
+.footer-message {
+    margin-top: 1em;
+    font-family: var(--default-font-family);
+    font-size: 1em;
+    text-align: left;
+}
+
+.fa-facebook,
+.fa-instagram,
+.fa-twitter {
+    font-size: 2.5em;
+}
