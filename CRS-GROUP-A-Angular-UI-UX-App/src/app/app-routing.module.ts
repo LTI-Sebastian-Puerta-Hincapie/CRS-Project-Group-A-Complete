@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddGradesComponentComponent } from './components/add-grades-component/add-grades-component.component';
 import { AdminComponentComponent } from './components/admin-component/admin-component.component';
 import { CourseComponentComponent } from './components/course-component/course-component.component';
 import { GenerateReportCardComponentComponent } from './components/generate-report-card-component/generate-report-card-component.component';
 import { LoginComponentComponent } from './components/login-component/login-component.component';
 import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 import { ProfessorComponentComponent } from './components/professor-component/professor-component.component';
+import { ProfessorViewComponentComponent } from './components/professor-view-component/professor-view-component.component';
 import { SemesterRegistrationComponentComponent } from './components/semester-registration-component/semester-registration-component.component';
 import { StudentComponentComponent } from './components/student-component/student-component.component';
 import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path:'updateprofessors', component: UpdateProfessorsComponentComponent},
   {path:'updatecourses', component: UpdateCoursesComponentComponent},
   {path:'viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
-  {path:'generatereportcard', component: GenerateReportCardComponentComponent}
+  {path:'generatereportcard', component: GenerateReportCardComponentComponent},
+  {path:'addgrades', component: AddGradesComponentComponent},
+  {path:'professorview', component: ProfessorViewComponentComponent}
 ];
 
 @NgModule({

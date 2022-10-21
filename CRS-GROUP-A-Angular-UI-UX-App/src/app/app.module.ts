@@ -20,7 +20,9 @@ import { NavBarComponentComponent } from './components/nav-bar-component/nav-bar
 import { GenerateReportCardComponentComponent } from './components/generate-report-card-component/generate-report-card-component.component';
 import { ViewCourseAvailabilityComponentComponent } from './components/view-course-availability-component/view-course-availability-component.component';
 import { UpdateCoursesComponentComponent } from './components/update-courses-component/update-courses-component.component';
-import { UpdateProfessorsComponentComponent } from './components/update-professors-component/update-professors-component.component'
+import { UpdateProfessorsComponentComponent } from './components/update-professors-component/update-professors-component.component';
+import { ProfessorViewComponentComponent } from './components/professor-view-component/professor-view-component.component';
+import { AddGradesComponentComponent } from './components/add-grades-component/add-grades-component.component'
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { UpdateProfessorsComponentComponent } from './components/update-professo
     GenerateReportCardComponentComponent,
     ViewCourseAvailabilityComponentComponent,
     UpdateCoursesComponentComponent,
-    UpdateProfessorsComponentComponent
+    UpdateProfessorsComponentComponent,
+    ProfessorViewComponentComponent,
+    AddGradesComponentComponent
   ],
   imports: [
     BrowserModule,

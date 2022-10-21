@@ -1,0 +1,21 @@
+.professor-component {
+    background-color: rgb(28, 19, 156, 0.15);
+    text-align: center;
+    margin-top: 3em;
+    margin-right: 8em;
+    margin-left: 8em;
+    margin-bottom: 3em;
+}
+
+.professor-components {
+    padding-bottom: 2em;
+}
+
+.route-link {
+    margin-left: 0.5em;
+}
+
+.professor-welcome-header {
+    text-align: left;
+    padding: 1em;
+}
