@@ -31,7 +31,10 @@
 }
 
 .card {
-    /* display: block; */
     margin-top: 0.25em;
     max-width: 230px;
+}
+
+.student-login-form {
+    width: 200px;
 }

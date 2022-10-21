@@ -13,7 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentComponentComponent } from './components/student-component/student-component.component';
 import { AdminComponentComponent } from './components/admin-component/admin-component.component';
-import { ProfessorComponentComponent } from './components/professor-component/professor-component.component'
+import { ProfessorComponentComponent } from './components/professor-component/professor-component.component';
+import { HeaderComponentComponent } from './components/header-component/header-component.component';
+import { FooterComponentComponent } from './components/footer-component/footer-component.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ProfessorComponentComponent } from './components/professor-component/pr
     SemesterRegistrationComponentComponent,
     StudentComponentComponent,
     AdminComponentComponent,
-    ProfessorComponentComponent
+    ProfessorComponentComponent,
+    HeaderComponentComponent,
+    FooterComponentComponent
   ],
   imports: [
     BrowserModule,

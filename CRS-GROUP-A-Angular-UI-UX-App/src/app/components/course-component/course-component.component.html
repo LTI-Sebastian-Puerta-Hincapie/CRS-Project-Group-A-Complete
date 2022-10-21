@@ -1,6 +1,18 @@
 <div class="courses-view">
     <div class="courses-component">
         <h2 style="text-align: center;"> COURSES REGISTRATION </h2><br>
+        <form class="student-login-form">
+            <div class="mb-1 mt-1">
+                <label for="studentid" class="form-label">StudentID: </label>
+                <input 
+                    type="studentid" 
+                    class="form-control" 
+                    id="studentid" 
+                    placeholder="Enter StudentID" 
+                    name="studentid" 
+                    [(ngModel)] = "studentID">
+            </div>
+        </form>
         <div class="main-container">
             <div class="courses-container">
                 <h4> COURSES </h4><br>
