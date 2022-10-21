@@ -1,61 +1,88 @@
 <div class = "student-view">
   <div class="student-view-component">
     <h2 style="text-align: center;">STUDENT PROFILE</h2>
+    <form class="student-view-payment-form">
+        <div class="mb-1 mt-1">
+            <label for="studentid" class="form-label">StudentID: </label>
+            <input 
+                type="studentid" 
+                class="form-control" 
+                id="studentid" 
+                placeholder="Enter StudentID" 
+                name="studentid" 
+                [(ngModel)] = "studentID">
+        </div>
+        <a type="submit" class="button" (click)="getStudentProfile(studentID)">
+            Enter
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+    </form>
 
     <section class="student-data-container">
         <h4>STUDENT INFORMATION:</h4>
-        <div class="student-profile-data">
-            <p>StudentID: 1</p>
-            <p>Name: Thomas Parker </p>
-            <p>Major: Biology</p>
-            <p>Email: tparker@test.com</p>
-            <p>Phone: +1(123)456-7890</p>
-            <p>Address: 10 Parker Ave. New York, NY</p>
-        </div>
-    </section>
-
-    <section class="student-registered-courses-container">
-        <h4>REGISTERED COURSES:</h4>
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>CourseID</th>
-                <th>CourseName</th>
-                <th>Credits</th>
-                <th>Semester</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Biology 0</td>
-                <td>3</td>
-                <td>Fall 2022</td>
-              </tr>
-            </tbody>
-          </table>
-    </section>
-
-    <section class="student-grades-container">
-        <h4>GRADES:</h4>
-        <table class="table table-hover">
-          <thead>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
             <tr>
-              <th>CourseID</th>
-              <th>CourseName</th>
-              <th>Grade</th>
+              <th scope="col">StudentID</th>
+              <th scope="col">Name</th>
+              <th scope="col">MajorID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Address</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>1</td>
-              <td>Biology 0</td>
-              <td>A</td>
+              <td>{{getStudentData.id}}</td>
+              <td>{{getStudentData.name}}</td>
+              <td>{{getStudentData.majorId}}</td>
+              <td>{{getStudentData.email}}</td>
+              <td>{{getStudentData.phne}}</td>
+              <td>{{getStudentData.address}}</td>
             </tr>
+          </tbody>
+        </table>
+    </section>
+
+    <section class="student-registered-courses-container">
+        <h4>REGISTERED COURSES:</h4>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
             <tr>
-              <td>2</td>
-              <td>Biology 1</td>
-              <td>A</td>
+              <th scope="col">CourseID</th>
+              <th scope="col">CourseName</th>
+              <th scope="col">Credits</th>
+              <th scope="col">Semester</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of getStudentRegisteredCoursesData">
+              <td>{{course.id}}</td>
+              <td>{{course.name}}</td>
+              <td>{{course.majorId}}</td>
+              <td>{{course.email}}</td>
+              <td>{{course.phne}}</td>
+              <td>{{course.address}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </section>
+
+    <section class="student-grades-container">
+        <h4>GRADES:</h4>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">CourseID</th>
+              <th scope="col">CourseName</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of getStudentGradesData">
+              <td>{{course.courseId}}</td>
+              <td>{{course.courseName}}</td>
+              <td>{{course.grade}}</td>
             </tr>
           </tbody>
         </table>
