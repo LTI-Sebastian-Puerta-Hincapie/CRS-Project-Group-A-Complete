@@ -45,6 +45,13 @@ constructor(private httpClient:HttpClient) { }
     return this.httpClient.post<any>(uri, course);
   }
 
+  generateStudentFee(studentId:number):Observable<any> {
+    console.log("Generate student fee service method");
+    // let uri:string = "http://localhost:7005/registeredcourses/create";
+    let uri:string = "http://localhost:8092/student/" + studentId + "/generatefee";
+    return this.httpClient.post<any>(uri, {headers:this.headers});
+  }
+
   // PUT
   registerCourse(course:RegisteredCourse):Observable<any> {
     console.log("register course service method");

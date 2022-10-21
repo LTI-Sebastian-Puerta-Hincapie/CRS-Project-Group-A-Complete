@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PaymentServiceService } from 'src/app/services/payment-service.service';
 
 @Component({
   selector: 'app-payment-component',
@@ -7,9 +8,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentComponentComponent implements OnInit {
 
-  constructor() { }
+  studentID:number = 0;
+  paymentMethod:string = "";
+  getData:any;
+  showStudentBillTable:boolean = false;
+
+  constructor(private _httpService:PaymentServiceService) { }
 
   ngOnInit(): void {
   }
 
+  getStudentFee(studentId:number) {
+
+    console.log("Get student fee method");
+
+    this._httpService.getStudentFee(studentId).subscribe((res:any[]) => {
+      console.log(res);
+      this.getData=res;
+    })
+
+    this.showStudentBillTable = !this.showStudentBillTable;
+  }
+
+  payStudentFee(studentId:number, paymentMethod:string) {
+
+    console.log("Calling pay student fee method");
+    
+    this._httpService.payStudentFee(studentId, paymentMethod)
+        .subscribe((res:any[]) => {
+      console.log(res);
+    })
+  }
 }

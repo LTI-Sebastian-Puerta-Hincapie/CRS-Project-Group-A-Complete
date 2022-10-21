@@ -103,4 +103,13 @@ export class CourseComponentComponent implements OnInit {
       console.log(res);
     })
   }
+
+  generateStudentFee(studentId:number) {
+
+    console.log("Calling generate student fee method");
+
+    this._httpService.generateStudentFee(studentId).subscribe((res:any[]) => {
+      console.log(res);
+    })
+  }
 }
