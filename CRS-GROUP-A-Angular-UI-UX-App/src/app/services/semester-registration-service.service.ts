@@ -17,30 +17,32 @@ export class SemesterRegistrationServiceService {
 
   // USER SERVICE METHODS
   // GET 
-  getSemesterRegistration():Observable<any> {
+  getSemesterRegistration(studentId:number):Observable<any> {
     console.log("Get semester registartion servie method");
-    let uri:string = "http://localhost:7004/semesterregistration"; 
+    // let uri:string = "http://localhost:7004/semesterregistration"; 
+    let uri:string = "http://localhost:9098/admin/getregistration/" + studentId; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
 
   // POST
   createSemesterRegistration(semesterRegistration:SemesterRegistration):Observable<any> {
     console.log("Create semester registration service method");
-    let uri:string = "http://localhost:7004/semesterregistration/create";
+    // let uri:string = "http://localhost:7004/semesterregistration/create";
+    let uri:string = "http://localhost:9098/admin/createregistration";
     return this.httpClient.post<any>(uri, semesterRegistration);
   }
 
   // PUT
-  updateSemesterRegistration(semesterRegistration:SemesterRegistration):Observable<any> {
+  approveSemesterRegistration(semesterRegistration:SemesterRegistration):Observable<any> {
     console.log("Update semester registration service method");
-    let uri:string = "http://localhost:7004/semesterregistration/update/" + semesterRegistration.getStudentId();
-    return this.httpClient.put<any>(uri, semesterRegistration);
+    let uri:string = "http://localhost:9098/admin/approve/" + semesterRegistration.getStudentId() + "/" + semesterRegistration.getApprovalStatus();
+    return this.httpClient.put<any>(uri, {headers:this.headers});
   }
 
   // DELETE
   deleteSemesterRegistration(studentId:number):Observable<any> {
     console.log("Delete semester registration service method");
-    let uri:string = "http://localhost:7004/semesterregistration/delete/" + studentId;
+    let uri:string = "http://localhost:9098/admin/registration/" + studentId;
     return this.httpClient.delete<any>(uri, {headers:this.headers});
   }
 }

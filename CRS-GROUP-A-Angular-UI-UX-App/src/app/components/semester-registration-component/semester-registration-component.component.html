@@ -1,57 +1,149 @@
 <div class="semester-registration-view">
     <div class="semester-registration-component">
         <h2 style="text-align: center;">SEMESTER REGISTRATION</h2>
-        <form class="semesterRegistrationForm">
-            <h3>Add Registration</h3>
-            <div class="mb-3 mt-3">
-                <label for="username" class="form-label">Admin Username:</label>
-                <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Admin Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter current password" name="password">
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="studentId" class="form-label">Student ID:</label>
-                <input 
-                    type="studentId" 
-                    class="form-control" 
-                    id="studentId" 
-                    placeholder="Enter Student ID" 
-                    name="studentId" 
-                    [(ngModel)]="studentId"><br>
-    
-                <a type="submit" class="button" (click)="createSemesterRegistration(studentId)">
-                    Create Registration
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                </a>
-            </div>
-        </form><br>
-        <form class="semesterRegistrationForm">
-            <h3>Approve Registration</h3>
-            <div class="mb-3 mt-3">
-                <label for="username" class="form-label">Admin Username:</label>
-                <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Admin Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter current password" name="password">
-            </div>
-            <div class="mb-3 mt-3">
-                <label for="studentId" class="form-label">Student ID:</label>
-                <input 
-                    type="studentId" 
-                    class="form-control" 
-                    id="studentId" 
-                    placeholder="Enter Student ID" 
-                    name="studentId" 
-                    [(ngModel)]="studentId"><br>
-    
-                <a type="submit" class="button" (click)="updateSemesterRegistration(studentId)">
-                    Approve Registration
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                </a>
-            </div>
-        </form>
+        <div class="semester-registration-components">           
+            <a class="button" (click)="semesterRegistrationSelection(1)">Create Registration</a>
+            <a class="button" (click)="semesterRegistrationSelection(2)">Approve Registration</a>
+            <a class="button" (click)="semesterRegistrationSelection(3)">View Student Registration</a>          
+        </div>
+
+        <div [hidden]="!create" class="create-semester-registration">
+            <form class="semesterRegistrationForm">
+                <h3>Add Registration</h3>
+                <div class="mb-3 mt-3">
+                    <label for="username" class="form-label">Admin Username:</label>
+                    <input
+                         type="username" 
+                         class="form-control" 
+                         id="username" 
+                         placeholder="Enter username" 
+                         name="username"
+                         [(ngModel)]="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Admin Password:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        placeholder="Enter current password" 
+                        name="password" 
+                        [(ngModel)]="password">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="studentId" class="form-label">Student ID:</label>
+                    <input 
+                        type="studentId" 
+                        class="form-control" 
+                        id="studentId" 
+                        placeholder="Enter Student ID" 
+                        name="studentId" 
+                        [(ngModel)]="studentId"><br>
+        
+                    <a type="submit" class="button" (click)="createSemesterRegistration(studentId)">
+                        Create Registration
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div [hidden]="!approve" class="approve-semester-registration">
+            <form class="semesterRegistrationForm">
+                <h3>Approve Registration</h3>
+                <div class="mb-3 mt-3">
+                    <label for="username" class="form-label">Admin Username:</label>
+                    <input 
+                        type="username" 
+                        class="form-control" 
+                        id="username" 
+                        placeholder="Enter username" 
+                        name="username"
+                        [(ngModel)]="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Admin Password:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        placeholder="Enter current password" 
+                        name="password"
+                        [(ngModel)]="password">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="studentId" class="form-label">Student ID:</label>
+                    <input 
+                        type="studentId" 
+                        class="form-control" 
+                        id="studentId" 
+                        placeholder="Enter Student ID" 
+                        name="studentId" 
+                        [(ngModel)]="studentId"><br>
+        
+                    <a type="submit" class="button" (click)="approveSemesterRegistration(studentId)">
+                        Approve Registration
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div [hidden]="!view" class="view-semester-registration">
+            <form class="semesterRegistrationForm">
+                <h3>View Registration</h3>
+                <div class="mb-3 mt-3">
+                    <label for="username" class="form-label">Admin Username:</label>
+                    <input 
+                        type="username" 
+                        class="form-control" 
+                        id="username" 
+                        placeholder="Enter username" 
+                        name="username"
+                        [(ngModel)]="username">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Admin Password:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        placeholder="Enter current password" 
+                        name="password"
+                        [(ngModel)]="password">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="studentId" class="form-label">Student ID:</label>
+                    <input 
+                        type="studentId" 
+                        class="form-control" 
+                        id="studentId" 
+                        placeholder="Enter Student ID" 
+                        name="studentId" 
+                        [(ngModel)]="studentId"><br>
+        
+                    <a type="submit" class="button" (click)="getSemesterRegistration(studentId)">
+                        View Registration
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </form><br>
+
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">RegistrationID</th>
+                    <th scope="col">StudentID</th>
+                    <th scope="col">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <!-- <th scope="row">1</th> -->
+                    <td>{{getData.registrationId}}</td>
+                    <td>{{getData.studentId}}</td>
+                    <td>{{getData.comments}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
     </div>
 </div>

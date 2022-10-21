@@ -11,18 +11,14 @@ import { SemesterRegistrationServiceService } from 'src/app/services/semester-re
 export class SemesterRegistrationComponentComponent implements OnInit {
 
   studentId = 0;
-  userName = "";
+  username = "";
   password = "";
+  create:boolean = false;
+  approve:boolean= false;
+  view:boolean = false;
 
   user = new User(0, "", "", 1); // admin user
-  semesterRegistration = new SemesterRegistration(0, 0, 0, "");
-
-  // in memory data - demo purposes
-  semesterRegistrationList:Array<SemesterRegistration> = [
-    new SemesterRegistration(10, 1, 0, "Pending Approval"),
-    new SemesterRegistration(11, 1, 0, "Pending Approval"),
-    new SemesterRegistration(12, 1, 0, "Pending Approval")
-  ];
+  semesterRegistration = new SemesterRegistration(0, 0, 0, 0, "");
 
   getData:any;
 
@@ -31,49 +27,10 @@ export class SemesterRegistrationComponentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // functions using array implementation
-  public createSemesterRegistrationArr(studentId:number) {
-
-    console.log("Calling create semester registration method");
-    console.log("StudentId: " + studentId);
-    
-    // pre-condition
-    if(studentId < 1) {
-      return;
-    }
-
-    let element = this.semesterRegistrationList.find(x => x.getStudentId() == studentId);
-    if(element == undefined) return;
-
-    this.semesterRegistrationList.push(new SemesterRegistration(studentId, 1, 0, "Pending Approval"));
-
-    console.log(this.semesterRegistrationList);
-  }
-
-  public updateSemesterRegistrationArr(studentId:number) {
-
-    console.log("Calling update semester registration method");
-    console.log("StudentId: " + studentId);
-    
-    // pre-condition
-    if(studentId < 1) {
-      return;
-    }
-
-    let element = this.semesterRegistrationList.find(x => x.getStudentId() == studentId);
-    if(element != undefined) {
-      let index = this.semesterRegistrationList.indexOf(element);
-      this.semesterRegistrationList[index].setApprovalStatus(1);
-      this.semesterRegistrationList[index].setComments("Approved");
-    }
-
-    console.log(this.semesterRegistrationList);
-  }
-
   // service methods
-  getSemesterRegistration() {
+  getSemesterRegistration(studentId:number) {
     console.log("Get semester registration method");
-    this._httpService.getSemesterRegistration().subscribe((res:any[]) => {
+    this._httpService.getSemesterRegistration(studentId).subscribe((res:any[]) => {
       console.log(res);
       this.getData=res;
     })
@@ -82,25 +39,22 @@ export class SemesterRegistrationComponentComponent implements OnInit {
 
     console.log("Calling create semester registration method");
     
-    let semesterRegistration = new SemesterRegistration(studentId, 1, 0 , "Pending Approval");
+    let semesterRegistration = new SemesterRegistration(0, studentId, 1, 0 , "Pending Approval");
     this._httpService.createSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
       console.log(res);
-
     })
-
   }
 
-  public updateSemesterRegistration(studentId:number) {
+  public approveSemesterRegistration(studentId:number) {
 
     console.log("Calling update semester registration method");
 
-    let semesterRegistration = new SemesterRegistration(studentId, 1, 1, "Approved");
-    this._httpService.updateSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
+    let semesterRegistration = new SemesterRegistration(0, studentId, 1, 1, "Approved");
+    this._httpService.approveSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
       console.log(res);
     })
   }
 
-  
   deleteSemesterRegistration(studentId:number){
 
     console.log("Calling delete semester registration method");
@@ -108,5 +62,22 @@ export class SemesterRegistrationComponentComponent implements OnInit {
     this._httpService.deleteSemesterRegistration(studentId).subscribe((res:any[]) => {
       console.log(res);
     })
+  }
+
+  semesterRegistrationSelection(selection:number) {
+    if(selection == 1) {
+      this.create = !this.create;
+      this.approve = false;
+      this.view = false;
+    }
+    else if (selection == 2) {
+      this.approve = !this.approve;
+      this.create = false;
+      this.view = false;
+    } else {
+      this.view = !this.view;
+      this.create = false;
+      this.approve = false;
+    }
   }
 }
