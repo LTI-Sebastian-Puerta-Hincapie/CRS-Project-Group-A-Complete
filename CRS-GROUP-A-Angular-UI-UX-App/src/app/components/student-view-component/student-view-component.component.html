@@ -51,18 +51,14 @@
             <tr>
               <th scope="col">CourseID</th>
               <th scope="col">CourseName</th>
-              <th scope="col">Credits</th>
-              <th scope="col">Semester</th>
+              <th scope="col">Registration Status</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let course of getStudentRegisteredCoursesData">
-              <td>{{course.id}}</td>
-              <td>{{course.name}}</td>
-              <td>{{course.majorId}}</td>
-              <td>{{course.email}}</td>
-              <td>{{course.phne}}</td>
-              <td>{{course.address}}</td>
+              <td>{{course.courseId}}</td>
+              <td>{{course.courseName}}</td>
+              <td>{{course.registeredStatus}}</td>
             </tr>
           </tbody>
         </table>
@@ -79,10 +75,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let course of getStudentGradesData">
-              <td>{{course.courseId}}</td>
-              <td>{{course.courseName}}</td>
-              <td>{{course.grade}}</td>
+            <tr *ngFor="let studentgrade of getStudentGradesData">
+              <td>{{studentgrade.course.courseId}}</td>
+              <td>{{studentgrade.course.courseName}}</td>
+              <td>{{studentgrade.grade}}</td>
             </tr>
           </tbody>
         </table>
