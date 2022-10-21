@@ -1,1 +1,14 @@
-<p>admin-component works!</p>
+<div class="admin-component">
+    <div class="admin-welcome-header"> 
+        <h3>Welcome Admin </h3>
+        <p> Semester Registration, Login, Update Password, 
+            Add/Drop Course, Course Registration, Payment, and Student Profile</p>
+    </div><br>
+    <div class="admin-components">
+        <a class="button route-link" [routerLink]="['/updateprofessors']">Update Professors</a>
+        <a class="button route-link" [routerLink]="['/generatereportcard']">Generate Report Card</a>
+        <a class="button route-link" [routerLink]="['/semesterregistration']">Semester Registration</a>
+        <a class="button route-link" [routerLink]="['/updatecourses']">Update Courses</a>
+    </div>
+</div>
+

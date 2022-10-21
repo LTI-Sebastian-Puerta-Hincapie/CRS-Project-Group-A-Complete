@@ -16,7 +16,11 @@ import { AdminComponentComponent } from './components/admin-component/admin-comp
 import { ProfessorComponentComponent } from './components/professor-component/professor-component.component';
 import { HeaderComponentComponent } from './components/header-component/header-component.component';
 import { FooterComponentComponent } from './components/footer-component/footer-component.component';
-import { NavBarComponentComponent } from './components/nav-bar-component/nav-bar-component.component'
+import { NavBarComponentComponent } from './components/nav-bar-component/nav-bar-component.component';
+import { GenerateReportCardComponentComponent } from './components/generate-report-card-component/generate-report-card-component.component';
+import { ViewCourseAvailabilityComponentComponent } from './components/view-course-availability-component/view-course-availability-component.component';
+import { UpdateCoursesComponentComponent } from './components/update-courses-component/update-courses-component.component';
+import { UpdateProfessorsComponentComponent } from './components/update-professors-component/update-professors-component.component'
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { NavBarComponentComponent } from './components/nav-bar-component/nav-bar
     ProfessorComponentComponent,
     HeaderComponentComponent,
     FooterComponentComponent,
-    NavBarComponentComponent
+    NavBarComponentComponent,
+    GenerateReportCardComponentComponent,
+    ViewCourseAvailabilityComponentComponent,
+    UpdateCoursesComponentComponent,
+    UpdateProfessorsComponentComponent
   ],
   imports: [
     BrowserModule,
