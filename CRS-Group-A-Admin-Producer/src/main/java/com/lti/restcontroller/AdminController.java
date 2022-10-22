@@ -49,6 +49,26 @@ public class AdminController {
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.PUT,
+			value = "/admin/updateprofessor")
+	@ResponseBody
+	public ResponseEntity updateProfessor(@RequestBody Professor professor) {	
+		logger.info("From the updateProfessor controller method");
+		adminservice.updateProfessor(professor);
+		return new ResponseEntity(professor, HttpStatus.OK);
+	}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
+			method = RequestMethod.DELETE,
+			value = "/admin/deleteprofessor/{id}")
+	@ResponseBody
+	public ResponseEntity deleteProfessor(@PathVariable("id") int professorId) {	
+		logger.info("From the deleteprofessor controller method");
+		adminservice.deleteProfessor(professorId);
+		return new ResponseEntity("Professor successfully deleted", HttpStatus.OK);
+	}
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON,
 			method = RequestMethod.GET,
 			value = "/admin/generatereportcard/{id}")
 	public ResponseEntity<List<Grade>> generateReportCard(@PathVariable("id") int id) {
@@ -130,7 +150,10 @@ public class AdminController {
 			method = RequestMethod.PUT,
 			value = "/admin/updatecourse/{courseId}/{courseName}/{description}")
 	@ResponseBody
-	public ResponseEntity updateCourse(@PathVariable("courseId") int courseId, @PathVariable("courseName") String courseName, @PathVariable("description") String description) throws CourseNotFoundException {
+	public ResponseEntity updateCourse(
+			@PathVariable("courseId") int courseId, 
+			@PathVariable("courseName") String courseName, 
+			@PathVariable("description") String description) throws CourseNotFoundException {
 		Course course = new Course(courseId,courseName,description);
 		adminservice.updateCourse(courseId,courseName,description);
 		return new ResponseEntity(course, HttpStatus.OK);

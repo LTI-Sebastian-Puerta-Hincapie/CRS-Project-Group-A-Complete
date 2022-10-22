@@ -30,6 +30,18 @@ public interface AdminDAO {
 	public void addProfessorDAO(Professor professor);
 	
 	/**
+	 * This method updates a professor
+	 * @param professor of type Professor
+	 */
+	public void updateProfessorDAO(Professor professor);
+	
+	/**
+	 * This method deletes are professor
+	 * @param professorId of type integer
+	 */
+	public void deleteProfessorDAO(int professorId);
+	
+	/**
 	 * This method approves the registration of a student's course
 	 * @param studentID of type integer 
 	 * @param approvalStatus of type integer

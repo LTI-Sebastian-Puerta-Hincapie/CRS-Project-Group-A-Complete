@@ -38,6 +38,14 @@ public class AdminService implements AdminServiceOperation {
 		admindao.addProfessorDAO(professor);
 	}
 	
+	public void updateProfessor(Professor professor) {
+		admindao.updateProfessorDAO(professor);
+	}
+	
+	public void deleteProfessor(int professorId) {
+		admindao.deleteProfessorDAO(professorId);
+	}
+	
 	public void approveStudentRegistration(int studentID, int approvalStatus) {
 		admindao.approveStudentRegistrationDAO(studentID, approvalStatus); 
 	}

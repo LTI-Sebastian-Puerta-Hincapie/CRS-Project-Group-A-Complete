@@ -8,12 +8,12 @@ import { RegisteredCourse } from '../models/registered-course';
 })
 export class CourseServiceService {
 
- // cros implementation
- headers = new HttpHeaders()
- .set('Content-Type', 'application/json')
- .set('Access-Control-Allow-Origin',"*");
+  // cros implementation
+  headers = new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  .set('Access-Control-Allow-Origin',"*");
 
-constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) { }
 
   // USER SERVICE METHODS
   // GET 
