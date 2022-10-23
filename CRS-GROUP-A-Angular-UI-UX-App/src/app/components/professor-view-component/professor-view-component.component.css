@@ -1,0 +1,30 @@
+.professor-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.professor-view-component {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
+.professor-data-container {
+    grid: 1;
+    padding: 1em;
+    margin-top: 1em;
+    background-color: lightgray;
+}
+
+.professor-courses-container {
+    grid: 2;
+    padding: 1em;
+    margin-top: 1em;
+    background-color: lightgray;
+}
+
+.professor-view-form {
+    width: 200px;
+}

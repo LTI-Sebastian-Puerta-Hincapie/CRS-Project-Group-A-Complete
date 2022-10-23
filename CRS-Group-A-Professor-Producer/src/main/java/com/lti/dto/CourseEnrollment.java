@@ -8,18 +8,35 @@ import org.springframework.stereotype.Component;
 public class CourseEnrollment implements Serializable {
 	
     private int courseId;
+    private String courseName;
     private int studentId;
     private String studentName;
     
     public CourseEnrollment() {}
       
-	public CourseEnrollment(int courseId, int studentId, String studentName) {
+	public CourseEnrollment(int courseId, String courseName, int studentId, String studentName) {
 
 		this.courseId = courseId;
+		this.courseName = courseName;
 		this.studentId = studentId;
 		this.studentName = studentName;
 	}
 	
+	
+	/**
+	 * @return the courseName
+	 */
+	public String getCourseName() {
+		return courseName;
+	}
+
+	/**
+	 * @param courseName the courseName to set
+	 */
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
 	/**
 	 * @return the courseId
 	 */

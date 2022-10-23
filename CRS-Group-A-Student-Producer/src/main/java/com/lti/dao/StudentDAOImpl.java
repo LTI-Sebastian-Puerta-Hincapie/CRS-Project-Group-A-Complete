@@ -47,6 +47,38 @@ public class StudentDAOImpl implements StudentDAO {
 	public void courseRegistrationDAO(RegisteredCourse registeredCourse) {
 		
 		logger.info("From the courseRegistrationDAO method");
+		
+	   // update course catalog
+	   CourseCatalog course = null;
+	   
+		try {
+			course = jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_COURSE_CATALOG_BY_COURSEID, 
+					new Object[]{ registeredCourse.getCourseId() },
+					new CourseCatalogMapper());
+		} catch(IncorrectResultSizeDataAccessException e) {
+			return;
+		}
+	   
+	   if(registeredCourse.getRegisteredStatus() == 1) {
+		   
+		   jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.UPDATE_COURSE_CATALOG, 
+					course.getEnrolled() + 1,
+					registeredCourse.getCourseId());
+	   }
+	   else {
+		   
+		   if(course.getEnrolled() > 0) {
+			   
+			   jdbcTemplateObject.jdbcTemplate().update(
+						SQLQueries.UPDATE_COURSE_CATALOG, 
+						course.getEnrolled() - 1,
+						registeredCourse.getCourseId());
+		   }
+	   }   
+		   
+	   // update registration
 		jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.UPDATE_REGISTRATION_BY_COURSEID_AND_STUDENTID,
 				registeredCourse.getRegisteredStatus(),
@@ -63,6 +95,8 @@ public class StudentDAOImpl implements StudentDAO {
 	public int addCourseDAO(RegisteredCourse registeredCourse) {
 		
 	   logger.info("From the addCourseDAO method");
+	   
+	   // update add course
 	   return jdbcTemplateObject.jdbcTemplate().update(
 				SQLQueries.INSERT_STUDENT_COURSE, 
 				registeredCourse.getStudentId(),
@@ -105,6 +139,7 @@ public class StudentDAOImpl implements StudentDAO {
 	public void dropCourseDAO(int studentId, int courseId) {
 		
        logger.info("From the dropCourseDAO method");
+		       
 	   jdbcTemplateObject.jdbcTemplate().update(
 			SQLQueries.DELETE_STUDENT_COURSE_BY_COURSEID_AND_STUDENTID, 
 			studentId,

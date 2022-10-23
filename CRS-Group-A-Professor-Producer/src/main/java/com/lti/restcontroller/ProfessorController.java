@@ -48,10 +48,10 @@ public class ProfessorController {
 			method = RequestMethod.GET, 
 			value = "professor/enrolled/courses/{courseId}")
 	@ResponseBody
-	public ResponseEntity viewEnrolledStudents(@PathVariable("courseId") String courseId) throws NoEnrolledStudentsFoundException{
+	public ResponseEntity<List<CourseEnrollment>> viewEnrolledStudents(@PathVariable("courseId") int courseId) throws NoEnrolledStudentsFoundException{
 
 		List<CourseEnrollment> courseEnrollmentList = professorServiceOperation
-				.viewEnrolledStudents(Integer.parseInt(courseId));
+				.viewEnrolledStudents(courseId);
 
 		return new ResponseEntity<List<CourseEnrollment>>(courseEnrollmentList, HttpStatus.OK);
 	}

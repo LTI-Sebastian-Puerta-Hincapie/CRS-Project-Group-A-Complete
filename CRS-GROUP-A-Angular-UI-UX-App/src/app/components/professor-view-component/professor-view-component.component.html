@@ -1,1 +1,75 @@
-<p>professor-view-component works!</p>
+<div class = "professor-view">
+    <div class="professor-view-component">
+      <h2 style="text-align: center;">PROFESSOR PROFILE</h2>
+      <form class="professor-view-form">
+          <div class="mb-1 mt-1">
+              <label for="professorId" class="form-label">Professor ID: </label>
+              <input 
+                  type="input" 
+                  class="form-control" 
+                  id="professorId" 
+                  placeholder="Enter Professor ID" 
+                  name="professorId" 
+                  [(ngModel)] = "professorId">
+          </div>
+          <a type="button" class="button" (click)="getProfessorProfile(professorId)">
+              Enter
+              <i class="fa-solid fa-right-to-bracket"></i>
+          </a>
+      </form>
+  
+      <section class="professor-data-container">
+          <h4>PROFESSOR INFORMATION:</h4>
+          <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ProfessorID</th>
+                <th scope="col">Name</th>
+                <th scope="col">DepartmentID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{getProfessorData.id}}</td>
+                <td>{{getProfessorData.name}}</td>
+                <td>{{getProfessorData.departmentId}}</td>
+                <td>{{getProfessorData.email}}</td>
+                <td>{{getProfessorData.phone}}</td>
+                <td>{{getProfessorData.address}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </section>
+  
+      <section class="professor-courses-container">
+          <h4>COURSES:</h4>
+          <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ProfessorID</th>
+                <th scope="col">DepartmentID</th>
+                <th scope="col">Prerequisites</th>
+                <th scope="col">Credits</th>
+                <th scope="col">Capacity</th>
+                <th scope="col">Enrollment</th>
+                <th scope="col">Semester</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of getProfessorCoursesData">
+                <td>{{course.professorId}}</td>
+                <td>{{course.departmentId}}</td>
+                <td>{{course.prerequisites}}</td>
+                <td>{{course.credits}}</td>
+                <td>{{course.capacity}}</td>
+                <td>{{course.enrolled}}</td>
+                <td>{{course.semester}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </section>
+  </div>
+</div>

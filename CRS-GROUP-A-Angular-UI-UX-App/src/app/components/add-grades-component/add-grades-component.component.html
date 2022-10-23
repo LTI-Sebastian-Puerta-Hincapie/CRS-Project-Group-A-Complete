@@ -1,1 +1,65 @@
-<p>add-grades-component works!</p>
+<div class = "add-grades-view">
+    <div class="add-grades-component">
+      <h2 style="text-align: center;">ADD GRADES</h2>
+      <form class="add-grades-form">
+          <div class="mb-1 mt-1">
+                <label for="professorId" class="form-label">Course ID: </label> 
+                <div class="input-group">
+                    <input 
+                        type="input" 
+                        class="form-control professorId-input" 
+                        id="courseId" 
+                        placeholder="Enter Course ID" 
+                        name="courseId" 
+                        [(ngModel)] = "courseId">
+                    <div class="input-group-append">
+                        <a type="button" class="button" (click)="getCourseEnrollment(courseId)">
+                            Enter
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </a>
+                    </div>
+                </div>
+          </div>
+      </form>
+  
+      <section class="add-grades-data-container">
+          <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Student ID</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Course ID</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of getData">
+                <td>{{course.studentId}}</td>
+                <td>{{course.studentName}}</td>
+                <td>{{course.courseId}}</td>
+                <td>{{course.courseName}}</td>
+                <td>              
+                    <form class="input-group">
+                        <input 
+                            type="grade" 
+                            class="form-control grade-input" 
+                            id="grade" 
+                            placeholder="Grade" 
+                            name="grade" 
+                            [(ngModel)] = "grade">
+                        <div class="input-group-append">
+                            <a type="button" 
+                                class="button" 
+                                (click)="addGrades(getData.studentId, grade, getData.courseId, getData.courseName)">
+                                Save
+                            </a>
+                        </div>
+                    </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </section>
+  </div>
+</div>

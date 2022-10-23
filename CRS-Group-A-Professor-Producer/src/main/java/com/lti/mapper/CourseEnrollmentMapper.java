@@ -14,8 +14,8 @@ public class CourseEnrollmentMapper implements RowMapper<CourseEnrollment> {
 		
 		CourseEnrollment courseEnrollment = new CourseEnrollment(
 				rs.getInt("CourseId"),
-				rs.getInt("studentId"),
-				rs.getString("Name"));
+				null,
+				rs.getInt("studentId"), rs.getString("Name"));
 		
 		return courseEnrollment;
 	}

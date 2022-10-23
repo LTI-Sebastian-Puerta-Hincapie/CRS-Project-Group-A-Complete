@@ -8,25 +8,26 @@ import { ProfessorServiceService } from 'src/app/services/professor-service.serv
 })
 export class ProfessorViewComponentComponent implements OnInit {
 
-  professorID:number = 0;
-  getData:any;
+  professorId:number = 0;
+  getProfessorData:any;
+  getProfessorCoursesData:any;
 
   constructor(private _httpService:ProfessorServiceService) { }
 
   ngOnInit(): void {
   }
 
+  getProfessorProfile(professorId:number) {
+
+    this.getProfessor(professorId);
+    this.getProfessorCourses(professorId);
+  }
+
   getProfessor(professorId:number) {
     console.log("Calling get professor method");
     this._httpService.getProfessor(professorId).subscribe((res:any[]) => {
       console.log(res);
-    });
-  }
-
-  getCourseEnrollment(professorId:number) {
-    console.log("Calling get course enrollment method");
-    this._httpService.getCourseEnrollment(professorId).subscribe((res:any[]) => {
-      console.log(res);
+      this.getProfessorData = res;
     });
   }
 
@@ -34,6 +35,7 @@ export class ProfessorViewComponentComponent implements OnInit {
     console.log("Calling get professor courses method");
     this._httpService.getProfessorCourses(professorId).subscribe((res:any[]) => {
       console.log(res);
+      this.getProfessorCoursesData = res;
     });
   }
 }

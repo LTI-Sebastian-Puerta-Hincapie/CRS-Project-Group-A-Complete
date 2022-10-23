@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from 'src/app/models/course';
 import { Grade } from 'src/app/models/grade';
 import { ProfessorServiceService } from 'src/app/services/professor-service.service';
 
@@ -9,7 +10,11 @@ import { ProfessorServiceService } from 'src/app/services/professor-service.serv
 })
 export class AddGradesComponentComponent implements OnInit {
 
-  professorID:number = 0;
+  professorId:number = 0;
+  courseId:number = 0;
+  courseName:string = "";
+  studentId:number = 0;
+  grade:string = "";
   getData:any;
 
   constructor(private _httpService:ProfessorServiceService) { }
@@ -17,8 +22,18 @@ export class AddGradesComponentComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  addGrades(studentId:number, grade:Grade) {
+  getCourseEnrollment(courseId:number) {
+    console.log("Calling get course enrollment method");
+    this._httpService.getCourseEnrollment(courseId).subscribe((res:any[]) => {
+      console.log(res);
+      this.getData = res;
+      console.log(this.getData);
+    });
+  }
+
+  addGrades(studentId:number, gradeInput:string, courseId:number, courseName:string) {
     console.log("Calling add grades method");
+    let grade = new Grade(gradeInput, new Course(courseId, courseName, ""));
     this._httpService.addGrades(studentId, grade).subscribe((res:any[]) => {
       console.log(res);
     })

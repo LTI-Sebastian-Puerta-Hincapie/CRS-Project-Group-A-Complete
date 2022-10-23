@@ -81,7 +81,7 @@ public class SQLQueries {
 			"SELECT * FROM professors WHERE Id = ?";
 	
 	public static final String SELECT_STUDENT_ENROLLMENT_BY_COURSEID = 
-			"SELECT pc.CourseId, rc.StudentId, s.Name "
+			"SELECT pc.CourseId, rc.CourseName, rc.StudentId, s.Name "
 			+ "FROM professorcourses pc "
 			+ "JOIN registeredcourse rc "
 			+ " ON pc.CourseId = rc.CourseId "

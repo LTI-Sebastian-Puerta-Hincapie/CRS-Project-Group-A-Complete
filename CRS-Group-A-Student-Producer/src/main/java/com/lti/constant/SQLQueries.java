@@ -61,6 +61,12 @@ public class SQLQueries {
 	public static final String INSERT_STUDENT_SEMESTER_REGISTRATION = 
 			"INSERT INTO semesterregistration (StudentId, ApprovalStatus, AdminId, Comment) VALUES (?, ?, ?, ?)";
 	
+	public static final String SELECT_COURSE_CATALOG_BY_COURSEID = 
+			"SELECT * FROM coursecatalog WHERE Id = ?";
+	
+	public static final String UPDATE_COURSE_CATALOG = 
+			"UPDATE coursecatalog SET Enrolled = ? WHERE Id = ?";
+	
 	// PROFESSOR
 	public static final String UPDATE_STUDENT_GRADE_BY_STUDENTID_AND_COURSEID = 
 			"UPDATE registeredcourse SET Grade = ? WHERE StudentId = ? AND CourseId = ?";
