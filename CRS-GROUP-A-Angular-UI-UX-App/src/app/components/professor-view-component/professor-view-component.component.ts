@@ -16,4 +16,24 @@ export class ProfessorViewComponentComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getProfessor(professorId:number) {
+    console.log("Calling get professor method");
+    this._httpService.getProfessor(professorId).subscribe((res:any[]) => {
+      console.log(res);
+    });
+  }
+
+  getCourseEnrollment(professorId:number) {
+    console.log("Calling get course enrollment method");
+    this._httpService.getCourseEnrollment(professorId).subscribe((res:any[]) => {
+      console.log(res);
+    });
+  }
+
+  getProfessorCourses(professorId:number) {
+    console.log("Calling get professor courses method");
+    this._httpService.getProfessorCourses(professorId).subscribe((res:any[]) => {
+      console.log(res);
+    });
+  }
 }

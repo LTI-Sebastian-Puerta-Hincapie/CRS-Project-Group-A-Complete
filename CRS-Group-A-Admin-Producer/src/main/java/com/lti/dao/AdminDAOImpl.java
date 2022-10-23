@@ -140,22 +140,23 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public Boolean checkAvailabilityDAO(int id){
+		
+		CourseCatalog course = null;
 		try{
-			CourseCatalog course = jdbcTemplateObject.jdbcTemplate().queryForObject(
+			course = jdbcTemplateObject.jdbcTemplate().queryForObject(
 					SQLQueries.SELECT_COURSECATALOG_BY_COURSEID, 
 					new Object[] {id},
 					new CourseCatalogMapper());
-			if(course.getEnrolled() < course.getCapacity()) {
-				return true;
-			}else {
-				return false;
-			}
 			
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
-		return null;
+		
+		if(course.getEnrolled() < course.getCapacity()) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

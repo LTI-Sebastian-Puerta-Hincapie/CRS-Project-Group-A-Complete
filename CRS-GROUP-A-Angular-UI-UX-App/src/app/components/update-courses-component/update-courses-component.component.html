@@ -1,1 +1,93 @@
-<p>update-courses-component works!</p>
+<div class="update-course-view">
+    <div class="update-courses-component">
+        <h2 style="text-align: center;">COURSE MANAGER</h2>
+        <div class="update-course-components">           
+            <a class="button" (click)="courseSelection(1)">Add Course</a>
+            <a class="button" (click)="courseSelection(2)">Edit Course</a>       
+        </div>
+        <div [hidden]="!add" class="add-course-view">
+            <form class="add-courses-form">
+                <h3>Add Courses</h3>
+                <div class="mb-3 mt-3">
+                    <label for="courseId" class="form-label">Course ID:</label>
+                    <input
+                         type="courseId" 
+                         class="form-control" 
+                         id="courseId" 
+                         placeholder="Enter Course ID" 
+                         name="courseId"
+                         [(ngModel)]="courseId">
+                </div>
+                <div class="mb-3">
+                    <label for="courseName" class="form-label">Course Name:</label>
+                    <input 
+                        type="courseName" 
+                        class="form-control" 
+                        id="courseName" 
+                        placeholder="Enter Course Name" 
+                        name="courseName" 
+                        [(ngModel)]="courseName">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input 
+                        type="description" 
+                        class="form-control" 
+                        id="description" 
+                        placeholder="Enter Course Description" 
+                        name="description" 
+                        [(ngModel)]="description"><br>
+        
+                    <a type="submit" class="button" (click)="addCourse(courseId, courseName, description)">
+                        Add
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div [hidden]="!edit" class="edit-course-view">
+            <form class="edit-courses-form">
+                <h3>Edit Courses</h3>
+                <div class="mb-3 mt-3">
+                    <label for="courseId" class="form-label">Course ID:</label>
+                    <input
+                         type="courseId" 
+                         class="form-control" 
+                         id="courseId" 
+                         placeholder="Enter Course ID" 
+                         name="courseId"
+                         [(ngModel)]="courseId">
+                </div>
+                <div class="mb-3">
+                    <label for="courseName" class="form-label">Course Name:</label>
+                    <input 
+                        type="courseName" 
+                        class="form-control" 
+                        id="courseName" 
+                        placeholder="Enter Course Name" 
+                        name="courseName" 
+                        [(ngModel)]="courseName">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input 
+                        type="description" 
+                        class="form-control" 
+                        id="description" 
+                        placeholder="Enter Course Description" 
+                        name="description" 
+                        [(ngModel)]="description"><br>
+        
+                    <a type="submit" class="button" (click)="updateCourse(courseId, courseName, description)">
+                        Edit
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                    <a type="submit" class="button" (click)="deleteCourse(courseId)">
+                        Delete
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

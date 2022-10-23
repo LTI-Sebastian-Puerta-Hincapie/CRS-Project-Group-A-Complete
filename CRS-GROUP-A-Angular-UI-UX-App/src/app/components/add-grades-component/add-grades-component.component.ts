@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Grade } from 'src/app/models/grade';
 import { ProfessorServiceService } from 'src/app/services/professor-service.service';
 
 @Component({
@@ -15,7 +16,11 @@ export class AddGradesComponentComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   
-
+  addGrades(studentId:number, grade:Grade) {
+    console.log("Calling add grades method");
+    this._httpService.addGrades(studentId, grade).subscribe((res:any[]) => {
+      console.log(res);
+    })
+  }
 }

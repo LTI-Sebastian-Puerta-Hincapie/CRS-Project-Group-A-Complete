@@ -8,6 +8,9 @@ import { AdminServiceService } from 'src/app/services/admin-service.service';
 })
 export class GenerateReportCardComponentComponent implements OnInit {
 
+  studentId:number = 0;
+  getData:any;
+
   constructor(private _httpService:AdminServiceService) { }
 
   ngOnInit(): void {
@@ -19,6 +22,7 @@ export class GenerateReportCardComponentComponent implements OnInit {
 
     this._httpService.generateReportCard(studentId).subscribe((res:any[]) => {
       console.log(res);
+      this.getData = res;
     })
   }
 
