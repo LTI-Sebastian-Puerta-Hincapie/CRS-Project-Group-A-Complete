@@ -13,7 +13,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentComponentComponent } from './components/student-component/student-component.component';
 import { AdminComponentComponent } from './components/admin-component/admin-component.component';
-import { ProfessorComponentComponent } from './components/professor-component/professor-component.component'
+import { ProfessorComponentComponent } from './components/professor-component/professor-component.component';
+import { ProfessorProfileComponent } from './components/professor-profile/professor-profile.component';
+import { ProfessorEnrolledCoursesComponent } from './components/professor-enrolled-courses/professor-enrolled-courses.component';
+import { ProfessorOfferedCoursesComponent } from './components/professor-offered-courses/professor-offered-courses.component';
+import { ProfessorAddGradesComponent } from './components/professor-add-grades/professor-add-grades.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { ProfessorComponentComponent } from './components/professor-component/pr
     SemesterRegistrationComponentComponent,
     StudentComponentComponent,
     AdminComponentComponent,
-    ProfessorComponentComponent
+    ProfessorComponentComponent,
+    ProfessorProfileComponent,
+    ProfessorEnrolledCoursesComponent,
+    ProfessorOfferedCoursesComponent,
+    ProfessorAddGradesComponent
   ],
   imports: [
     BrowserModule,

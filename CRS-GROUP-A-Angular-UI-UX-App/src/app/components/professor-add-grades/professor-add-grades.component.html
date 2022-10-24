@@ -1,0 +1,41 @@
+<form class="AddGradesForm">
+    <h3>Add Grades</h3>
+    
+    <div class="mb-3 mt-3">
+        <label for="studentId" class="form-label">Student ID:</label>
+        <input 
+            type="studentId" 
+            class="form-control" 
+            id="studentId" 
+            placeholder="Enter Student ID" 
+            name="studentId" 
+            [(ngModel)]="studentId"><br>
+
+
+            <label for="courseId" class="form-label">Course ID:</label>
+            <input 
+                type="courseId" 
+                class="form-control" 
+                id="studentId" 
+                placeholder="Enter Course ID" 
+                name="courseId" 
+                [(ngModel)]="courseId"><br>
+
+            
+            <label for="gradeValue" class="form-label">Grade:</label>
+            <input 
+                type="gradeValue" 
+                class="form-control" 
+                id="gradeValue" 
+                placeholder="Enter Grade" 
+                name="gradeValue" 
+                [(ngModel)]="gradeValue"><br>
+
+        <a type="submit" class="button" (click)="addGrades()">
+            Add Grade
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+        <br>
+      <h4 style="color: green;">  {{coursesData}}</h4>
+    </div>
+</form>

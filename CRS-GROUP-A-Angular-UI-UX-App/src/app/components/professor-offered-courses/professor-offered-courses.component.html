@@ -1,0 +1,31 @@
+
+<div class = "professor-view">
+    <div class="professor-view-component">
+      <h2 style="text-align: center;">PROFESSOR PROFILE</h2>
+  
+      <section class="professor-data-container">
+          <h4>OFFERED COURSES:</h4>
+          <div class="professor-profile-data">
+            <table class="professor-data-container">
+              
+                <tr><th>course Id </th><th> Professor Id </th> <th>Department Id </th>
+                <th>prerequisites</th><th> credits</th><th> Capacity</th><th> Enrolled</th>
+               <th>Semester</th></tr>
+               <tr *ngFor="let course of coursesData">
+                <td>{{course.id}}  </td>
+                <td>{{course.professorId}} </td>
+                <td>{{course.departmentId}}</td>
+                <td>{{course.prerequisites}}</td>
+                <td>{{course.credits}}</td>
+                <td>{{course.capacity}}</td>
+                <td>{{course.enrolled}}</td>
+                <td>{{course.semester}}</td>
+               </tr>
+
+            </table>
+          </div>
+      </section>
+  
+     
+  </div>
+  </div>

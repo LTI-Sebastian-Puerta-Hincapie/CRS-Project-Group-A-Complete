@@ -1,1 +1,20 @@
-<p>professor-component works!</p>
+
+<div class="display-professor-component">
+    <div class="professor-welcome-header"> 
+        <h1>Welcome Professor </h1>
+        <p> Professor profile - Profile, Enrolled Courses, Offered Courses, Add Grades</p>
+    </div><br>
+    <div class="d-flex justify-content-center">
+        
+      <a class="button route-link" [routerLink]="['/profile']">Profile</a>
+      <a class="button route-link" [routerLink]="['/enrolledcourses']">Enrolled Courses</a>
+      <a class="button route-link" [routerLink]="['/offeredcourses']">Offered Courses</a>
+      <a class="button route-link" [routerLink]="['/addGrades']">Add Grades</a>
+      
+    </div>
+    <hr>
+      <br>
+    <!-- <button class="btn btn-primary" (click)="openModal()">Open modal</button> -->
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
