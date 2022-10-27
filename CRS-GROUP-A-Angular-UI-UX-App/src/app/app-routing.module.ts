@@ -35,7 +35,7 @@ const routes: Routes = [
   {path:'student/studentview', component: StudentViewComponentComponent},
 
   // admin
-  {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent},
+  {path:'admin', component: AdminComponentComponent},
   {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent},
   {path:'admin/updatecourses', component: UpdateCoursesComponentComponent},
   {path:'admin/viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
