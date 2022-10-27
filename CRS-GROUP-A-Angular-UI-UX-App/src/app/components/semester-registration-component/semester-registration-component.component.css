@@ -8,3 +8,13 @@
     padding: 1em;
     background-color: rgb(28, 19, 156, 0.15);
 }
+
+.button {
+    margin: 1em;
+}
+
+.view-semester-registration,
+.create-semester-registration,
+.approve-semester-registration {
+    margin-top: 1.5em;
+}

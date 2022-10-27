@@ -49,15 +49,17 @@ public class UserController {
 	@RequestMapping(
 			produces = MediaType.APPLICATION_JSON, 
 		    method = RequestMethod.GET,
-		    value = "/user/{username}/{password}")
+		    value = "/user/{username}/{password}/{role}")
 	@ResponseBody
-	public ResponseEntity getUser(
+	public ResponseEntity<User> getUser(
 			@PathVariable("username") String username, 
-			@PathVariable("password") String password) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException 
+			@PathVariable("password") String password,
+			@PathVariable("role") String role) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException 
 	{
 				
 		User user = userService.Login(username, password);
-		return new ResponseEntity(user.getUsername() + " has successfully logged in", HttpStatus.OK);			
+		user.setPassword("**********");
+		return new ResponseEntity<User>(user, HttpStatus.OK);			
 	}
 	
 	/**

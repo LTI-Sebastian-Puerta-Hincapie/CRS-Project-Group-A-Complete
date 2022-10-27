@@ -1,0 +1,15 @@
+.nav-bar-view {
+    margin: 0 auto;
+    max-width: 90rem;
+    min-width: 50rem;
+    padding-bottom: 2em;
+}
+
+.container-welcome-complete {
+    margin-left: 8em;
+    margin-right: 8em;
+}
+
+.route-link {
+    margin-left: 0.5em;
+}

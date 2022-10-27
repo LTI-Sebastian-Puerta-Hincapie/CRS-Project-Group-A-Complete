@@ -32,6 +32,18 @@ public interface AdminServiceOperation {
 	public void addProfessor(Professor professor);
 	
 	/**
+	 * This method updates are professor
+	 * @param professor of type Professor
+	 */
+	public void updateProfessor(Professor professor);
+	
+	/**
+	 * This method deletes are professor
+	 * @param professorId of type integer
+	 */
+	public void deleteProfessor(int professorId);
+	
+	/**
 	 * This method approves the registration of a student's course
 	 * @param studentID of type integer 
 	 * @param approvalStatus of type integer 

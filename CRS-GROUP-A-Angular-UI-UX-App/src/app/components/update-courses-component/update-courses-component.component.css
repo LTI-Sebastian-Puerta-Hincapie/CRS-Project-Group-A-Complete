@@ -1,0 +1,19 @@
+.update-course-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.update-courses-component {
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
+.button {
+    margin: 1em;
+}
+
+.add-course-view,
+.edit-course-view {
+    margin-top: 1.5em;
+}

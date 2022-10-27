@@ -24,9 +24,10 @@ public class SemesterRegistration implements Serializable {
 		this.comments = comments;
 	}
 	
-	public SemesterRegistration(int RegistrationId, int studentId, int adminId, int approvalStatus,
+	public SemesterRegistration(int registrationId, int studentId, int adminId, int approvalStatus,
 			String comments) {
 
+		this.registrationId = registrationId;
 		this.studentId = studentId;
 		this.adminId = adminId;
 		this.approvalStatus = approvalStatus;

@@ -5,7 +5,7 @@
             <div class="mb-3 mt-3">
                 <label for="username" class="form-label">Username:</label>
                 <input 
-                    type="username" 
+                    type="input" 
                     class="form-control" 
                     id="username" 
                     placeholder="Enter username" 
@@ -15,18 +15,54 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Password:</label>
                 <input 
-                    type="password" 
+                    type="input" 
                     class="form-control" 
                     id="password" 
                     placeholder="Enter password" 
                     name="password" 
                     [(ngModel)] = "_password">
             </div>
-            <a type="submit" class="button" (click)="login(_username, _password)">
-                Sign-in
-                <i class="fa-solid fa-right-to-bracket"></i>
-            </a>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role:</label>
+                <input 
+                    type="input" 
+                    class="form-control" 
+                    id="role" 
+                    placeholder="Enter Role" 
+                    name="role" 
+                    [(ngModel)] = "_role">
+            </div>
         </form>
+        <!-- <div mdbDropdown class="dropdown role-dropdown">
+            <a
+              class="btn btn-secondary dropdown-toggle"
+              role="button"
+              id="dropdownMenuLink"
+              mdbDropdownToggle
+              aria-expanded="true"
+            >
+              Role
+            </a>
+            <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item">Admin</a></li>
+              <li><a class="dropdown-item">Professor</a></li>
+              <li><a class="dropdown-item">Student</a></li>
+            </ul>
+        </div> -->
+        <!-- <div class="dropdown role-dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown button
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div> -->
+        <a type="submit" class="button" (click)="login(_username, _password, _role)">
+            Sign-in
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
     </div>
     
 </div>

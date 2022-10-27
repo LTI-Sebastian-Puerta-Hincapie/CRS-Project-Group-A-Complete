@@ -49,7 +49,33 @@ public class AdminDAOImpl implements AdminDAO{
 		} catch(Exception e) {
 			System.out.println("Professor has not been added"); 
 		}
+	}
+	
+	@Override
+	public void updateProfessorDAO(Professor professor) {
 		
+		try {
+			jdbcTemplateObject.jdbcTemplate().update(
+					SQLQueries.INSERT_PROFESSOR, 
+					professor.getId(),
+					professor.getName(), 
+					professor.getDepartmentId(),
+					professor.getEmail(),
+					professor.getPhone(),
+					professor.getAddress());
+		} catch(Exception e) {
+			System.out.println("Professor has not been updated"); 
+		}
+	}
+	
+	@Override
+	public void deleteProfessorDAO(int professorId) {
+		
+		try {
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.DELETE_PROFESSOR, professorId);
+		} catch(Exception e) {
+			System.out.println("Professor has not been deleted"); 
+		}
 	}
 	
 	@Override
@@ -114,22 +140,23 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public Boolean checkAvailabilityDAO(int id){
+		
+		CourseCatalog course = null;
 		try{
-			CourseCatalog course = jdbcTemplateObject.jdbcTemplate().queryForObject(
+			course = jdbcTemplateObject.jdbcTemplate().queryForObject(
 					SQLQueries.SELECT_COURSECATALOG_BY_COURSEID, 
 					new Object[] {id},
 					new CourseCatalogMapper());
-			if(course.getEnrolled() < course.getCapacity()) {
-				return true;
-			}else {
-				return false;
-			}
 			
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
-		return null;
+		
+		if(course.getEnrolled() < course.getCapacity()) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -1,0 +1,19 @@
+.update-professor-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.update-professors-component {
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
+.button {
+    margin: 1em;
+}
+
+.add-professor-view,
+.edit-professor-view {
+    margin-top: 1.5em;
+}

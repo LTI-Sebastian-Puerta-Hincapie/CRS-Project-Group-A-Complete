@@ -40,6 +40,12 @@ public class SQLQueries {
 	public static final String INSERT_PROFESSOR = 
 			"insert into professors values(?,?,?,?,?,?)";
 	
+	public static final String UPDATE_PROFESSOR = 
+			"UPDATE professors SET ProfessorName = ?, DepartmentId = ?, Email = ?, Phone = ?, Address = ? WHERE ProfessorId = ?";
+	
+	public static final String DELETE_PROFESSOR = 
+			"DELETE professors WHERE ProfessorId = ?";
+	
 	public static final String UPDATE_SEMESTERREGISTRATION_APPROVALSTATUS_BY_STUDENTID = 
 			"UPDATE semesterregistration SET ApprovalStatus = ?, Comment = ? WHERE StudentId = ?";
 	

@@ -2,17 +2,18 @@ export class SemesterRegistration {
 
     private studentId:number;
 	private adminId:number;
-	private registrationId:number = 0;
+	private registrationId:number;
 	private approvalStatus:number;
 	private comments:String;
 	
 	constructor(
+		registrationId:number,
         studentId:number, 
         adminId:number, 
         approvalStatus:number,
 		comments:String) {
-
-        this.registrationId++;  
+ 
+		this.registrationId = registrationId;		
 		this.studentId = studentId;
 		this.adminId = adminId;
 		this.approvalStatus = approvalStatus;

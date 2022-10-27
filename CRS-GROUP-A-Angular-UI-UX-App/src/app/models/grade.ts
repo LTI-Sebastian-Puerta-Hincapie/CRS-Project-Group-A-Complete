@@ -1,31 +1,28 @@
-import { Course } from "./Course";
+import { Course } from "./course";
 
-export class Grade{
+export class Grade {
+
+    private grade:string;
+	private course:Course;
 	
-	private grade: string;
-	private course: Course;
-	
-	constructor(grade: string, course: Course) {
-		
+	constructor(grade:string, course:Course) {
 		this.grade = grade;
 		this.course = course;
 	}
 
-	getGrade(): string {
+	getGrade():string {
 		return this.grade;
 	}
 
-	setGrade(grade: string) {
+	setGrade(grade:string) {
 		this.grade = grade;
 	}
 
-	getCourse(): Course {
+    getCourse():Course {
 		return this.course;
 	}
 
-	setCourse(course: Course) {
+	setCourse(course:Course) {
 		this.course = course;
 	}
-	
-	
 }

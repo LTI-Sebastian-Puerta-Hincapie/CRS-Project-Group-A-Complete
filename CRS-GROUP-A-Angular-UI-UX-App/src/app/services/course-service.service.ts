@@ -8,12 +8,12 @@ import { RegisteredCourse } from '../models/registered-course';
 })
 export class CourseServiceService {
 
- // cros implementation
- headers = new HttpHeaders()
- .set('Content-Type', 'application/json')
- .set('Access-Control-Allow-Origin',"*");
+  // cros implementation
+  headers = new HttpHeaders()
+  .set('Content-Type', 'application/json')
+  .set('Access-Control-Allow-Origin',"*");
 
-constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) { }
 
   // USER SERVICE METHODS
   // GET 
@@ -43,6 +43,13 @@ constructor(private httpClient:HttpClient) { }
     // let uri:string = "http://localhost:7005/registeredcourses/create";
     let uri:string = "http://localhost:8092/student/addcourse";
     return this.httpClient.post<any>(uri, course);
+  }
+
+  generateStudentFee(studentId:number):Observable<any> {
+    console.log("Generate student fee service method");
+    // let uri:string = "http://localhost:7005/registeredcourses/create";
+    let uri:string = "http://localhost:8092/student/" + studentId + "/generatefee";
+    return this.httpClient.post<any>(uri, {headers:this.headers});
   }
 
   // PUT

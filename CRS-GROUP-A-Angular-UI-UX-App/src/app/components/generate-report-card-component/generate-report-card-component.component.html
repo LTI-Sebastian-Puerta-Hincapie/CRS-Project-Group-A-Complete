@@ -1,0 +1,42 @@
+<div class = "report-card-view">
+    <div class="report-card-component">
+      <h2 style="text-align: center;">STUDENT REPORT CARD</h2>
+      <form class="report-card-form">
+          <div class="mb-1 mt-1">
+              <label for="studentid" class="form-label">StudentID: </label>
+              <input 
+                  type="studentid" 
+                  class="form-control" 
+                  id="studentid" 
+                  placeholder="Enter StudentID" 
+                  name="studentid" 
+                  [(ngModel)] = "studentId">
+          </div>
+          <a type="submit" class="button" (click)="generateReportCard(studentId)">
+              Enter
+              <i class="fa-solid fa-right-to-bracket"></i>
+          </a>
+      </form><br>
+  
+      <section class="report-card-data-container">
+          <table class="table table-hover table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">StudentID</th>
+                <th scope="col">CourseID</th>
+                <th scope="col">CourseName</th>
+                <th scope="col">Grade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{studentId}}</td>
+                <td>{{getData.course.getCourseId()}}</td>
+                <td>{{getData.course.getCourseName()}}</td>
+                <td>{{getData.grade}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </section>
+  </div>
+</div>
