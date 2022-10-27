@@ -3,8 +3,8 @@ footer {
 }
 
 .footer-message {
-    margin-top: 1em;
-    font-family: var(--default-font-family);
+    margin: 2em;
+    font-family: var(--secondary-font-family);
     font-size: 1em;
     text-align: left;
 }

@@ -6,6 +6,7 @@
 :root {
 
     --default-font-family: "Playfair Display";
+    --secondary-font-family: "Roboto";
 
     --primary-color: rgb(28, 74, 172);
     --primary-color-dark: darkblue;

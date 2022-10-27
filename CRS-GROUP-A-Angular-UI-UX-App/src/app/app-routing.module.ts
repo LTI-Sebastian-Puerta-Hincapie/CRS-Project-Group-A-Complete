@@ -22,40 +22,58 @@ import { ViewCourseAvailabilityComponentComponent } from './components/view-cour
 const routes: Routes = [  
 
   {path:'', component: HomeComponentComponent},
-  {path:'login', component: LoginComponentComponent},
   {path:'updatepassword', component:UpdatePasswordComponentComponent},
   {path:'semesterregistration', component:SemesterRegistrationComponentComponent},
   {path:'about', component:AboutComponentComponent},
 
-  {
-    path:'student', component: StudentComponentComponent,
-    children: [
-      {path:'courses', component: CourseComponentComponent},
-      {path:'payment', component: PaymentComponentComponent},
-      {path:'studentview', component: StudentViewComponentComponent},
-    ]
-  },
+  {path:'login', component: LoginComponentComponent},
 
-  {
-    path:'admin', component: AdminComponentComponent,
-    children: [
-      {path:'updateprofessors', component: UpdateProfessorsComponentComponent},
-      {path:'updatecourses', component: UpdateCoursesComponentComponent},
-      {path:'viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
-      {path:'generatereportcard', component: GenerateReportCardComponentComponent}
-    ]
-  },
+  // student
+  {path:'student', component: StudentComponentComponent},
+  {path:'student/courses', component: CourseComponentComponent},
+  {path:'student/payment', component: PaymentComponentComponent},
+  {path:'student/studentview', component: StudentViewComponentComponent},
 
-  {
-    // path:'professorDashboard', component: ProfessorDashboardComponentComponent,
-    path:'professor', component: ProfessorComponentComponent,
-    children: [
-      {path:'addgrades', component: AddGradesComponentComponent},
-      {path:'professorview', component: ProfessorViewComponentComponent}
-    ]
-  },
+  // admin
+  {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent},
+  {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent},
+  {path:'admin/updatecourses', component: UpdateCoursesComponentComponent},
+  {path:'admin/viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
+  {path:'admin/generatereportcard', component: GenerateReportCardComponentComponent},
+
+  // professor
+  {path:'professor', component: ProfessorComponentComponent},
+  {path:'addgrades', component: AddGradesComponentComponent},
+  {path:'professorview', component: ProfessorViewComponentComponent},
 
   {path:'**', component: PageNotFoundComponentComponent}
+
+  // {
+  //   path:'student', component: StudentComponentComponent,
+  //   children: [
+  //     {path:'courses', component: CourseComponentComponent},
+  //     {path:'payment', component: PaymentComponentComponent},
+  //     {path:'studentview', component: StudentViewComponentComponent},
+  //   ]
+  // },
+
+  // {
+  //   path:'admin', component: AdminComponentComponent,
+  //   children: [
+  //     {path:'updateprofessors', component: UpdateProfessorsComponentComponent},
+  //     {path:'updatecourses', component: UpdateCoursesComponentComponent},
+  //     {path:'viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
+  //     {path:'generatereportcard', component: GenerateReportCardComponentComponent}
+  //   ]
+  // },
+
+  // {
+  //   path:'professor', component: ProfessorComponentComponent,
+  //   children: [
+  //     {path:'addgrades', component: AddGradesComponentComponent},
+  //     {path:'professorview', component: ProfessorViewComponentComponent}
+  //   ]
+  // },
 ];
 
 @NgModule({
