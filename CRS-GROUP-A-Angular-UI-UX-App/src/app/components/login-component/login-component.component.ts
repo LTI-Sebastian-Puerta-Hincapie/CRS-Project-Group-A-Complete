@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { LoginServiceService } from 'src/app/services/login-service.service';
 
 @Component({
   selector: 'app-login-component',
@@ -8,27 +10,44 @@ import { User } from 'src/app/models/user';
 })
 export class LoginComponentComponent implements OnInit {
 
-  _username:String = "";
-  _password:String = "";
+  _username:string = "";
+  _password:string = "";
+  _role:string = "";
 
-  public users:Array<User> = [
-    new User(1, "admin", "test", 1),    //admin
-    new User(10, "rwu", "welcome", 2),   // professor
-    new User(1000, "tparker", "welcome", 3) // student
-];
+  user:User = new User(0, "", "", 0);
+  getData:any;
 
-  constructor() { }
+  constructor(private router: Router, private _httpService:LoginServiceService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
-  login(username:String, password:String) {
+  login(username:string, password:string, role:string) {
 
-    let user = this.users.find(x => x.getUsername() == username);
-    if(user != undefined) {
-
-      console.log("You are logged in");
+    console.log("Login component method");
+    console.log(this._role.toLowerCase());
+    if (this._role.toLowerCase() == "admin") {
+      this._httpService.login(username, password, role).subscribe(data => {
+        this.router.navigate(['admin', { admin: data }]);
+        console.log(data);
+        this.getData = data;
+      })
+    }
+    else if (this._role.toLowerCase() == "professor") {
+      this._httpService.login(username, password, role).subscribe((res:any[]) => {
+        this.router.navigate(['professor', { professor: res }]);
+        console.log(res);
+        this.getData = res;
+      })
+    }
+    else if(this._role.toLowerCase() == "student")  {
+      this._httpService.login(username, password, role).subscribe((res:any[]) => {
+        this.router.navigate(['student', { student: res }]);
+        console.log(res);
+        this.getData = res;
+      })
+    }
+    else {
+      console.log("user role does not exist");
     }
   }
-
 }

@@ -22,7 +22,12 @@ import { ViewCourseAvailabilityComponentComponent } from './components/view-cour
 import { UpdateCoursesComponentComponent } from './components/update-courses-component/update-courses-component.component';
 import { UpdateProfessorsComponentComponent } from './components/update-professors-component/update-professors-component.component';
 import { ProfessorViewComponentComponent } from './components/professor-view-component/professor-view-component.component';
-import { AddGradesComponentComponent } from './components/add-grades-component/add-grades-component.component'
+import { AddGradesComponentComponent } from './components/add-grades-component/add-grades-component.component';
+import { AboutComponentComponent } from './components/about-component/about-component.component';
+import { HomeComponentComponent } from './components/home-component/home-component.component';
+import { MainComponentComponent } from './components/main-component/main-component.component';
+import { PageNotFoundComponentComponent } from './components/page-not-found-component/page-not-found-component.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,12 @@ import { AddGradesComponentComponent } from './components/add-grades-component/a
     UpdateCoursesComponentComponent,
     UpdateProfessorsComponentComponent,
     ProfessorViewComponentComponent,
-    AddGradesComponentComponent
+    AddGradesComponentComponent,
+    AboutComponentComponent,
+    HomeComponentComponent,
+    MainComponentComponent,
+    PageNotFoundComponentComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,

@@ -1,16 +1,12 @@
-.login-view {
+.home-view {
     margin: 0 auto;
     max-width: 50rem;
     min-width: 30rem;
     padding-bottom: 2em;
 }
 
-.login-component {
+.home-component {
     padding: 1em;
     background-color: rgb(28, 19, 156, 0.15);
-}
-
-.role-dropdown {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    text-align: center;
 }
