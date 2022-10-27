@@ -1,0 +1,11 @@
+.about-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+    padding-bottom: 2em;
+}
+
+.about-component {
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}

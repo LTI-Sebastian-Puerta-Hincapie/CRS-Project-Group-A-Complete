@@ -1,0 +1,7 @@
+{
+    "/payment": "/payment",
+    "/payment/get/:id": "/payment/:id",
+    "/payment/create": "/payment",
+    "/payment/update/:id": "/payment/:id",
+    "/payment/delete/:id": "/payment/:id"
+}

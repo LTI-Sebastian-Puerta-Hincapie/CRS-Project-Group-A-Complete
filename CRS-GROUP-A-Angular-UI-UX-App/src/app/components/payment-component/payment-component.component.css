@@ -1,0 +1,27 @@
+.payment-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.payment-component {
+    padding: 2em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
+.student-payment-form {
+    width: 300px;
+}
+
+.student-view-payment-form input {
+    width: 100px;
+}
+
+.student-make-payment-form input {
+    width: 200px;
+}
+
+.payment-data {
+
+    margin-top: 1em;
+}

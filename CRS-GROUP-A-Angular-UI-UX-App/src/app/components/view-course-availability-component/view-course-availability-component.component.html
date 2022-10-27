@@ -1,0 +1,22 @@
+<div class = "course-availability-view">
+    <div class="course-availability-component">
+      <h2 style="text-align: center;">COURSE AVAILABILITY</h2>
+      <form class="course-availability-form">
+          <div class="mb-1 mt-1">
+              <label for="courseId" class="form-label">CourseID: </label>
+              <input 
+                  type="courseId" 
+                  class="form-control" 
+                  id="courseId" 
+                  placeholder="Enter Course ID" 
+                  name="courseId" 
+                  [(ngModel)] = "courseId">
+          </div>
+          <a type="submit" class="button" (click)="checkCourseAvailability(courseId)">
+            Validate
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+      </form><br><br>
+      <h4> {{courseAvailabilityStatus}} </h4>
+  </div>
+</div>

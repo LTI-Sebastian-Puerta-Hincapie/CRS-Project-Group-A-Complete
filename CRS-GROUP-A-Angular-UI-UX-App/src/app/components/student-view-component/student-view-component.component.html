@@ -1,0 +1,87 @@
+<div class = "student-view">
+  <div class="student-view-component">
+    <h2 style="text-align: center;">STUDENT PROFILE</h2>
+    <form class="student-view-payment-form">
+        <div class="mb-1 mt-1">
+            <label for="studentid" class="form-label">StudentID: </label>
+            <input 
+                type="studentid" 
+                class="form-control" 
+                id="studentid" 
+                placeholder="Enter StudentID" 
+                name="studentid" 
+                [(ngModel)] = "studentID">
+        </div>
+        <a type="submit" class="button" (click)="getStudentProfile(studentID)">
+            Enter
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </a>
+    </form>
+
+    <section class="student-data-container">
+        <h4>STUDENT INFORMATION:</h4>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">StudentID</th>
+              <th scope="col">Name</th>
+              <th scope="col">MajorID</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{getStudentData.id}}</td>
+              <td>{{getStudentData.name}}</td>
+              <td>{{getStudentData.majorId}}</td>
+              <td>{{getStudentData.email}}</td>
+              <td>{{getStudentData.phone}}</td>
+              <td>{{getStudentData.address}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </section>
+
+    <section class="student-registered-courses-container">
+        <h4>REGISTERED COURSES:</h4>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">CourseID</th>
+              <th scope="col">CourseName</th>
+              <th scope="col">Registration Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of getStudentRegisteredCoursesData">
+              <td>{{course.courseId}}</td>
+              <td>{{course.courseName}}</td>
+              <td>{{course.registeredStatus}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </section>
+
+    <section class="student-grades-container">
+        <h4>GRADES:</h4>
+        <table class="table table-hover table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">CourseID</th>
+              <th scope="col">CourseName</th>
+              <th scope="col">Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let studentgrade of getStudentGradesData">
+              <td>{{studentgrade.course.courseId}}</td>
+              <td>{{studentgrade.course.courseName}}</td>
+              <td>{{studentgrade.grade}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </section>
+</div>
+</div>

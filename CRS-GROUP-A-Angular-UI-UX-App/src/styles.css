@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+:root {
+
+    --default-font-family: "Playfair Display";
+
+    --primary-color: rgb(28, 74, 172);
+    --primary-color-dark: darkblue;
+    --primary-background-color: rgb(108, 184, 255);
+    --secondary-color: rgb(95, 164, 233);
+    --side-pane-background-color:rgba(203, 203, 209, 0.90);
+    --home-pane-background-color: rgb(28, 19, 156, 0.45);
+    --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
+}
+
+header, footer {
+    background-color: var(--home-pane-background-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.button,
+.button:visited {
+    display: inline-block;
+    background: var(--primary-color-dark);
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 2em;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.button:hover,
+.button:active {
+    background: orange;
+    color:white
+}

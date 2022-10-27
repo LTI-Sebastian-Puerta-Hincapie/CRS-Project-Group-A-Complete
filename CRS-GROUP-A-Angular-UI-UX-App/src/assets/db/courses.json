@@ -1,0 +1,34 @@
+{
+    "courses": [
+      {
+        "courseId": "201",
+        "courseName": "Biology 1",
+        "description": "Science Department"
+      },
+      {
+        "courseId": "202",
+        "courseName": "Biology 2",
+        "description": "Science Department"
+      },
+      {
+        "courseId": "203",
+        "courseName": "Biology 3",
+        "description": "Science Department"
+      },
+      {
+        "courseId": "301",
+        "courseName": "Psychology 1",
+        "description": "Psychology Department"
+      },
+      {
+        "courseId": "302",
+        "courseName": "Psychology 2",
+        "description": "Psychology Department"
+      },
+      {
+        "courseId": "303",
+        "courseName": "Psychology 3",
+        "description": "Psychology Department"
+      }
+    ]
+  }

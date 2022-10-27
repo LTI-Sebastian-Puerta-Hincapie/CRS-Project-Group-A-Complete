@@ -1,0 +1,151 @@
+<div class="update-professor-view">
+    <div class="update-professors-component">
+        <h2 style="text-align: center;">PROFESSOR MANAGER</h2>
+        <div class="update-professor-components">           
+            <a class="button" (click)="professorSelection(1)">Add Professor</a>
+            <a class="button" (click)="professorSelection(2)">Edit Professor</a>       
+        </div>
+        <div [hidden]="!add" class="add-professor-view">
+            <form class="add-professors-form">
+                <h3>Add Professor</h3>
+                <div class="mb-3 mt-3">
+                    <label for="professorId" class="form-label">Professor ID:</label>
+                    <input
+                         type="professorId" 
+                         class="form-control" 
+                         id="professorId" 
+                         placeholder="Enter Professor ID" 
+                         name="courseId"
+                         [(ngModel)]="professorId">
+                </div>
+                <div class="mb-3">
+                    <label for="professorName" class="form-label">Professor Name:</label>
+                    <input 
+                        type="professorName" 
+                        class="form-control" 
+                        id="professorName" 
+                        placeholder="Enter Professor Name" 
+                        name="professorName" 
+                        [(ngModel)]="professorName">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="departmentId" class="form-label">Department ID:</label>
+                    <input 
+                        type="departmentId" 
+                        class="form-control" 
+                        id="departmentId" 
+                        placeholder="Enter Department ID" 
+                        name="departmentId" 
+                        [(ngModel)]="departmentId">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        placeholder="Enter  Email" 
+                        name="email" 
+                        [(ngModel)]="email">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input 
+                        type="phone" 
+                        class="form-control" 
+                        id="phone" 
+                        placeholder="Enter Phone" 
+                        name="phone" 
+                        [(ngModel)]="phone">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input 
+                        type="address" 
+                        class="form-control" 
+                        id="address" 
+                        placeholder="Enter Address" 
+                        name="address" 
+                        [(ngModel)]="address">
+                </div>
+                <a type="submit" class="button" (click)="addProfessor(professorId, professorName, departmentId, email, phone, address)">
+                    Add
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
+            </form>
+        </div>
+        <div [hidden]="!edit" class="edit-professor-view">
+            <form class="edit-professors-form">
+                <h3>Edit Professor</h3>
+                <div class="mb-3 mt-3">
+                    <label for="professorId" class="form-label">Professor ID:</label>
+                    <input
+                         type="professorId" 
+                         class="form-control" 
+                         id="professorId" 
+                         placeholder="Enter Professor ID" 
+                         name="courseId"
+                         [(ngModel)]="professorId">
+                </div>
+                <div class="mb-3">
+                    <label for="professorName" class="form-label">Professor Name:</label>
+                    <input 
+                        type="professorName" 
+                        class="form-control" 
+                        id="professorName" 
+                        placeholder="Enter Professor Name" 
+                        name="professorName" 
+                        [(ngModel)]="professorName">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="departmentId" class="form-label">Department ID:</label>
+                    <input 
+                        type="departmentId" 
+                        class="form-control" 
+                        id="departmentId" 
+                        placeholder="Enter Department ID" 
+                        name="departmentId" 
+                        [(ngModel)]="departmentId">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="email" 
+                        placeholder="Enter  Email" 
+                        name="email" 
+                        [(ngModel)]="email">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <input 
+                        type="phone" 
+                        class="form-control" 
+                        id="phone" 
+                        placeholder="Enter Phone" 
+                        name="phone" 
+                        [(ngModel)]="phone">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input 
+                        type="address" 
+                        class="form-control" 
+                        id="address" 
+                        placeholder="Enter Address" 
+                        name="address" 
+                        [(ngModel)]="address">
+                </div>
+                <a type="submit" class="button" (click)="updateProfessor(professorId, professorName, departmentId, email, phone, address)">
+                    Edit
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
+                <a type="submit" class="button" (click)="deleteProfessor(professorId)">
+                    Delete
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

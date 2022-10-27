@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "38dea167-2372-40fe-be18-d2b6cec04031",
+		"name": "CRS-GROUP-A-API-EUREKA-SERVER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8091/user/amalik/car123",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8091/user/amalik/jet123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"user",
+						"amalik",
+						"jet123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8091/user/updatepassword",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"amalik\",\r\n    \"currentPassword\": \"jet123\",\r\n    \"newPassword\": \"shoes123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8091/user/updatepassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8091",
+					"path": [
+						"user",
+						"updatepassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/addcourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student\": {\r\n        \"id\": 2,\r\n        \"name\": \"Abigail Malik\",\r\n        \"majorId\": 2,\r\n        \"email\": null,\r\n        \"phone\": null\r\n    },\r\n    \"courseId\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8092/student/addcourse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"addcourse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/registerforcourse",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student\": {\r\n        \"id\": 2,\r\n        \"name\": \"Abigail Malik\",\r\n        \"majorId\": 2,\r\n        \"email\": null,\r\n        \"phone\": null\r\n    },\r\n    \"courseId\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8092/student/registerforcourse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"registerforcourse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/dropcourse",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student\": {\r\n        \"id\": 2,\r\n        \"name\": \"Abigail Malik\",\r\n        \"majorId\": 2,\r\n        \"email\": null,\r\n        \"phone\": null\r\n    },\r\n    \"courseId\": 6\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8092/student/dropcourse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"dropcourse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/2/viewgrades",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/2/viewgrades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"2",
+						"viewgrades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/createregistration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"studentId\": 3,\r\n    \"adminId\": 1,\r\n    \"approvalStatus\": 0,\r\n    \"comments\": \"Pending Approval\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9098/admin/createregistration",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"createregistration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/approve/3/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/approve/3/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"approve",
+						"3",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/2/courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/2/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"2",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/2/registeredcourses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/2/registeredcourses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"2",
+						"registeredcourses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/3/generatefee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/3/generatefee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"3",
+						"generatefee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/3/getfee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/3/getfee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"3",
+						"getfee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8092/student/3/payfee/credit",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8092/student/3/payfee/cash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"student",
+						"3",
+						"payfee",
+						"cash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/addprofessor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 9,\r\n    \"name\": \"Willy Wonka\",\r\n    \"departmentId\": 5,\r\n    \"email\": \"wWonka@test.com\",\r\n    \"phone\": \"111-222-3333\",\r\n    \"address\": \"1272 Wonka Rd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9098/admin/addprofessor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"addprofessor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/generatereportcard/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/generatereportcard/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"generatereportcard",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/getregistration/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/getregistration/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"getregistration",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/addcourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseId\": 12,\r\n    \"courseName\": \"Fundamentals of Physics\",\r\n    \"description\": \"Engineering\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9098/admin/addcourse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"addcourse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/removecourse/12",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/removecourse/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"removecourse",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/updatecourse/12/Fundamentals of Physics/Engineering",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/updatecourse/12/Fundamentals of Physics/Engineering",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"updatecourse",
+						"12",
+						"Fundamentals of Physics",
+						"Engineering"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/viewcourses/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/viewcourses/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"viewcourses",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9098/admin/checkavailable/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9098/admin/checkavailable/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9098",
+					"path": [
+						"admin",
+						"checkavailable",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

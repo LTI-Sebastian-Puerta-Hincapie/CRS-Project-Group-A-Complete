@@ -1,0 +1,7 @@
+{
+    "/semesterregistration": "/semesterregistration",
+    "/semesterregistration/get/:id": "/semesterregistration/:id",
+    "/semesterregistration/create": "/semesterregistration",
+    "/semesterregistration/update/:id": "/semesterregistration/:id",
+    "/semesterregistration/delete/:id": "/semesterregistration/:id"
+}

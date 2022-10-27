@@ -1,0 +1,24 @@
+.course-availability-view {
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+}
+
+.course-availability-component {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    padding: 1em;
+    background-color: rgb(28, 19, 156, 0.15);
+}
+
+.course-availability-data-container {
+    grid: 1;
+    padding: 1em;
+    margin-top: 1em;
+    background-color: lightgray;
+}
+
+.course-availability-form {
+    width: 200px;
+}
+
