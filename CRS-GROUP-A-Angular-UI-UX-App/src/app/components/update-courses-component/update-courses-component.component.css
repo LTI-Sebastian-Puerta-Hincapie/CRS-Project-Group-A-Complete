@@ -13,6 +13,15 @@
     margin: 1em;
 }
 
+.back {
+    width: 100px;
+}
+
+.admin-pane-title {
+    text-align: center;
+    padding: 2em;
+}
+
 .add-course-view,
 .edit-course-view {
     margin-top: 1.5em;

@@ -13,6 +13,10 @@
     margin: 1em;
 }
 
+.back {
+    width: 100px;
+}
+
 .add-professor-view,
 .edit-professor-view {
     margin-top: 1.5em;
