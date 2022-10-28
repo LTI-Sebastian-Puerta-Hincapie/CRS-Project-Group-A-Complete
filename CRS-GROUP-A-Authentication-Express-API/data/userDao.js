@@ -45,17 +45,9 @@ class UserDao {
         });
     }
 
-    userLogin(username, password, role, callback) {
+    userLogin(username, password, roleId, callback) {
 
         var GET_USER = "SELECT * FROM users WHERE Username = ? AND Password = ? AND RoleId = ?";
-
-        let roleId = 0;
-        switch(role) {
-            case "admin": roleId = 1; break;
-            case "professor": roleId = 2; break;
-            case "student": roleId = 3; break;
-            default: roleId = 1;
-        }
         
         var con = mysql.createConnection({
           host: "localhost",  // local host / ip address of your machine

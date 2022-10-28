@@ -24,23 +24,32 @@ export class LoginComponentComponent implements OnInit {
   login(username:string, password:string, role:string) {
 
     console.log("Login component method");
-    console.log(this._role.toLowerCase());
-    if (this._role.toLowerCase() == "admin") {
-      this._httpService.login(username, password, role).subscribe(data => {
+    console.log(role.toLowerCase());
+
+    let roleId = 0;
+    switch(role) {
+        case "admin": roleId = 1; break;
+        case "professor": roleId = 2; break;
+        case "student": roleId = 3; break;
+        default: roleId = 1;
+    }
+
+    if (role.toLowerCase() == "admin") {
+      this._httpService.loginExpress(username, password, roleId).subscribe(data => {
         this.router.navigate(['admin', { admin: data }]);
         console.log(data);
         this.getData = data;
       })
     }
-    else if (this._role.toLowerCase() == "professor") {
-      this._httpService.login(username, password, role).subscribe((res:any[]) => {
+    else if (role.toLowerCase() == "professor") {
+      this._httpService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
         this.router.navigate(['professor', { professor: res }]);
         console.log(res);
         this.getData = res;
       })
     }
-    else if(this._role.toLowerCase() == "student")  {
-      this._httpService.login(username, password, role).subscribe((res:any[]) => {
+    else if(role.toLowerCase() == "student")  {
+      this._httpService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
         this.router.navigate(['student', { student: res }]);
         console.log(res);
         this.getData = res;
