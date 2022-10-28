@@ -38,3 +38,7 @@
 .student-login-form {
     width: 200px;
 }
+
+.submit-button {
+    text-align: right;
+}

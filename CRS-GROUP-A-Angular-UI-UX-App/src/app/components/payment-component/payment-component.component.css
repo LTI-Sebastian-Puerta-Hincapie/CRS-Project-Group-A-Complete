@@ -21,7 +21,10 @@
     width: 200px;
 }
 
-.payment-data {
+/* .make-payment {
+    text-align: right;
+} */
 
+.payment-data {
     margin-top: 1em;
 }

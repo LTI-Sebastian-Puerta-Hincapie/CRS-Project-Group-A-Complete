@@ -57,7 +57,7 @@ public class StudentController {
 					
 			logger.info("From the registerForCourse controller method");
 			studentService.registerForCourse(registeredCourse);	
-			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.OK);
 		}
 	
 	/**
@@ -75,7 +75,7 @@ public class StudentController {
 					
 			logger.info("From the registerForCourse controller method");
 			studentService.unRegisterForCourse(registeredCourse);	
-			return new ResponseEntity("Course was successfully registered", HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.OK);
 		}
 	
 	/**
@@ -93,7 +93,7 @@ public class StudentController {
 			
 		    logger.info("From the addCourse controller method");
 		    studentService.addCourse(registeredCourse);
-			return new ResponseEntity("Course has been successfully added", HttpStatus.OK);
+			return new ResponseEntity(HttpStatus.CREATED);
 		}
 	
 	/**
@@ -112,7 +112,7 @@ public class StudentController {
 		{				
 		    logger.info("From the dropCourse controller method");
 		    studentService.dropCourse(registeredCourse.getStudentId(), registeredCourse.getCourseId());
-			return new ResponseEntity("Course has been successfully dropped", HttpStatus.NO_CONTENT);
+			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		}
 	
 	/**

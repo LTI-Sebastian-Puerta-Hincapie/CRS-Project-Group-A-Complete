@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timeStamp } from 'console';
 import { Course } from 'src/app/models/course';
 import { RegisteredCourse } from 'src/app/models/registered-course';
 import { CourseServiceService } from 'src/app/services/course-service.service';
@@ -18,7 +19,17 @@ export class CourseComponentComponent implements OnInit {
 
   constructor(private _httpService:CourseServiceService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+    
+    this.refresh();
+  }
 
   // service methods
   getCourses() {
@@ -54,7 +65,7 @@ export class CourseComponentComponent implements OnInit {
   getRegisteredCourses() {
      console.log("Get registered courses method");
 
-     this.getAddedCourses();
+    //  this.getAddedCourses();
 
      this.getRegisteredCoursesData = this.getAddedCoursesData
       .filter((x: { registeredStatus: number; }) => x.registeredStatus == 1);
@@ -63,13 +74,6 @@ export class CourseComponentComponent implements OnInit {
   public addCourse(course:any) {
 
     console.log("Calling create registered course method");
-
-    // Get saved data from sessionStorage
-    let sessionUserId = sessionStorage.getItem("userId");
-    console.log(sessionUserId);
-    if(sessionUserId != undefined) {
-      this.studentID = parseInt(sessionUserId); 
-    }
     
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 0, "");
@@ -85,12 +89,6 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling update registered course method");
 
-    // Get saved data from sessionStorage
-    let sessionUserId = sessionStorage.getItem("userId");
-    if(sessionUserId != undefined) {
-      this.studentID = parseInt(sessionUserId); 
-    }
-
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 1, "");
     this._httpService.registerCourse(registeredCourse).subscribe((res:any[]) => {
@@ -102,12 +100,6 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling update registered course method");
 
-    // Get saved data from sessionStorage
-    let sessionUserId = sessionStorage.getItem("userId");
-    if(sessionUserId != undefined) {
-      this.studentID = parseInt(sessionUserId); 
-    }
-
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 0, "");
     this._httpService.unRegisterCourse(registeredCourse).subscribe((res:any[]) => {
@@ -118,12 +110,6 @@ export class CourseComponentComponent implements OnInit {
   dropCourse(course:any) {
 
     console.log("Calling delete registered course method");
-
-    // Get saved data from sessionStorage
-    let sessionUserId = sessionStorage.getItem("userId");
-    if(sessionUserId != undefined) {
-      this.studentID = parseInt(sessionUserId); 
-    }
 
     let registeredCourse = new RegisteredCourse(
       course.courseId,
@@ -141,14 +127,14 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling generate student fee method");
 
-    // Get saved data from sessionStorage
-    let sessionUserId = sessionStorage.getItem("userId");
-    if(sessionUserId != undefined) {
-      this.studentID = parseInt(sessionUserId); 
-    }
-
     this._httpService.generateStudentFee(this.studentID).subscribe((res:any[]) => {
       console.log(res);
     })
+  }
+
+  refresh() {
+    this.getCourses();
+    this.getAddedCourses();
+    this.getRegisteredCourses();
   }
 }

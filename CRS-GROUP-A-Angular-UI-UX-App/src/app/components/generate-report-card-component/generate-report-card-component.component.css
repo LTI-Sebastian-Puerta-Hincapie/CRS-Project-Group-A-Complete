@@ -18,6 +18,10 @@
     background-color: lightgray;
 }
 
+.report-card-form {
+    width: 200px;
+}
+
 .back {
     width: 100px;
 }

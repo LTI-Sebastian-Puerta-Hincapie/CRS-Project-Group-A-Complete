@@ -14,14 +14,19 @@
                     [(ngModel)] = "studentID">
             </div>
         </form> -->
+        <button type="button" class="button" 
+            style= "margin: 1em;" 
+            (click)="refresh()">
+            Refresh
+        </button>
         <div class="main-container">
             <div class="courses-container">
                 <h4> COURSES </h4><br>
-                <button type="button" class="btn btn-primary" 
+                <!-- <button type="button" class="button" 
                     style= "margin: 1em;" 
                     (click)="getCourses()">
                     View Available Courses
-                </button>
+                </button> -->
                     <ul style="list-style-type: none;">
                     <li *ngFor="let course of getCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
@@ -37,11 +42,11 @@
             </div>
             <div class="student-added-courses-container">
                 <h4> ADDED COURSES </h4><br>
-                <button type="button" class="btn btn-primary" 
+                <!-- <button type="button" class="button" 
                     style= "margin: 1em;" 
                     (click)="getAddedCourses()">
                     View Added Courses
-                </button>
+                </button> -->
                 <ul style="list-style-type: none;">
                     <li *ngFor="let course of getAddedCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
@@ -64,11 +69,11 @@
             </div>
             <div class="student-registered-courses-container">
                 <h4> REGISTERED COURSES </h4><br>
-                <button type="button" class="btn btn-primary" 
-                    style= "margin: 1em;" 
+                <!-- <button type="button" class="button" 
+                    style= "margin: 1em;" y
                     (click)="getRegisteredCourses()">
                     View Registered Courses
-                </button>
+                </button> -->
                 <ul style="list-style-type: none;">
                     <li *ngFor="let course of getRegisteredCoursesData">
                         <div class="card" style="padding: 0.5em; font-weight: bold;">
@@ -83,10 +88,12 @@
                 </ul>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" 
-            style= "margin: 1em;" 
-            (click)="generateStudentFee(studentID)">
-            Submit
-        </button>
+        <div class="submit-button">
+            <button type="button" class="btn btn-primary" 
+                style= "margin: 1em;" 
+                (click)="generateStudentFee(studentID)">
+                Submit
+            </button>
+        </div>
     </div>
 </div>
