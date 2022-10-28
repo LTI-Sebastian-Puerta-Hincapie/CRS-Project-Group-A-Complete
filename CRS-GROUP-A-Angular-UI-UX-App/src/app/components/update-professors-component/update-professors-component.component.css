@@ -9,12 +9,12 @@
     background-color: rgb(28, 19, 156, 0.15);
 }
 
-.button {
-    margin: 1em;
+.update-professor-components {
+    text-align: center;
 }
 
-.back {
-    width: 100px;
+.button {
+    margin: 1em;
 }
 
 .add-professor-view,

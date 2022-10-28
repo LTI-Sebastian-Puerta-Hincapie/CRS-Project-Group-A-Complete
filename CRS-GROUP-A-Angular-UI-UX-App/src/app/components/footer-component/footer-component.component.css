@@ -4,7 +4,7 @@ footer {
 
 .footer-message {
     margin: 2em;
-    font-family: var(--secondary-font-family);
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1em;
     text-align: left;
 }

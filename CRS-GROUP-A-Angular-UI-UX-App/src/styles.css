@@ -47,3 +47,18 @@ img {
     background: orange;
     color:white
 }
+
+.back {
+    width: 100px;
+}
+
+.admin-pane-title,
+.student-pane-title,
+.professor-pane-title {
+    text-align: center;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 1em;
+}
+
+

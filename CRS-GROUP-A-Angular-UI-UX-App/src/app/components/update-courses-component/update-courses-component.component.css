@@ -17,17 +17,6 @@
     margin: 1em;
 }
 
-.back {
-    width: 100px;
-}
-
-.admin-pane-title {
-    text-align: center;
-    font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-bottom: 1em;
-}
-
 .add-course-view,
 .edit-course-view {
     margin-top: 1.5em;

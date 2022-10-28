@@ -63,9 +63,17 @@ export class CourseComponentComponent implements OnInit {
   public addCourse(course:any) {
 
     console.log("Calling create registered course method");
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
     
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 0, "");
+
     console.log(registeredCourse);
     this._httpService.createRegisteredCourse(registeredCourse)
         .subscribe((res:any[]) => {
@@ -76,6 +84,12 @@ export class CourseComponentComponent implements OnInit {
   public registerCourse(course:any) {
 
     console.log("Calling update registered course method");
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
 
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 1, "");
@@ -88,6 +102,12 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling update registered course method");
 
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 0, "");
     this._httpService.unRegisterCourse(registeredCourse).subscribe((res:any[]) => {
@@ -99,7 +119,20 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling delete registered course method");
 
-    this._httpService.deleteRegisteredCourse(course).subscribe((res:any[]) => {
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+
+    let registeredCourse = new RegisteredCourse(
+      course.courseId,
+      course.courseName,
+      this.studentID,
+      course.registeredStatus,
+      course.grade);
+
+    this._httpService.deleteRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
@@ -108,7 +141,13 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling generate student fee method");
 
-    this._httpService.generateStudentFee(studentId).subscribe((res:any[]) => {
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+
+    this._httpService.generateStudentFee(this.studentID).subscribe((res:any[]) => {
       console.log(res);
     })
   }

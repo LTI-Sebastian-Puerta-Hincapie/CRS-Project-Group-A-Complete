@@ -43,8 +43,8 @@ const routes: Routes = [
 
   // professor
   {path:'professor', component: ProfessorComponentComponent},
-  {path:'addgrades', component: AddGradesComponentComponent},
-  {path:'professorview', component: ProfessorViewComponentComponent},
+  {path:'professor/addgrades', component: AddGradesComponentComponent},
+  {path:'professor/professorview', component: ProfessorViewComponentComponent},
 
   {path:'**', component: PageNotFoundComponentComponent}
 
