@@ -17,12 +17,13 @@
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
 }
 
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
 header, footer {
-    background-color: var(--home-pane-background-color);
-    /* border-style:solid;
-    border-color: black;
-    border-width: 2px; */
-    /* border-radius: 4px; */
+    background-color: var(--primary-color-dark);
 }
 
 img {

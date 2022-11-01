@@ -1,7 +1,11 @@
 header {
     display: flex;
-    flex-direction: row;
+    direction: row;
     justify-content: space-between; 
+    max-width: 100%;
+    min-width: 30%;
+    padding: 3em;
+    margin: 0;
 }
 
 .header-brand-icon .brand-1 {
