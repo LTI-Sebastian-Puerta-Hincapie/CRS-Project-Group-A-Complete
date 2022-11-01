@@ -25,6 +25,7 @@
     "mdb-ui-kit": "^6.0.0",
     "mdbootstrap": "^4.20.0",
     "ng-bootstrap-dropdown": "^1.0.0",
+    "ngx-toastr": "^14.3.0",
     "popper.js": "^1.16.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

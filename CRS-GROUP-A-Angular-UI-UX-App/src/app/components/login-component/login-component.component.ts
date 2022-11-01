@@ -4,6 +4,7 @@ import { SemesterRegistration } from 'src/app/models/semester-registration';
 import { User } from 'src/app/models/user';
 import { LoginServiceService } from 'src/app/services/login-service.service';
 import { SemesterRegistrationServiceService } from 'src/app/services/semester-registration-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-component',
@@ -25,7 +26,8 @@ export class LoginComponentComponent implements OnInit {
 
   constructor(private router: Router, 
               private _userService:LoginServiceService,
-              private _semesterRegistrationService:SemesterRegistrationServiceService) {}
+              private _semesterRegistrationService:SemesterRegistrationServiceService,
+              private toastr: ToastrService) {}
 
   ngOnInit() {}
 
@@ -63,7 +65,6 @@ export class LoginComponentComponent implements OnInit {
         console.log("Semester registration exists");
       }
 
-
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
         this.router.navigate(["student", { student: res }]);
         console.log(res);
@@ -73,7 +74,9 @@ export class LoginComponentComponent implements OnInit {
     }
     else {
       console.log("user role does not exist");
+      return;
     }
+    this.showSuccess();
   }
 
   userSession(username:string, password:string, role:string, userId:string) {
@@ -101,5 +104,9 @@ export class LoginComponentComponent implements OnInit {
       console.log(res);
       this.getSemesterRegistrationData = res;
     })
+  }
+
+  showSuccess() {
+    this.toastr.success('Welcome back, you have successfully logged in.', 'Success');
   }
 }
