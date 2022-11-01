@@ -47,7 +47,7 @@ app.post('/user/login', express.json(), (req, res) => {
     console.log("User Login API");
     dao.userLogin(req.body.username, req.body.password, req.body.roleId, function(err, result) {
         console.log("RESULT FROM API: ", result);  
-        result[0].Password = "********";
+        result[0].password = "********";
         if(err) {
             return next(err);    // let express handle it
         } else {

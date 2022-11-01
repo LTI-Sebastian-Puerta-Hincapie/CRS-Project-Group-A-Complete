@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/test";
-const dbConn = require('../config/db.js');
+// const dbConn = require('../config/db.js');
 
 class UserDao {
 
@@ -18,7 +18,7 @@ class UserDao {
                 db.close();
                 return callback(err, result);
             });
-            });
+        });
     }
 
     getUserById(id, callback) {
@@ -33,7 +33,7 @@ class UserDao {
               db.close();
               return callback(err, result);
             });
-          });
+        });
     }
 
     userLogin(username, password, roleId, callback) {
@@ -48,7 +48,7 @@ class UserDao {
               db.close();
               return callback(err, result);
             });
-          });
+        });
     }
 }
 
