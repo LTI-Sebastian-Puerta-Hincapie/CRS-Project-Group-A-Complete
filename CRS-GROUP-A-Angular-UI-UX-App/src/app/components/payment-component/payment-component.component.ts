@@ -16,6 +16,15 @@ export class PaymentComponentComponent implements OnInit {
   constructor(private _httpService:PaymentServiceService) { }
 
   ngOnInit(): void {
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+
+    this.getStudentFee(this.studentID);
   }
 
   getStudentFee(studentId:number) {

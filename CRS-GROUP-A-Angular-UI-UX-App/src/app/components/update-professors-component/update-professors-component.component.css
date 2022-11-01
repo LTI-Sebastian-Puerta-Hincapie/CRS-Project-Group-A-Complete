@@ -9,6 +9,10 @@
     background-color: rgb(28, 19, 156, 0.15);
 }
 
+.update-professor-components {
+    text-align: center;
+}
+
 .button {
     margin: 1em;
 }

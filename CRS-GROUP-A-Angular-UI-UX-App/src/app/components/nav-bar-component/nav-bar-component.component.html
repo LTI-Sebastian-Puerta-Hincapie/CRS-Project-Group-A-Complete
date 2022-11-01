@@ -1,12 +1,12 @@
 <div class="nav-bar-view">
     <div class="container-welcome-complete"> 
         <div class="display-component">
-            <a class="button route-link" [routerLink]="['/']">Home</a>
+            <a *ngIf="checkUrl()" class="button route-link" [routerLink]="['/']">Home</a>
             <a *ngIf="checkUrl()" class="button route-link login-button" [routerLink]="['/login']">Login</a>
             <a *ngIf="checkUrl()" class="button route-link update-password-button" [routerLink]="['/updatepassword']">Update Password</a> 
             <a *ngIf="checkUrl()" class="button route-link semester-registration-button" [routerLink]="['/semesterregistration']">Semester Registration</a>
-            <a class="button route-link" [routerLink]="['/about']">About</a>
-            <a *ngIf="isLoggedIn()" class="button route-link" [routerLink]="['/login']">Log Out</a>
+            <a *ngIf="checkUrl()" class="button route-link" [routerLink]="['/about']">About</a>
+            <a *ngIf="isLoggedIn()" class="button route-link" [routerLink]="['/login']" (click)="logOut()">Log Out</a>
         </div><br>
     </div>  
 </div>

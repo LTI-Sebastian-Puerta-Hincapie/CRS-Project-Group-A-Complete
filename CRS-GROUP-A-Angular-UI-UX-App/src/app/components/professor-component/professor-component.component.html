@@ -1,11 +1,14 @@
-<div class="professor-component">
-    <div class="professor-welcome-header"> 
-        <h3>Welcome Professor </h3>
-        <p> Add Grades, View Enrollment, View Courses, View Professor Profile</p>
-    </div><br>
-    <div class="professor-components">
-        <a class="button route-link" [routerLink]="['/addgrades']">Add Grades</a>
-        <a class="button route-link" [routerLink]="['/professorview']">Professor Profile</a>
+<div class="professor-view">
+    <div class="professor-component">
+        <div class="professor-welcome-header"> 
+            <h3>Welcome Professor </h3>
+            <p> Add Grades, View Enrollment, View Courses, View Professor Profile</p>
+        </div><br>
+        <div class="professor-components">
+            <a class="button route-link" [routerLink]="['/professor/addgrades']">Add Grades</a>
+            <a class="button route-link" [routerLink]="['/professor/professorview']">Professor Profile</a>
+        </div>
     </div>
+    
+    
 </div>
-

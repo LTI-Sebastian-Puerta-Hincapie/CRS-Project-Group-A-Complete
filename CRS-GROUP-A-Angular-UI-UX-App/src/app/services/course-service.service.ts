@@ -68,16 +68,10 @@ export class CourseServiceService {
   }
 
   // DELETE
-  deleteRegisteredCourse(course:any):Observable<any> {
+  deleteRegisteredCourse(course:RegisteredCourse):Observable<any> {
     console.log("Delete registered courses service method");
-    let registeredCourse = new RegisteredCourse(
-                                  course.courseId,
-                                  course.courseName,
-                                  course.studentId,
-                                  course.registeredStatus,
-                                  course.grade);
     // let uri:string = "http://localhost:7005/registeredcourses/delete/" + id;
     let uri:string = "http://localhost:8092/student/dropcourse";
-    return this.httpClient.delete<any>(uri, {body:registeredCourse});
+    return this.httpClient.delete<any>(uri, {body:course});
   }
 }

@@ -17,13 +17,23 @@ export class StudentViewComponentComponent implements OnInit {
   constructor(private _httpService:StudentServiceService) { }
 
   ngOnInit(): void {
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+
+    this.getStudentProfile(this.studentID);
   }
 
-  getStudentProfile(studentId:number) {
-    this.getStudent(studentId);
-    this.getStudentCourses(studentId);
-    this.getStudentRegisteredCourses(studentId);
-    this.getStudentGrades(studentId);
+  getStudentProfile(studentID:number) {
+    
+    this.getStudent(studentID);
+    this.getStudentCourses(studentID);
+    this.getStudentRegisteredCourses(studentID);
+    this.getStudentGrades(studentID);
   }
 
   getStudent(studentId:number) {
