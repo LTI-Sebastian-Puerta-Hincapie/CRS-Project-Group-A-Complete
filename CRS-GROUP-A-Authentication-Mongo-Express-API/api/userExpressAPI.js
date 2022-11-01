@@ -30,28 +30,62 @@ app.get('/users', (req, res) => {
 })
 
 // GET USER
-app.get('/user/:id', (req, res) => {
-    console.log("GET user API");
-    dao.getUserById(req.params.id, function(err, result) {
-        console.log("RESULT FROM API: ", result);  
-        if(err) {
-            return next(err);    // let express handle it
-        } else {
-            res.send(result);
-        }
-    });
+app.get('/user/:data', (req, res) => {
+    console.log("GET user by Id API");
+
+    let isId = /^\d+$/.test(req.params.data);
+    if(isId) {
+        dao.getUserById(req.params.data, function(err, result) {
+            console.log("RESULT FROM API: ", result);  
+            if(err) {
+                return next(err);    // let express handle it
+            } else {
+                res.send(result);
+            }
+        });
+    } else {
+        dao.getUserByUsername(req.params.data, function(err, result) {
+            console.log("RESULT FROM API: ", result);  
+            if(err) {
+                return next(err);    // let express handle it
+            } else {
+                res.send(result);
+            }
+        });
+    }
 })
+
+// app.get('/user/:username', (req, res) => {
+//         console.log("GET user by username API");
+//         dao.getUserByUsername(req.params.username, function(err, result) {
+//             console.log("RESULT FROM API: ", result);  
+//             if(err) {
+//                 return next(err);    // let express handle it
+//             } else {
+//                 res.send(result);
+//             }
+//     });
+// })
 
 // LOGIN
 app.post('/user/login', express.json(), (req, res) => {
     console.log("User Login API");
     dao.userLogin(req.body.username, req.body.password, req.body.roleId, function(err, result) {
         console.log("RESULT FROM API: ", result);  
-        result[0].password = "********";
         if(err) {
-            return next(err);    // let express handle it
+            console.error(err.stack);
+            res.status(500).send('Something went wrong!');
+            next(err);    
         } else {
-            res.send(result);
+
+            if(result.length == 0) {
+                console.log("empty array condition");
+                res.status(400).send('User does not exist. Incorrect username/password/role combination');
+            } 
+            else {
+                result[0].password = "********";
+                res.send(result);
+            }
         }
     });
 })

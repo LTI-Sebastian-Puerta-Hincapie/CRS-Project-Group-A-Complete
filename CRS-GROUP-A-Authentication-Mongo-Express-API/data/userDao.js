@@ -22,7 +22,7 @@ class UserDao {
     }
 
     getUserById(id, callback) {
-        console.log("get user dao method");
+        console.log("get user by Id dao method");
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var query = { Id: id };
@@ -36,11 +36,26 @@ class UserDao {
         });
     }
 
+    getUserByUsername(username, callback) {
+      console.log("get user by username dao method");
+      MongoClient.connect(url, function(err, db) {
+          if (err) throw err;
+          var query = { username: username };
+          var dbo = db.db("crs-group-a");
+          dbo.collection("users").find(query).toArray(function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            db.close();
+            return callback(err, result);
+          });
+      });
+  }
+
     userLogin(username, password, roleId, callback) {
         console.log("get login dao method");
         MongoClient.connect(url, function(err, db) {
             if (err) throw err;
-            var query = { username: username, password: password, roleId: roleId };
+            var query = { username: username, password: password, roleId: parseInt(roleId) };
             var dbo = db.db("crs-group-a");
             dbo.collection("users").find(query).toArray(function(err, result) {
               if (err) throw err;

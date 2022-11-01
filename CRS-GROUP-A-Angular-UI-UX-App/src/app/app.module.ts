@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import * as Md from 'mdb-ui-kit'; 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';

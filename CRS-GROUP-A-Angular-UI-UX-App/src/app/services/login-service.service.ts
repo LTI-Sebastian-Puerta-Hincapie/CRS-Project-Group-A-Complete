@@ -20,7 +20,6 @@ export class LoginServiceService {
     // GET
     loginSpringServer(username:string, password:string, role:string):Observable<any> {
       console.log("Login service method");
-
       let uri:string = "http://localhost:8091/user/" + username + "/" + password + "/" + role; 
       let response = this.httpClient.get(uri, {headers:this.headers});
       return response;
@@ -28,10 +27,16 @@ export class LoginServiceService {
 
     loginExpress(username:string, password:string, roleId:number):Observable<any> {
       console.log("Login service method");
-
       let uri:string = "http://localhost:3001/user/login"; 
       let user = new User(0, username, password, roleId);
-      return this.httpClient.post<any>(uri, user);
+      return this.httpClient.post<User>(uri, user);
+    }
+
+    getUserByUsername(username:string) {
+      console.log("get user by username service method");
+      let uri:string = "http://localhost:3001/user/" + username; 
+      let response = this.httpClient.get(uri, {headers:this.headers});
+      return response;
     }
 }
 
