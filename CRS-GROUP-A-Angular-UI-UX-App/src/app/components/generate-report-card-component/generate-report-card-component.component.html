@@ -30,11 +30,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let data of getData">
                 <td>{{studentId}}</td>
-                <td>{{getData.course.getCourseId()}}</td>
-                <td>{{getData.course.getCourseName()}}</td>
-                <td>{{getData.grade}}</td>
+                <td>{{data.course.courseId}}</td>
+                <td>{{data.course.courseName}}</td>
+                <td>{{data.grade}}</td>
               </tr>
             </tbody>
           </table>

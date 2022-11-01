@@ -6,6 +6,7 @@ class DbConnection {
         this.host = "localhost"
         this.port = 3306
     }
+    
     getUserName() {
         return this.user
     }

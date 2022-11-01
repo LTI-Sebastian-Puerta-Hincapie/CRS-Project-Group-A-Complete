@@ -148,14 +148,15 @@ public class AdminDAOImpl implements AdminDAO{
 					new Object[] {id},
 					new CourseCatalogMapper());
 			
-		}catch(Exception e){
-			//Handle errors for Class.forName
+		} catch(Exception e){
+
 			e.printStackTrace();
 		}
 		
-		if(course.getEnrolled() < course.getCapacity()) {
-			return true;
-		}
+		if(course == null) return false;
+		
+		if(course.getEnrolled() < course.getCapacity()) return true;
+		
 		return false;
 	}
 

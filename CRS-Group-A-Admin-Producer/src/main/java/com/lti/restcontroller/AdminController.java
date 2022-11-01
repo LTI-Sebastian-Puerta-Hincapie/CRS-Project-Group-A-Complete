@@ -173,17 +173,10 @@ public class AdminController {
 			method = RequestMethod.GET,
 			value = "/admin/checkavailable/{id}")
 	@ResponseBody
-	public ResponseEntity checkAvailability(@PathVariable("id") int id) {
-		Boolean available;
-		try {
-			available = adminservice.checkAvailability(id);
-		}catch(CourseNotFoundException ce) {
-			return new ResponseEntity("Course not in course list", HttpStatus.NOT_FOUND);
-		}catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
+	public ResponseEntity<Boolean> checkAvailability(@PathVariable("id") int id) throws CourseNotFoundException {
 		
-		return new ResponseEntity(available, HttpStatus.OK);
+		Boolean available = adminservice.checkAvailability(id);
+		return new ResponseEntity<Boolean>(available, HttpStatus.OK);
 	}
 	
 	@ExceptionHandler(CourseNotFoundException.class)

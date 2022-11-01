@@ -82,7 +82,8 @@ public class AdminService implements AdminServiceOperation {
 	}
 	
 	public Boolean checkAvailability(int id) throws CourseNotFoundException {
-		Boolean available = admindao.checkAvailabilityDAO(id);
+		
+		Boolean available = admindao.checkAvailabilityDAO(id);		
 		return available;
 	}
 	
