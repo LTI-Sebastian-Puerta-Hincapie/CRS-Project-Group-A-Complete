@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,7 +12,7 @@ import { UpdatePasswordComponentComponent } from './components/update-password-c
 import { PaymentComponentComponent } from './components/payment-component/payment-component.component';
 import { StudentViewComponentComponent } from './components/student-view-component/student-view-component.component';
 import { SemesterRegistrationComponentComponent } from './components/semester-registration-component/semester-registration-component.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentComponentComponent } from './components/student-component/student-component.component';
 import { AdminComponentComponent } from './components/admin-component/admin-component.component';
@@ -58,7 +61,10 @@ import { HighlightDirective } from './directives/highlight.directive';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

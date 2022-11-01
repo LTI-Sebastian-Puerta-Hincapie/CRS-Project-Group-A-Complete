@@ -15,6 +15,15 @@ export class ProfessorViewComponentComponent implements OnInit {
   constructor(private _httpService:ProfessorServiceService) { }
 
   ngOnInit(): void {
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.professorId = parseInt(sessionUserId); 
+    }
+
+    this.getProfessorProfile(this.professorId);
   }
 
   getProfessorProfile(professorId:number) {

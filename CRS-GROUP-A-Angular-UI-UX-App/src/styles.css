@@ -6,6 +6,7 @@
 :root {
 
     --default-font-family: "Playfair Display";
+    --secondary-font-family: "Roboto";
 
     --primary-color: rgb(28, 74, 172);
     --primary-color-dark: darkblue;
@@ -16,8 +17,13 @@
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
 }
 
+body {
+    margin: 0 auto;
+    padding: 0;
+}
+
 header, footer {
-    background-color: var(--home-pane-background-color);
+    background-color: var(--primary-color-dark);
 }
 
 img {
@@ -42,3 +48,18 @@ img {
     background: orange;
     color:white
 }
+
+.back {
+    width: 100px;
+}
+
+.admin-pane-title,
+.student-pane-title,
+.professor-pane-title {
+    text-align: center;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-bottom: 1em;
+}
+
+

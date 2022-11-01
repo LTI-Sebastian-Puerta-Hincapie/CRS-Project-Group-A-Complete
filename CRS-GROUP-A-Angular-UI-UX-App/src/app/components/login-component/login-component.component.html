@@ -20,49 +20,39 @@
                     id="password" 
                     placeholder="Enter password" 
                     name="password" 
-                    [(ngModel)] = "_password">
+                    [(ngModel)] = "_password"
+                    (click) = "showSuccess()">
             </div>
             <div class="mb-3">
                 <label for="role" class="form-label">Role:</label>
-                <input 
+                <!-- <input 
                     type="input" 
                     class="form-control" 
                     id="role" 
                     placeholder="Enter Role" 
                     name="role" 
-                    [(ngModel)] = "_role">
+                    [(ngModel)] = "_role"> -->
+                    <select 
+                        class="form-select role-dropdown" 
+                        name="role"
+                        aria-label="Role:" 
+                        [(ngModel)] = "_role"
+                        (click) = "getUser()">
+                      <option default></option>
+                      <option value="1">Admin</option>
+                      <option value="2">Professor</option>
+                      <option value="3">Student</option>
+                    </select>
             </div>
         </form>
-        <!-- <div mdbDropdown class="dropdown role-dropdown">
-            <a
-              class="btn btn-secondary dropdown-toggle"
-              role="button"
-              id="dropdownMenuLink"
-              mdbDropdownToggle
-              aria-expanded="true"
-            >
-              Role
-            </a>
-            <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item">Admin</a></li>
-              <li><a class="dropdown-item">Professor</a></li>
-              <li><a class="dropdown-item">Student</a></li>
-            </ul>
-        </div> -->
-        <!-- <div class="dropdown role-dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown button
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </div> -->
-        <a type="submit" class="button" (click)="login(_username, _password, _role)">
-            Sign-in
-            <i class="fa-solid fa-right-to-bracket"></i>
-        </a>
+        <span class="validation-message"> {{semestereRegistrationValidationMessage}}</span>
+        <div class="submit-container">
+          <a type="submit" class="button sign-in-button" 
+              (mouseover)="getSemesterRegistration()" 
+              (click)="login(_username, _password, _role)">
+              Sign-in
+              <i class="fa-solid fa-right-to-bracket"></i>
+          </a>
+        </div>
     </div>
-    
 </div>

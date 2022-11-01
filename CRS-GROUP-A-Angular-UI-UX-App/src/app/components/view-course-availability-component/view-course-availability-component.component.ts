@@ -24,9 +24,8 @@ export class ViewCourseAvailabilityComponentComponent implements OnInit {
     this._httpService.checkCourseAvailability(studentId).subscribe((res:any[]) => {
       console.log(res);
       this.getData = res;
+      this.courseAvailabilityStatus = this.getData ? "Available" : "Not Available";
     })
-
-    this.courseAvailabilityStatus = this.getData ? "Available" : "Not Available";
   }
 
 }

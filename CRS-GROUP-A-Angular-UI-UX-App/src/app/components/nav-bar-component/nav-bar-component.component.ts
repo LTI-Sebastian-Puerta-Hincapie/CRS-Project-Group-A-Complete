@@ -45,4 +45,16 @@ export class NavBarComponentComponent implements OnInit {
     }
     return visible;
   }
+
+  logOut() {
+
+        // Remove saved data from sessionStorage
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("password");
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("userId");
+
+        // Remove all saved data from sessionStorage
+        sessionStorage.clear();
+  }
 }

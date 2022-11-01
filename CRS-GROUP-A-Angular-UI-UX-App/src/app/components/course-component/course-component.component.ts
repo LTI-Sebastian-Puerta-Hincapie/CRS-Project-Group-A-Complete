@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { timeStamp } from 'console';
 import { Course } from 'src/app/models/course';
 import { RegisteredCourse } from 'src/app/models/registered-course';
 import { CourseServiceService } from 'src/app/services/course-service.service';
@@ -18,7 +19,17 @@ export class CourseComponentComponent implements OnInit {
 
   constructor(private _httpService:CourseServiceService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    // Get saved data from sessionStorage
+    let sessionUserId = sessionStorage.getItem("userId");
+    console.log(sessionUserId);
+    if(sessionUserId != undefined) {
+      this.studentID = parseInt(sessionUserId); 
+    }
+    
+    this.refresh();
+  }
 
   // service methods
   getCourses() {
@@ -54,7 +65,7 @@ export class CourseComponentComponent implements OnInit {
   getRegisteredCourses() {
      console.log("Get registered courses method");
 
-     this.getAddedCourses();
+    //  this.getAddedCourses();
 
      this.getRegisteredCoursesData = this.getAddedCoursesData
       .filter((x: { registeredStatus: number; }) => x.registeredStatus == 1);
@@ -66,6 +77,7 @@ export class CourseComponentComponent implements OnInit {
     
     let registeredCourse = new RegisteredCourse(
       course.courseId, course.courseName, this.studentID, 0, "");
+
     console.log(registeredCourse);
     this._httpService.createRegisteredCourse(registeredCourse)
         .subscribe((res:any[]) => {
@@ -99,7 +111,14 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling delete registered course method");
 
-    this._httpService.deleteRegisteredCourse(course).subscribe((res:any[]) => {
+    let registeredCourse = new RegisteredCourse(
+      course.courseId,
+      course.courseName,
+      this.studentID,
+      course.registeredStatus,
+      course.grade);
+
+    this._httpService.deleteRegisteredCourse(registeredCourse).subscribe((res:any[]) => {
       console.log(res);
     })
   }
@@ -108,8 +127,14 @@ export class CourseComponentComponent implements OnInit {
 
     console.log("Calling generate student fee method");
 
-    this._httpService.generateStudentFee(studentId).subscribe((res:any[]) => {
+    this._httpService.generateStudentFee(this.studentID).subscribe((res:any[]) => {
       console.log(res);
     })
+  }
+
+  refresh() {
+    this.getCourses();
+    this.getAddedCourses();
+    this.getRegisteredCourses();
   }
 }

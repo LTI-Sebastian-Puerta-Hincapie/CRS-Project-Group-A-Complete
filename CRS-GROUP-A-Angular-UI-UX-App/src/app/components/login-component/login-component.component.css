@@ -11,6 +11,22 @@
 }
 
 .role-dropdown {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    width: 200px;
+}
+
+.button {
+    border: none;
+}
+
+.sign-in-button {
+    font-weight: bolder;
+    font-size: 1em;
+}
+
+.submit-container {
+    text-align: center;
+}
+
+.validation-message {
+    color: red;
 }

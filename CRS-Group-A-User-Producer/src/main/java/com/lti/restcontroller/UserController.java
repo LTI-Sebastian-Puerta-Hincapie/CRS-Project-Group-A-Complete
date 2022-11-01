@@ -77,7 +77,8 @@ public class UserController {
 		    method = RequestMethod.POST,
 		    value = "/user/updatepassword")
 	@ResponseBody
-	public ResponseEntity updatePassword(@RequestBody UpdatePassword updatePassword) throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
+	public ResponseEntity updatePassword(@RequestBody UpdatePassword updatePassword) 
+			throws UserNotFoundException, IncorrectPasswordException, SemesterRegistrationNotApprovedException, StudentNotRegisteredException
 	{
 		passwordService.updatePassword(
 				updatePassword.getUsername(), 
