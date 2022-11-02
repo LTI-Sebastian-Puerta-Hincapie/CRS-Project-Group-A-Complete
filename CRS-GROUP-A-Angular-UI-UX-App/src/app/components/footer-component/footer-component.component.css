@@ -4,6 +4,8 @@ footer {
     min-width: 30%;
     padding: 1.5em;
     margin: 2em 0 0 0;
+    /* position: fixed;
+    bottom: 0; */
 }
 
 .footer-message {

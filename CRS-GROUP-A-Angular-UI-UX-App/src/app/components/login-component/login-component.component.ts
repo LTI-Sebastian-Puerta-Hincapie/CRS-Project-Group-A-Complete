@@ -23,7 +23,6 @@ export class LoginComponentComponent implements OnInit {
   getUserData:any;
   getSemesterRegistrationData:any;
 
-  semestereRegistrationValidationMessage:string = "";
   loginValidationMessage:string = "";
 
   constructor(private router: Router, 
@@ -121,6 +120,7 @@ export class LoginComponentComponent implements OnInit {
 
   userPasswordValidation():boolean {
     // PASSWORD VALIDATION
+    console.log(this.getUserData);
     if(this.getUserData != undefined) {
       if(this.getUserData[0].password != this._password) {
         this.loginValidationMessage = "Incorrect user credentials, please try again";
@@ -138,16 +138,25 @@ export class LoginComponentComponent implements OnInit {
     // STUDENT REGISTRATION VALIDATION
     if(this.getSemesterRegistrationData == undefined) {
       console.log("Student semester registration does not exist, please request admin to create registration");
-      this.semestereRegistrationValidationMessage = "Student semester registration does not exist, please request admin to create registration";
+      this.loginValidationMessage = "Student semester registration does not exist, please request admin to create registration";
       return false;
     } else if (this.getSemesterRegistrationData.approvalStatus == 0) {
         console.log("Semester registration exists but the registration has not yet been approved by admin, please contact admin");
-        this.semestereRegistrationValidationMessage = "Semester registration exists but the registration has not yet been approved by admin, please contact admin";
+        this.loginValidationMessage = "Semester registration exists but the registration has not yet been approved by admin, please contact admin";
         return false;
       } else {
       console.log("Semester registration exists");
       return true;
     }
+  }
+
+  resetModels() {
+    // this._username = "";
+    // this._password = "";
+    // this._role = 0;
+    this.getData = undefined;
+    this.getUserData = undefined;
+    this.getSemesterRegistrationData = undefined;
   }
 
   showSuccess() {

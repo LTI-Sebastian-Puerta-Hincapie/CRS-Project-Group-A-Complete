@@ -1,7 +1,7 @@
 <div class="login-view">
     <div class="login-component">
         <h2 style="text-align: center;">LOGIN</h2>
-        <form class="studentLoginForm" #registerForm="ngForm" [appMatchPassword]="['password', 'confirmPassword']">
+        <form class="login-form" #loginForm="ngForm">
             <div class="mb-3 mt-3">
                 <label for="username" class="form-label">Username:</label>
                 <input 
@@ -48,7 +48,7 @@
                         name="role"
                         aria-label="Role:" 
                         [(ngModel)] = "_role"
-                        #role = "ngModel" required>
+                        #role = "ngModel"  required>
                       <option default></option>
                       <option value="1">Admin</option>
                       <option value="2">Professor</option>
@@ -61,13 +61,12 @@
             </div>
         </form>
         <div class="validation-message-container">
-            <span class="validation-message" *ngIf="semestereRegistrationValidationMessage != ''"> {{semestereRegistrationValidationMessage}}</span>
             <span class="validation-message" *ngIf="loginValidationMessage != ''"> {{loginValidationMessage}}</span>
         </div>
         <div class="submit-container">
           <a type="submit" class="button sign-in-button" 
               (mouseover)="getSemesterRegistration()" 
-              (click)="login(_username, _password, _role)">
+              (click)="login(_username, _password, _role); resetModels();">
               Sign-in
               <i class="fa-solid fa-right-to-bracket"></i>
           </a>
