@@ -30,3 +30,7 @@
 .validation-message {
     color: red;
 }
+
+.validation-message-container {
+    margin: 1em;
+}

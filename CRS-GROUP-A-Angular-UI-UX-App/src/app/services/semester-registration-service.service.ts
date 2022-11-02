@@ -18,7 +18,7 @@ export class SemesterRegistrationServiceService {
   // USER SERVICE METHODS
   // GET 
   getSemesterRegistration(studentId:number):Observable<any> {
-    console.log("Get semester registartion servie method");
+    console.log("Get semester registration service method");
     // let uri:string = "http://localhost:7004/semesterregistration"; 
     let uri:string = "http://localhost:9098/admin/getregistration/" + studentId; 
     return this.httpClient.get(uri, {headers:this.headers});
