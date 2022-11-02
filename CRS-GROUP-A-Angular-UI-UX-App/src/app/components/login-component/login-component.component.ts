@@ -42,12 +42,12 @@ export class LoginComponentComponent implements OnInit {
       if(!this.userPasswordValidation()) return;
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
-        this.showSuccess();
-        this.router.navigate(["admin", { admin: res }]);
         console.log(res);
-        this.getData = res;
-        if(res != undefined) {
-          this.userSession(username, password, "admin", this.getData[0].Id);
+        if(res != undefined) {  
+          this.showSuccess();
+          this.router.navigate(["admin", { admin: res }]);
+          this.getData = res;
+          this.userSession(username, password, "admin", this.getData[0].id);
         }
       })
     }
@@ -56,12 +56,12 @@ export class LoginComponentComponent implements OnInit {
       if(!this.userPasswordValidation()) return;
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
-        this.showSuccess();
-        this.router.navigate(["professor", { professor: res }]);
         console.log(res);
-        this.getData = res;
         if(res != undefined) {
-          this.userSession(username, password, "professor", this.getData[0].Id);
+          this.showSuccess();
+          this.router.navigate(["professor", { professor: res }]);
+          this.getData = res;
+          this.userSession(username, password, "professor", this.getData[0].id);
         }
       })
     }
@@ -72,20 +72,17 @@ export class LoginComponentComponent implements OnInit {
       if(!this.studentSemesterValidation()) return;
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => { 
-        console.log(res);
-        if(res != undefined) {
-          this.showSuccess();
-          this.router.navigate(["student", { student: res }]);
-          this.getData = res;  
-          this.userSession(username, password, "student", this.getData[0].Id);
-        } 
+        console.log("student res:", res);
+        this.showSuccess();
+        this.router.navigate(["student", { student: res }]);
+        this.getData = res;  
+        this.userSession(username, password, "student", this.getData[0].id);
       })
-    }
-    else {
+    } else {
       console.log("user role does not exist");
       this.showError();
-      return;
     }
+    return;
   }
 
   userSession(username:string, password:string, role:string, userId:string) {
@@ -151,10 +148,6 @@ export class LoginComponentComponent implements OnInit {
   }
 
   resetModels() {
-    // this._username = "";
-    // this._password = "";
-    // this._role = 0;
-    this.getData = undefined;
     this.getUserData = undefined;
     this.getSemesterRegistrationData = undefined;
   }
