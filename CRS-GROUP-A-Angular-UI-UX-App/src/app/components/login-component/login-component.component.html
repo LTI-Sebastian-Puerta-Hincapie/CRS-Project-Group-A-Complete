@@ -12,7 +12,10 @@
                     name="username" 
                     [(ngModel)] = "_username"
                     #username = "ngModel"
-                    (mouseout) = "getUser()" required>
+                    (mouseout) = "getUser()"
+                    (mouseover) = "getUser()"
+                    (keydown.Tab)="getUser()"
+                    required>
                 <span class="text-danger"
                     *ngIf="username.touched && _username == ''">
                     username is required

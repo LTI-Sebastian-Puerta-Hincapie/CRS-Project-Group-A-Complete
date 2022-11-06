@@ -33,7 +33,7 @@ export class LoginServiceService {
       return response;
     }
 
-    getUserByUsername(username:string) {
+    getUserByUsername(username:String) {
       console.log("get user by username service method");
       let uri:string = "http://localhost:3001/user/" + username; 
       let response = this.httpClient.get(uri, {headers:this.headers});

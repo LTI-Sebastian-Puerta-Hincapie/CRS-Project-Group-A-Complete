@@ -9,4 +9,8 @@
     padding: 1em;
     background-color: rgb(28, 19, 156, 0.15);
     text-align: center;
+    font-family: var(--default-font-family);
+    font-weight: bolder;
+    border: solid;
+    border-width: 2px;
 }

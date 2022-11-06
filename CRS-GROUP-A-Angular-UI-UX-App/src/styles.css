@@ -23,7 +23,8 @@ body {
 }
 
 header, footer {
-    background-color: var(--primary-color-dark);
+    /* background-color: var(--primary-color-dark); */
+    background-image: linear-gradient(to right, darkblue, darkgrey);
 }
 
 img {
@@ -40,6 +41,7 @@ img {
     text-decoration: none;
     padding: 0.5em 2em;
     cursor: pointer;
+    border: none;
     border-radius: 8px;
 }
 
@@ -60,6 +62,14 @@ img {
     font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
     margin-bottom: 1em;
+}
+
+.validation-message {
+    color: red;
+}
+
+.validation-message-container {
+    margin: 1em;
 }
 
 

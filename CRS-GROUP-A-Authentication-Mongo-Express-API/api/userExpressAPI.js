@@ -108,3 +108,25 @@ app.post('/user/login', express.json(), (req, res) => {
         }
     });
 })
+
+// UPDATE PASSWORD
+app.post('/user/updatepassword', express.json(), (req, res) => {
+    console.log("User Update Password API");
+    dao.updatePassword(req.body, function(err, result) {
+        console.log("RESULT FROM API: ", result);  
+        if(err) {
+            console.error(err.stack);
+            res.status(500).send('Something went wrong!');
+            next(err);    
+        } else {
+
+            if(result.length == 0) {
+                console.log("empty array condition");
+                res.status(400).send('User does not exist. Incorrect username/password combination');
+            } 
+            else {
+                res.send(result);
+            }
+        }
+    });
+})

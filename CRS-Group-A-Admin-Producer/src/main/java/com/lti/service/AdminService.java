@@ -50,7 +50,7 @@ public class AdminService implements AdminServiceOperation {
 		admindao.approveStudentRegistrationDAO(studentID, approvalStatus); 
 	}
 	
-	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
+	public SemesterRegistration createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
 		
 		User user = userDao.GetUser(semesterRegistration.getStudentId()); 
 		if(user == null) {
@@ -61,12 +61,13 @@ public class AdminService implements AdminServiceOperation {
 		SemesterRegistration _semesterRegistration = getSemesterRegistration(semesterRegistration.getStudentId());
 		if(_semesterRegistration == null) {
 			
-			admindao.createStudentRegistrationDAO(semesterRegistration);
+			_semesterRegistration= admindao.createStudentRegistrationDAO(semesterRegistration);
 		}
 		else {
 			
 			throw new SemesterRegistrationExistsException("Student has already been registered for the semester");
 		}
+		return _semesterRegistration;
 	}
 	
 	public void addCourse(Course course) {

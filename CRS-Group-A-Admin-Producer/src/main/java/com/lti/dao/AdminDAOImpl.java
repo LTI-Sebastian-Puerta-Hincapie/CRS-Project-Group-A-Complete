@@ -87,14 +87,14 @@ public class AdminDAOImpl implements AdminDAO{
 					"Approved",
 					studentID);
 		}catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
 		
 	}
 	
 	@Override
-	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
+	public SemesterRegistration createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
+		
 		try {
 			jdbcTemplateObject.jdbcTemplate().update(
 					SQLQueries.INSERT_SEMESTERREGISTRATION, 
@@ -103,16 +103,27 @@ public class AdminDAOImpl implements AdminDAO{
 					semesterRegistration.getAdminId(), 
 					semesterRegistration.getComments());
 		} catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
+		
+		SemesterRegistration registration = null;
+		try {
+			registration = jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_SEMESTER_REGISTRATION_BY_STUDENTID, 
+					new Object[] {semesterRegistration.getStudentId()},
+					new SemesterRegistrationMapper());
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return registration;
+		
 	}
 	@Override
 	public void addCourseDAO(Course course) {
 		try{
 			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_COURSE, course.getCourseId(), course.getCourseName(), course.getDescription());
 		}catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
 	}

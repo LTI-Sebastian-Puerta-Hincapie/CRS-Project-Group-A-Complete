@@ -8,126 +8,225 @@
         </div>
 
         <div [hidden]="!create" class="create-semester-registration">
-            <form class="semesterRegistrationForm">
+            <form class="semesterRegistrationForm" #semesterRegistrationForm="ngForm">
                 <h3>Add Registration</h3>
                 <div class="mb-3 mt-3">
                     <label for="username" class="form-label">Admin Username:</label>
                     <input
-                         type="username" 
+                         type="input" 
                          class="form-control" 
                          id="username" 
                          placeholder="Enter username" 
-                         name="username"
-                         [(ngModel)]="username">
+                         name="username-create"
+                         [(ngModel)]="username" 
+                         #USERNAME = "ngModel"
+                         (mouseout) = "getUser(username)"
+                         (mouseover) = "getUser(username)"
+                         (keydown.Tab)="getUser(username)"
+                         required>
+                    <span class="text-danger"
+                         *ngIf="USERNAME.touched && username == ''">
+                         username is required
+                     </span>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Admin Password:</label>
                     <input 
-                        type="password" 
+                        type="input" 
                         class="form-control" 
                         id="password" 
                         placeholder="Enter current password" 
-                        name="password" 
-                        [(ngModel)]="password">
+                        name="password-create" 
+                        [(ngModel)]="password" 
+                        #PASSWORD = "ngModel"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="PASSWORD.touched && password == ''">
+                        password is required
+                    </span>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="studentId" class="form-label">Student ID:</label>
                     <input 
-                        type="studentId" 
+                        type="input" 
                         class="form-control" 
                         id="studentId" 
                         placeholder="Enter Student ID" 
-                        name="studentId" 
-                        [(ngModel)]="studentId"><br>
-        
-                    <a type="submit" class="button" (click)="createSemesterRegistration(studentId)">
+                        name="studentId-create" 
+                        [(ngModel)]="studentId" 
+                        #STUDENTID = "ngModel"
+                        (mouseover)="getSemesterRegistration(studentId, 1)"
+                        (mouseout)="getSemesterRegistration(studentId, 1)"
+                        (keydown.Tab)="getSemesterRegistration(studentId, 1)"
+                        (keydown.Enter)="getSemesterRegistration(studentId, 1)"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="STUDENTID.touched &&  studentId == 0">
+                        userId is required
+                    </span>
+                </div>
+                <div class="submit-container">
+                    <button type="submit" 
+                        class="button" 
+                        (click)="createSemesterRegistration(studentId)"
+                        *ngIf="!semesterRegistrationExists()">
                         Create Registration
                         <i class="fa-solid fa-right-to-bracket"></i>
-                    </a>
+                    </button>
+                    <button type="submit" class="button" (click)="semesterRegistrationForm.reset()">
+                        Cancel
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </button>
+                    <div class="validation-message-container">
+                        <span class="text-danger validation-message"> {{semesterRegistrationValidationMessage}} </span>
+                    </div>
                 </div>
             </form>
         </div>
         <div [hidden]="!approve" class="approve-semester-registration">
-            <form class="semesterRegistrationForm">
+            <form class="semesterRegistrationForm" #approveSemesterRegistrationForm="ngForm">
                 <h3>Approve Registration</h3>
                 <div class="mb-3 mt-3">
                     <label for="username" class="form-label">Admin Username:</label>
                     <input 
-                        type="username" 
+                        type="input" 
                         class="form-control" 
                         id="username" 
                         placeholder="Enter username" 
-                        name="username"
-                        [(ngModel)]="username">
+                        name="username-approve"
+                        [(ngModel)]="usernameApprove" 
+                        #USERNAMEAPPROVAL = "ngModel"
+                        (mouseout) = "getUser(usernameApprove)"
+                        (mouseover) = "getUser(usernameApprove)"
+                        (keydown.Tab)="getUser(usernameApprove)"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="USERNAMEAPPROVAL.touched && usernameApprove == ''">
+                        username is required
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Admin Password:</label>
                     <input 
-                        type="password" 
+                        type="input" 
                         class="form-control" 
                         id="password" 
                         placeholder="Enter current password" 
-                        name="password"
-                        [(ngModel)]="password">
+                        name="password-approve"
+                        [(ngModel)]="passwordApprove" 
+                        #PASSWORDAPPROVAL = "ngModel"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="PASSWORDAPPROVAL.touched && passwordApprove == ''">
+                        password is required
+                    </span>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="studentId" class="form-label">Student ID:</label>
                     <input 
-                        type="studentId" 
+                        type="input" 
                         class="form-control" 
                         id="studentId" 
                         placeholder="Enter Student ID" 
-                        name="studentId" 
-                        [(ngModel)]="studentId"><br>
-        
-                    <a type="submit" class="button" (click)="approveSemesterRegistration(studentId)">
+                        name="studentId-approve" 
+                        [(ngModel)]="studentIdApprove"
+                        #STUDENTIDAPPROVAL = "ngModel" 
+                        (mouseover)="getSemesterRegistration(studentIdApprove, 2)"
+                        (mouseout)="getSemesterRegistration(studentIdApprove, 2)"
+                        (keydown.Tab)="getSemesterRegistration(studentIdApprove, 2)"
+                        (keydown.Enter)="getSemesterRegistration(studentIdApprove, 2)" required>
+                    <span class="text-danger"
+                        *ngIf="STUDENTIDAPPROVAL.touched && studentIdApprove == 0">
+                        userId is required
+                    </span>
+                </div>
+                <div class="submit-container">
+                    <button type="submit" 
+                        class="button" 
+                        (click)="approveSemesterRegistration(studentIdApprove)"
+                        *ngIf="!semesterRegistrationApproved()"
+                        >
                         Approve Registration
                         <i class="fa-solid fa-right-to-bracket"></i>
-                    </a>
+                    </button>
+                    <button type="submit" 
+                        class="button" 
+                        (click)="approveSemesterRegistrationForm.reset()">
+                        Cancel
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </button>
+                    <div class="validation-message-container">
+                        <span class="text-danger validation-message"> {{semesterRegistrationApprovalValidationMessage}} </span>
+                    </div>
                 </div>
             </form>
         </div>
         <div [hidden]="!view" class="view-semester-registration">
-            <form class="semesterRegistrationForm">
+            <form class="semesterRegistrationForm" #viewSemesterRegistrationForm="ngForm">
                 <h3>View Registration</h3>
                 <div class="mb-3 mt-3">
                     <label for="username" class="form-label">Admin Username:</label>
                     <input 
-                        type="username" 
+                        type="input" 
                         class="form-control" 
                         id="username" 
                         placeholder="Enter username" 
-                        name="username"
-                        [(ngModel)]="username">
+                        name="username-view"
+                        [(ngModel)]="usernameView" 
+                        #USERNAMEVIEW = "ngModel"
+                        (mouseout) = "getUser(usernameView)"
+                        (mouseover) = "getUser(usernameView)"
+                        (keydown.Tab)="getUser(usernameView)"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="USERNAMEVIEW.touched && usernameView == ''">
+                        username is required
+                    </span>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Admin Password:</label>
                     <input 
-                        type="password" 
+                        type="input" 
                         class="form-control" 
                         id="password" 
                         placeholder="Enter current password" 
-                        name="password"
-                        [(ngModel)]="password">
+                        name="password-view"
+                        [(ngModel)]="passwordView" 
+                        #PASSWORDVIEW = "ngModel" required>
+                    <span class="text-danger"
+                        *ngIf="PASSWORDVIEW.touched && passwordView == ''">
+                        password is required
+                    </span>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="studentId" class="form-label">Student ID:</label>
                     <input 
-                        type="studentId" 
+                        type="input" 
                         class="form-control" 
                         id="studentId" 
                         placeholder="Enter Student ID" 
-                        name="studentId" 
-                        [(ngModel)]="studentId"><br>
-        
-                    <a type="submit" class="button" (click)="getSemesterRegistration(studentId)">
+                        name="studentId-view" 
+                        [(ngModel)]="studentIdView" 
+                        #STUDENTIDVIEW = "ngModel" required>
+                     <span class="text-danger"
+                        *ngIf="STUDENTIDVIEW.touched && studentIdView == 0">
+                        studentId is required
+                    </span>
+                </div>
+                <div class="submit-container">
+                    <a type="submit" 
+                        class="button" 
+                        (click)="getSemesterRegistration(studentId, 3)">
                         View Registration
                         <i class="fa-solid fa-right-to-bracket"></i>
                     </a>
+                    <div class="validation-message-container">
+                        <span class="text-danger validation-message"> {{semesterRegistrationViewValidationMessage}} </span>
+                    </div>
                 </div>
             </form><br>
 
-            <table class="table table-striped">
+            <table class="table table-striped" *ngIf="getData == []">
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">RegistrationID</th>

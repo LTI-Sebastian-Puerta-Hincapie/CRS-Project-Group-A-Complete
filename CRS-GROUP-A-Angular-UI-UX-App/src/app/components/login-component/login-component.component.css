@@ -7,7 +7,7 @@
 
 .login-component {
     padding: 1em;
-    background-color: rgb(28, 19, 156, 0.15);
+    background-color: rgba(28, 19, 156, 0.15);
 }
 
 .role-dropdown {
@@ -27,10 +27,3 @@
     text-align: center;
 }
 
-.validation-message {
-    color: red;
-}
-
-.validation-message-container {
-    margin: 1em;
-}

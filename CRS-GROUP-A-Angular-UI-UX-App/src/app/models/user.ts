@@ -1,9 +1,9 @@
 export class User {
 
-    private id:number;
-	private username:String;
-	private password:String;
-	private roleId:number;
+    public id:number;
+	public username:String;
+	public password:String;
+	public roleId:number;
 	
 	constructor(id:number, username:String, password:String, roleId:number) {
 		
