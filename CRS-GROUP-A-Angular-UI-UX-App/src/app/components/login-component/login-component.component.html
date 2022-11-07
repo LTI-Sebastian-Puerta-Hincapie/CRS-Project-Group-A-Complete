@@ -1,78 +1,80 @@
-<div class="login-view">
-    <div class="login-component">
-        <h2 style="text-align: center;">LOGIN</h2>
-        <form class="login-form" #loginForm="ngForm">
-            <div class="mb-3 mt-3">
-                <label for="username" class="form-label">Username:</label>
-                <input 
-                    type="input" 
-                    class="form-control" 
-                    id="username" 
-                    placeholder="Enter username" 
-                    name="username" 
-                    [(ngModel)] = "_username"
-                    #username = "ngModel"
-                    (mouseout) = "getUser()"
-                    (mouseover) = "getUser()"
-                    (keydown.Tab)="getUser()"
-                    required>
-                <span class="text-danger"
-                    *ngIf="username.touched && _username == ''">
-                    username is required
-                </span>
+<div class="top-view">
+    <div class="login-view">
+        <div class="login-component">
+            <h2 class="page-header-title">LOGIN</h2>
+            <form class="login-form" #loginForm="ngForm">
+                <div class="mb-3 mt-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input 
+                        type="input" 
+                        class="form-control" 
+                        id="username" 
+                        placeholder="Enter username" 
+                        name="username" 
+                        [(ngModel)] = "_username"
+                        #username = "ngModel"
+                        (mouseout) = "getUser()"
+                        (mouseover) = "getUser()"
+                        (keydown.Tab)="getUser()"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="username.touched && _username == ''">
+                        username is required
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="password" 
+                        placeholder="Enter password" 
+                        name="password" 
+                        [(ngModel)] = "_password"
+                        #password = "ngModel"
+                        required>
+                    <span class="text-danger"
+                        *ngIf="password.touched && _password == ''">
+                        password is required
+                    </span>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role:</label>
+                    <!-- <input 
+                        type="input" 
+                        class="form-control" 
+                        id="role" 
+                        placeholder="Enter Role" 
+                        name="role" 
+                        [(ngModel)] = "_role"> -->
+                        <select 
+                            class="form-select role-dropdown" 
+                            name="role"
+                            aria-label="Role:" 
+                            [(ngModel)] = "_role"
+                            #role = "ngModel"  required>
+                          <option default></option>
+                          <option value="1">Admin</option>
+                          <option value="2">Professor</option>
+                          <option value="3">Student</option>
+                        </select>
+                    <span class="text-danger"
+                        *ngIf="role.touched && _role == 0">
+                        role is required
+                    </span>
+                </div>
+            </form>
+            <div class="validation-message-container">
+                <span class="validation-message" *ngIf="loginValidationMessage != ''"> {{loginValidationMessage}}</span>
             </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input 
-                    type="input" 
-                    class="form-control" 
-                    id="password" 
-                    placeholder="Enter password" 
-                    name="password" 
-                    [(ngModel)] = "_password"
-                    #password = "ngModel"
-                    required>
-                <span class="text-danger"
-                    *ngIf="password.touched && _password == ''">
-                    password is required
-                </span>
+            <div class="submit-container">
+              <a type="submit" class="button sign-in-button" 
+                  (mouseover)="getSemesterRegistration()" 
+                  (click)="login(_username, _password, _role); resetModels()">
+                  Sign-in
+                  <i class="fa-solid fa-right-to-bracket"></i>
+              </a>
             </div>
-            <div class="mb-3">
-                <label for="role" class="form-label">Role:</label>
-                <!-- <input 
-                    type="input" 
-                    class="form-control" 
-                    id="role" 
-                    placeholder="Enter Role" 
-                    name="role" 
-                    [(ngModel)] = "_role"> -->
-                    <select 
-                        class="form-select role-dropdown" 
-                        name="role"
-                        aria-label="Role:" 
-                        [(ngModel)] = "_role"
-                        #role = "ngModel"  required>
-                      <option default></option>
-                      <option value="1">Admin</option>
-                      <option value="2">Professor</option>
-                      <option value="3">Student</option>
-                    </select>
-                <span class="text-danger"
-                    *ngIf="role.touched && _role == 0">
-                    role is required
-                </span>
-            </div>
-        </form>
-        <div class="validation-message-container">
-            <span class="validation-message" *ngIf="loginValidationMessage != ''"> {{loginValidationMessage}}</span>
-        </div>
-        <div class="submit-container">
-          <a type="submit" class="button sign-in-button" 
-              (mouseover)="getSemesterRegistration()" 
-              (click)="login(_username, _password, _role); resetModels()">
-              Sign-in
-              <i class="fa-solid fa-right-to-bracket"></i>
-          </a>
         </div>
     </div>
 </div>

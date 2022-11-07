@@ -15,6 +15,7 @@
     --side-pane-background-color:rgba(203, 203, 209, 0.90);
     --home-pane-background-color: rgb(28, 19, 156, 0.45);
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
+    --middle-pane-color: rgba(160,160,160, 0.75);
 }
 
 body {
@@ -33,6 +34,11 @@ img {
     display: block;
 }
 
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
 .button,
 .button:visited {
     display: inline-block;
@@ -43,6 +49,7 @@ img {
     cursor: pointer;
     border: none;
     border-radius: 8px;
+    font-family: var(--default-font-family);
 }
 
 .button:hover,
@@ -55,15 +62,6 @@ img {
     width: 100px;
 }
 
-.admin-pane-title,
-.student-pane-title,
-.professor-pane-title {
-    text-align: center;
-    font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-bottom: 1em;
-}
-
 .validation-message {
     color: red;
 }
@@ -71,5 +69,21 @@ img {
 .validation-message-container {
     margin: 1em;
 }
+
+.top-view {
+    background-image: url("/assets/images/diversity-group.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+
+.page-header-title {
+    font-family: var(--default-font-family);
+    font-weight: bolder;
+    text-align: center;
+}
+
+
 
 
