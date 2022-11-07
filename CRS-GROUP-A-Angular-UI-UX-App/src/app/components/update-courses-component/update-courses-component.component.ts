@@ -13,12 +13,17 @@ import { StudentServiceService } from 'src/app/services/student-service.service'
 export class UpdateCoursesComponentComponent implements OnInit {
 
   courseId:number = 0;
+  updateCourseId:number = 0;
   credits:number = 0;
   capacity:number = 0;
 
   courseName:string = "";
+  updateCourseName:string = "";
   description:string = "";
+  updateDescription:string = "";
   semester:string = "";
+  addCourseValidationMessage:string = "";
+  updateCourseValidationMessage:string = "";
 
   add:boolean = false;
   edit:boolean = false;
@@ -37,6 +42,11 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
     console.log("Calling add course method");
 
+    if(!this.addCourseValidations()) {
+      this.showError();
+      return;
+    }
+
     let course = new Course(courseId, courseName, description);
 
     this._httpService.addCourse(course).subscribe((res:any[]) => {
@@ -49,6 +59,11 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
     console.log("Calling update course method");
 
+    if(!this.updateCourseValidations()) {
+      this.showError();
+      return;
+    }
+
     let course = new Course(courseId, courseName, description);
 
     this._httpService.updateCourse(course).subscribe((res:any[]) => {
@@ -60,6 +75,12 @@ export class UpdateCoursesComponentComponent implements OnInit {
   deleteCourse(courseId:number) {
 
     console.log("Calling delete course method");
+
+    if(courseId == 0 || courseId == undefined || courseId == null) {
+      this.updateCourseValidationMessage = "Missing or incorrect course id input";
+      this.showError();
+      return;
+    }
 
     this._httpService.deleteCourse(courseId).subscribe((res:any[]) => {
       console.log(res);
@@ -92,6 +113,38 @@ export class UpdateCoursesComponentComponent implements OnInit {
       this.add = false;
       this.edit = false;
     }
+  }
+
+  addCourseValidations():boolean {
+    if(this.courseId == 0 || this.courseId == undefined || this.courseId == null) {
+      this.addCourseValidationMessage = "Missing or incorrect course id input";
+      return false;
+    }
+    else if(this.courseName == '' || this.courseName == undefined || this.courseName == null) {
+      this.addCourseValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.description == '' || this.description == undefined || this.description == null) {
+      this.addCourseValidationMessage = "Missing or incorrect course description input";
+      return false;
+    }
+    return true;
+  }
+
+  updateCourseValidations():boolean {
+    if(this.updateCourseId == 0 || this.updateCourseId == undefined || this.updateCourseId == null) {
+      this.updateCourseValidationMessage = "Missing or incorrect course id input";
+      return false;
+    }
+    else if(this.updateCourseName == '' || this.updateCourseName == undefined || this.updateCourseName == null) {
+      this.updateCourseValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.updateDescription == '' || this.updateDescription == undefined || this.updateDescription == null) {
+      this.updateCourseValidationMessage = "Missing or incorrect course description input";
+      return false;
+    }
+    return true;
   }
 
   showSuccess(message:string) {

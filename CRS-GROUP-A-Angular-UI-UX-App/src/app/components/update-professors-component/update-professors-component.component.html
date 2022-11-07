@@ -9,7 +9,7 @@
                 <a class="button" (click)="professorSelection(3); getProfessors()">View Professors</a>     
             </div>
             <div [hidden]="!add" class="add-professor-view">
-                <form class="add-professors-form">
+                <form class="add-professors-form" #addProfessorForm="ngForm">
                     <h3>Add Professor</h3>
                     <div class="mb-3 mt-3">
                         <label for="professorId" class="form-label">Professor ID:</label>
@@ -18,8 +18,13 @@
                              class="form-control" 
                              id="professorId" 
                              placeholder="Enter Professor ID" 
-                             name="courseId"
-                             [(ngModel)]="professorId">
+                             name="professorId"
+                             [(ngModel)]="professorId" 
+                             #PROFESSORID="ngModel" required>
+                        <span class="validation"
+                             *ngIf="PROFESSORID.touched && professorId == 0">
+                             professor id is required
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="professorName" class="form-label">Professor Name:</label>
@@ -29,7 +34,12 @@
                             id="professorName" 
                             placeholder="Enter Professor Name" 
                             name="professorName" 
-                            [(ngModel)]="professorName">
+                            [(ngModel)]="professorName"
+                            #PROFESSORNAME="ngModel" required>
+                        <span class="validation"
+                            *ngIf="PROFESSORNAME.touched && professorName == ''">
+                            professor name is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="departmentId" class="form-label">Department ID:</label>
@@ -39,7 +49,12 @@
                             id="departmentId" 
                             placeholder="Enter Department ID" 
                             name="departmentId" 
-                            [(ngModel)]="departmentId">
+                            [(ngModel)]="departmentId"
+                            #DEPARTMENTID="ngModel" required>
+                        <span class="validation"
+                            *ngIf="DEPARTMENTID.touched && departmentId == 0">
+                            department id is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Email:</label>
@@ -49,7 +64,12 @@
                             id="email" 
                             placeholder="Enter  Email" 
                             name="email" 
-                            [(ngModel)]="email">
+                            [(ngModel)]="email"
+                            #EMAIL="ngModel" required>
+                        <span class="validation"
+                            *ngIf="EMAIL.touched && email == ''">
+                            email is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="phone" class="form-label">Phone:</label>
@@ -59,7 +79,12 @@
                             id="phone" 
                             placeholder="Enter Phone" 
                             name="phone" 
-                            [(ngModel)]="phone">
+                            [(ngModel)]="phone"
+                            #PHONE="ngModel" required>
+                        <span class="validation"
+                            *ngIf="PHONE.touched && phone == ''">
+                            phone is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="address" class="form-label">Address:</label>
@@ -69,16 +94,28 @@
                             id="address" 
                             placeholder="Enter Address" 
                             name="address" 
-                            [(ngModel)]="address">
+                            [(ngModel)]="address"
+                            #ADDRESS="ngModel" required>
+                        <span class="validation"
+                            *ngIf="ADDRESS.touched && address == ''">
+                            address is required
+                       </span>
+                    </div>
+                    <div class="validation-message-container">
+                        <span class="validation-message" *ngIf="addProfessorValidationMessage != ''"> {{addProfessorValidationMessage}}</span>
                     </div>
                     <a type="submit" class="button" (click)="addProfessor(professorId, professorName, departmentId, email, phone, address)">
                         Add
                         <i class="fa-solid fa-right-to-bracket"></i>
                     </a>
+                    <a type="submit" class="button" (click)="addProfessorForm.reset()">
+                        Cancel
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
                 </form>
             </div>
             <div [hidden]="!edit" class="edit-professor-view">
-                <form class="edit-professors-form">
+                <form class="edit-professors-form" #editProfessorForm="ngForm">
                     <h3>Edit Professor</h3>
                     <div class="mb-3 mt-3">
                         <label for="professorId" class="form-label">Professor ID:</label>
@@ -87,8 +124,13 @@
                              class="form-control" 
                              id="professorId" 
                              placeholder="Enter Professor ID" 
-                             name="courseId"
-                             [(ngModel)]="professorId">
+                             name="professorId"
+                             [(ngModel)]="updateProfessorId"
+                             #UPDATEPROFESSORID="ngModel" required>
+                        <span class="validation"
+                             *ngIf="UPDATEPROFESSORID.touched && updateProfessorId == 0">
+                             professor id is required
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="professorName" class="form-label">Professor Name:</label>
@@ -98,7 +140,12 @@
                             id="professorName" 
                             placeholder="Enter Professor Name" 
                             name="professorName" 
-                            [(ngModel)]="professorName">
+                            [(ngModel)]="updateProfessorName"
+                            #UPDATEPROFESSORNAME="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATEPROFESSORNAME.touched && updateProfessorName == ''">
+                            professor name is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="departmentId" class="form-label">Department ID:</label>
@@ -108,7 +155,12 @@
                             id="departmentId" 
                             placeholder="Enter Department ID" 
                             name="departmentId" 
-                            [(ngModel)]="departmentId">
+                            [(ngModel)]="departmentId"
+                            #UPDATEDEPARTMENTID="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATEDEPARTMENTID.touched && updateDepartmentId == 0">
+                            department id is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Email:</label>
@@ -118,7 +170,12 @@
                             id="email" 
                             placeholder="Enter  Email" 
                             name="email" 
-                            [(ngModel)]="email">
+                            [(ngModel)]="updateEmail"
+                            #UPDATEEMAIL="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATEEMAIL.touched && updateEmail == ''">
+                            email is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="phone" class="form-label">Phone:</label>
@@ -128,7 +185,12 @@
                             id="phone" 
                             placeholder="Enter Phone" 
                             name="phone" 
-                            [(ngModel)]="phone">
+                            [(ngModel)]="updatePhone"
+                            #UPDATEPHONE="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATEPHONE.touched && updatePhone == ''">
+                            phone is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="address" class="form-label">Address:</label>
@@ -138,7 +200,15 @@
                             id="address" 
                             placeholder="Enter Address" 
                             name="address" 
-                            [(ngModel)]="address">
+                            [(ngModel)]="updateAddress"
+                            #UPDATEADDRESS="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATEADDRESS.touched && updateAddress == ''">
+                            address is required
+                       </span>
+                    </div>
+                    <div class="validation-message-container">
+                        <span class="validation-message" *ngIf="updateProfessorValidationMessage != ''"> {{updateProfessorValidationMessage}}</span>
                     </div>
                     <a type="submit" class="button" (click)="updateProfessor(professorId, professorName, departmentId, email, phone, address)">
                         Edit
@@ -146,6 +216,10 @@
                     </a>
                     <a type="submit" class="button" (click)="deleteProfessor(professorId)">
                         Delete
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                    <a type="submit" class="button" (click)="editProfessorForm.reset()">
+                        Cancel
                         <i class="fa-solid fa-right-to-bracket"></i>
                     </a>
                 </form>
