@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Course } from 'src/app/models/course';
 import { AdminServiceService } from 'src/app/services/admin-service.service';
+import { CourseServiceService } from 'src/app/services/course-service.service';
+import { StudentServiceService } from 'src/app/services/student-service.service';
 
 @Component({
   selector: 'app-update-courses-component',
@@ -19,8 +22,13 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
   add:boolean = false;
   edit:boolean = false;
+  view:boolean = false;
 
-  constructor(private _httpService:AdminServiceService) { }
+  getData: any;
+
+  constructor(private _httpService:AdminServiceService,
+              private toastr: ToastrService,
+              private _courseService: CourseServiceService) { }
 
   ngOnInit(): void {
   }
@@ -33,6 +41,7 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
     this._httpService.addCourse(course).subscribe((res:any[]) => {
       console.log(res);
+      this.showSuccess("Course was successfully added");
     })
   }
 
@@ -44,6 +53,7 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
     this._httpService.updateCourse(course).subscribe((res:any[]) => {
       console.log(res);
+      this.showSuccess("Course was successfully updated");
     })
   }
 
@@ -53,6 +63,16 @@ export class UpdateCoursesComponentComponent implements OnInit {
 
     this._httpService.deleteCourse(courseId).subscribe((res:any[]) => {
       console.log(res);
+      this.showSuccess("Course was successfully deleted");
+    })
+  }
+
+  getCourses() {
+    console.log("Get courses method");
+
+    this._courseService.getCourses().subscribe((res:any[]) => {
+      console.log(res);
+      this.getData=res;
     })
   }
 
@@ -60,10 +80,25 @@ export class UpdateCoursesComponentComponent implements OnInit {
     if(selection == 1) {
       this.add = !this.add;
       this.edit = false;
+      this.view = false;
     }
-   else {
+   else if(selection  == 2){
       this.edit = !this.edit;
       this.add = false;
+      this.view = false;
     }
+    else {
+      this.view = !this.view;
+      this.add = false;
+      this.edit = false;
+    }
+  }
+
+  showSuccess(message:string) {
+    this.toastr.success(message, 'Success');
+  }
+
+  showError() {
+    this.toastr.error('An error occurred, please try again', 'Error');
   }
 }

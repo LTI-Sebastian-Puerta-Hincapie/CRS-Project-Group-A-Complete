@@ -53,8 +53,9 @@ public interface AdminServiceOperation {
 	/**
 	 * Creates StudentRegistration in database
 	 * @param semesterRegistration of type SemesterRegistration
+	 * @return semesterRegistration
 	 */
-	public void createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException;
+	public SemesterRegistration createStudentRegistration(SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException;
 	
 	/**
 	 * This method adds a course to the course list

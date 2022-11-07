@@ -1,16 +1,16 @@
-<div class="admin-view">
-    <div class="admin-component">
-        <div class="admin-welcome-header"> 
-            <h3>Welcome Admin </h3>
-            <p> Update Professors, Generate Report Card, Semester Registration, Update Courses</p>
-        </div><br>
-        <div class="admin-components">
-            <a class="button route-link" [routerLink]="['/admin/updateprofessors']">Professors</a>
-            <a class="button route-link" [routerLink]="['/admin/updatecourses']">Courses</a>
-            <a class="button route-link" [routerLink]="['/admin/generatereportcard']">Generate Report Card</a>
-            <a class="button route-link" [routerLink]="['/admin/viewcourseavailability']">View Course Availability</a>
-            <!-- <a class="button route-link" [routerLink]="['/admin/semesterregistration']">Semester Registration</a> -->
+<div class="top-view">
+    <div class="admin-view">
+        <div class="admin-component">
+            <div class="admin-welcome-header"> 
+                <h3 class="page-header-title">Welcome Admin </h3>
+                <p> Update Professors, Generate Report Card, Update Courses, View Course Availability</p>
+            </div><br>
+            <div class="admin-components">
+                <a class="button route-link" [routerLink]="['/admin/updateprofessors']">Professors</a>
+                <a class="button route-link" [routerLink]="['/admin/updatecourses']">Courses</a>
+                <a class="button route-link" [routerLink]="['/admin/generatereportcard']">Generate Report Card</a>
+                <a class="button route-link" [routerLink]="['/admin/viewcourseavailability']">View Course Availability</a>
+            </div>
         </div>
-    </div>
+    </div>    
 </div>
-<!-- <router-outlet></router-outlet> -->

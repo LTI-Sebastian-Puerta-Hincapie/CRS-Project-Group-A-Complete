@@ -15,6 +15,7 @@
     --side-pane-background-color:rgba(203, 203, 209, 0.90);
     --home-pane-background-color: rgb(28, 19, 156, 0.45);
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
+    --middle-pane-color: rgba(160,160,160, 0.75);
 }
 
 body {
@@ -23,13 +24,19 @@ body {
 }
 
 header, footer {
-    background-color: var(--primary-color-dark);
+    /* background-color: var(--primary-color-dark); */
+    background-image: linear-gradient(to right, darkblue, darkgrey);
 }
 
 img {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
 }
 
 .button,
@@ -40,7 +47,9 @@ img {
     text-decoration: none;
     padding: 0.5em 2em;
     cursor: pointer;
+    border: none;
     border-radius: 8px;
+    font-family: var(--default-font-family);
 }
 
 .button:hover,
@@ -53,13 +62,28 @@ img {
     width: 100px;
 }
 
-.admin-pane-title,
-.student-pane-title,
-.professor-pane-title {
-    text-align: center;
-    font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    margin-bottom: 1em;
+.validation-message {
+    color: red;
 }
+
+.validation-message-container {
+    margin: 1em;
+}
+
+.top-view {
+    background-image: url("/assets/images/diversity-group.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding-top: 10em;
+    padding-bottom: 10em;
+}
+
+.page-header-title {
+    font-family: var(--default-font-family);
+    font-weight: bolder;
+    text-align: center;
+}
+
+
 
 

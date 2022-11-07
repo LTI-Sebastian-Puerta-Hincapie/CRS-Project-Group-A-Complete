@@ -30,6 +30,8 @@ import { AboutComponentComponent } from './components/about-component/about-comp
 import { HomeComponentComponent } from './components/home-component/home-component.component';
 import { PageNotFoundComponentComponent } from './components/page-not-found-component/page-not-found-component.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { PasswordPatternDirective } from './directives/password-pattern.directive';
+import { MatchPasswordDirective } from './directives/match-password.directive';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { HighlightDirective } from './directives/highlight.directive';
     AboutComponentComponent,
     HomeComponentComponent,
     PageNotFoundComponentComponent,
-    HighlightDirective
+    HighlightDirective,
+    PasswordPatternDirective,
+    MatchPasswordDirective
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,12 @@ import { HighlightDirective } from './directives/highlight.directive';
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({    
+      timeOut: 3000,
+      extendedTimeOut: 1000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: false,
+      closeButton: true})
   ],
   providers: [],
   bootstrap: [AppComponent]

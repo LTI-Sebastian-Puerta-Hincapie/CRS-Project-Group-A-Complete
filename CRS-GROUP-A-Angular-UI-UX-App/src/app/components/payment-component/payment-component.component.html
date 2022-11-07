@@ -1,64 +1,66 @@
-<div class="payment-view">
-  <div class="payment-component">
-    <a class="button back" [routerLink]="['/student']">Back</a>
-    <h2 class="student-pane-title">PAYMENT</h2>
-    <!-- <form class="student-view-payment-form">
-        <div class="mb-1 mt-1">
-            <label for="studentid" class="form-label">StudentID: </label>
-            <input 
-                type="studentid" 
-                class="form-control" 
-                id="studentid" 
-                placeholder="Enter StudentID" 
-                name="studentid" 
-                [(ngModel)] = "studentID">
-        </div>
-        <a type="submit" class="button" (click)="getStudentFee(studentID)">
-            Enter
-            <i class="fa-solid fa-right-to-bracket"></i>
-        </a>
-    </form> -->
-    <div [hidden]="!showStudentBillTable"  class = "payment-data">
-        <table class="table table-hover table-striped">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">PaymentID</th>
-                <th scope="col">StudentID</th>
-                <th scope="col">Payment Amount</th>
-                <th scope="col">Payment Status</th>
-                <th scope="col">Semester</th>
-                <th scope="col">Payment Method</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{getData.paymentId}}</td>
-                <td>{{getData.studentId}}</td>
-                <td>{{getData.paymentAmount}}</td>
-                <td>{{getData.isPaid}}</td>
-                <td>{{getData.semester}}</td>
-                <td>{{getData.paymentMethod}}</td>
-              </tr>
-            </tbody>
-        </table>
-        <div class="make-payment">
-          <form class="student-make-payment-form">
-            <div class="mb-1 mt-1">
-                <label for="paymentmethod" class="form-label">Payment Method: </label>
-                <input 
-                    type="paymentmethod" 
-                    class="form-control" 
-                    id="paymentmethod" 
-                    placeholder="Enter Payment Method" 
-                    name="paymentmethod" 
-                    [(ngModel)] = "paymentMethod">
-            </div>
-            <a type="submit" class="button" (click)="payStudentFee(studentID, paymentMethod)">
-              Submit Payment
+<div class="top-view">
+  <div class="payment-view">
+    <div class="payment-component">
+      <a class="button back" [routerLink]="['/student']">Back</a>
+      <h2 class="page-header-title">PAYMENT</h2>
+      <!-- <form class="student-view-payment-form">
+          <div class="mb-1 mt-1">
+              <label for="studentid" class="form-label">StudentID: </label>
+              <input 
+                  type="studentid" 
+                  class="form-control" 
+                  id="studentid" 
+                  placeholder="Enter StudentID" 
+                  name="studentid" 
+                  [(ngModel)] = "studentID">
+          </div>
+          <a type="submit" class="button" (click)="getStudentFee(studentID)">
+              Enter
               <i class="fa-solid fa-right-to-bracket"></i>
-            </a>
-        </form>
-        </div>
+          </a>
+      </form> -->
+      <div [hidden]="!showStudentBillTable"  class = "payment-data">
+          <table class="table table-hover table-striped payment-table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">PaymentID</th>
+                  <th scope="col">StudentID</th>
+                  <th scope="col">Payment Amount</th>
+                  <th scope="col">Payment Status</th>
+                  <th scope="col">Semester</th>
+                  <th scope="col">Payment Method</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{getData.paymentId}}</td>
+                  <td>{{getData.studentId}}</td>
+                  <td>{{getData.paymentAmount}}</td>
+                  <td>{{getData.isPaid}}</td>
+                  <td>{{getData.semester}}</td>
+                  <td>{{getData.paymentMethod}}</td>
+                </tr>
+              </tbody>
+          </table>
+          <div class="make-payment">
+            <form class="student-make-payment-form">
+              <div class="mb-1 mt-1">
+                  <label for="paymentmethod" class="form-label">Payment Method: </label>
+                  <input 
+                      type="paymentmethod" 
+                      class="form-control" 
+                      id="paymentmethod" 
+                      placeholder="Enter Payment Method" 
+                      name="paymentmethod" 
+                      [(ngModel)] = "paymentMethod">
+              </div>
+              <a type="submit" class="button" (click)="payStudentFee(studentID, paymentMethod)">
+                Submit 
+                <i class="fa-solid fa-right-to-bracket"></i>
+              </a>
+          </form>
+          </div>
+      </div>
     </div>
   </div>
 </div>

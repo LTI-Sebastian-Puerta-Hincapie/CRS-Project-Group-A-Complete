@@ -33,6 +33,16 @@ public class ProfessorController {
 
 	@Autowired
 	ProfessorServiceOperation professorServiceOperation;
+	
+	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
+			method = RequestMethod.GET, value = "/professors")
+	@ResponseBody
+	public ResponseEntity<List<Professor>> getProfessors() throws ProfessorNotFoundException {
+		
+		List<Professor> professors = professorServiceOperation.getProfessors();	
+		return new ResponseEntity<List<Professor>>(professors, HttpStatus.OK);
+
+	}
 
 	@RequestMapping(produces = MediaType.APPLICATION_JSON, 
 			method = RequestMethod.GET, value = "/professors/{professorId}")
@@ -80,7 +90,7 @@ public class ProfessorController {
 					grade.getCourse().getCourseId(), 
 					grade.getGrade());
 		
-		return new ResponseEntity("Grade has been added successfully", HttpStatus.OK);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
 }

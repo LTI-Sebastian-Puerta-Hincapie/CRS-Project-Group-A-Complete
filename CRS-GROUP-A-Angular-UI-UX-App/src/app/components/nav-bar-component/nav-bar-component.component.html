@@ -1,4 +1,4 @@
-<div class="nav-bar-view">
+<!-- <div class="nav-bar-view">
     <div class="container-welcome-complete"> 
         <div class="display-component">
             <a *ngIf="checkUrl()" class="button route-link" [routerLink]="['/']">Home</a>
@@ -9,4 +9,20 @@
             <a *ngIf="isLoggedIn()" class="button route-link" [routerLink]="['/login']" (click)="logOut()">Log Out</a>
         </div><br>
     </div>  
-</div>
+</div> -->
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse">
+            <a *ngIf="checkUrl()" class="nav-item button route-link" [routerLink]="['/']">Home</a>
+            <a *ngIf="checkUrl()" class="nav-item button route-link login-button" [routerLink]="['/login']">Login</a>
+            <a *ngIf="checkUrl()" class="nav-item button route-link update-password-button" [routerLink]="['/updatepassword']">Update Password</a> 
+            <a *ngIf="checkUrl()" class="nav-item button route-link semester-registration-button" [routerLink]="['/semesterregistration']">Semester Registration</a>
+            <a *ngIf="checkUrl()" class="nav-item button route-link" [routerLink]="['/about']">About</a>
+            <a *ngIf="isLoggedIn()" class="button route-link" [routerLink]="['/login']" (click)="logOut()">Log Out</a>
+        </div>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+    </div>
+</nav>

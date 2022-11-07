@@ -46,6 +46,12 @@ public interface ProfessorServiceOperation {
 	public Professor getProfessor(int professorId) throws ProfessorNotFoundException ;
 	
 	/**
+	 * This method gets a list of professors
+	 * @return List<Professor> returns a list of professors
+	 */
+	public List<Professor> getProfessors() throws ProfessorNotFoundException ;
+	
+	/**
 	 * This method gets all courses for a specific professor
 	 * @param professorId of type integer
 	 * @return List<CourseCatalog> returns a list of courses that the professor will be teaching

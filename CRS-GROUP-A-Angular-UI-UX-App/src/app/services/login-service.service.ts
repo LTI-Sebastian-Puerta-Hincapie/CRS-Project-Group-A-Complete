@@ -29,10 +29,11 @@ export class LoginServiceService {
       console.log("Login service method");
       let uri:string = "http://localhost:3001/user/login"; 
       let user = new User(0, username, password, roleId);
-      return this.httpClient.post<User>(uri, user);
+      let response = this.httpClient.post<User>(uri, user);
+      return response;
     }
 
-    getUserByUsername(username:string) {
+    getUserByUsername(username:String) {
       console.log("get user by username service method");
       let uri:string = "http://localhost:3001/user/" + username; 
       let response = this.httpClient.get(uri, {headers:this.headers});

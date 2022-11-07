@@ -82,6 +82,18 @@ public class ProfessorService implements ProfessorServiceOperation {
 		
 		return professor;
 	}
+	
+	@Override
+	public List<Professor> getProfessors() throws ProfessorNotFoundException{
+
+		List<Professor> professors = professorDao.getProfessorsDAO();
+		
+		if(professors == null) {
+			throw new ProfessorNotFoundException("Professor was not found");
+		}
+		
+		return professors;
+	}
 
 	@Override
 	public List<CourseCatalog> getProfessorCourses(int professorId) throws ProfessorNotRegisteredForCourseException{
