@@ -22,6 +22,16 @@ export class UpdateProfessorsComponentComponent implements OnInit {
   phone:string = "";
   address:string = "";
 
+  updateProfessorId:number = 0;
+  updateProfessorName:string = "";
+  updateDepartmentId:number = 0;
+  updateEmail:string = "";
+  updatePhone:string = "";
+  updateAddress:string = "";
+
+  addProfessorValidationMessage:string = "";
+  updateProfessorValidationMessage:string = "";
+
   getData: any;
 
   constructor(private _httpService:AdminServiceService,
@@ -40,6 +50,12 @@ export class UpdateProfessorsComponentComponent implements OnInit {
                 address:string) {
 
     console.log("Calling add professor method");
+
+    if(!this.addProfessorValidations()) {
+      this.showError();
+      return;
+    }
+
     let professor = new Professor(professorId,
                                   professorName,
                                   departmentId,
@@ -60,6 +76,12 @@ export class UpdateProfessorsComponentComponent implements OnInit {
                    address:string) {
 
     console.log("Calling update professor method");
+
+    if(!this.updateProfessorValidations()) {
+      this.showError();
+      return;
+    }
+
     let professor = new Professor(professorId,
                                   professorName,
                                   departmentId,
@@ -75,6 +97,12 @@ export class UpdateProfessorsComponentComponent implements OnInit {
   deleteProfessor(professorId:number) {
 
     console.log("Calling delete professor method");
+
+    if(professorId == 0 || professorId == undefined || professorId == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course id input";
+      this.showError();
+      return;
+    }
 
     this._httpService.deleteProfessor(professorId).subscribe((res:any[]) => {
       console.log(res);
@@ -106,6 +134,62 @@ export class UpdateProfessorsComponentComponent implements OnInit {
       this.add = false;
       this.edit = false;
     }
+  }
+
+  addProfessorValidations():boolean {
+    if(this.professorId == 0 || this.professorId == undefined || this.professorId == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course id input";
+      return false;
+    }
+    else if(this.professorName == '' || this.professorName == undefined || this.professorName == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.departmentId == 0 || this.departmentId == undefined || this.departmentId == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.email == '' || this.email == undefined || this.email == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.address == '' || this.address == undefined || this.address == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.phone == '' || this.phone == undefined || this.phone == null) {
+      this.addProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    return true;
+  }
+
+  updateProfessorValidations():boolean {
+    if(this.updateProfessorId == 0 || this.updateProfessorId == undefined || this.updateProfessorId == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course id input";
+      return false;
+    }
+    else if(this.updateProfessorName == '' || this.updateProfessorName == undefined || this.updateProfessorName == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.updateDepartmentId == 0 || this.updateDepartmentId == undefined || this.updateDepartmentId == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.updateEmail == '' || this.updateEmail == undefined || this.updateEmail == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.updateAddress == '' || this.updateAddress == undefined || this.updateAddress == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    else if(this.updatePhone == '' || this.updatePhone == undefined || this.updatePhone == null) {
+      this.updateProfessorValidationMessage = "Missing or incorrect course name input";
+      return false;
+    }
+    return true;
   }
 
   showSuccess(message:string) {

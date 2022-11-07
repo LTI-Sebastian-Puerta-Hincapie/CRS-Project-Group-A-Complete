@@ -15,7 +15,7 @@
     --side-pane-background-color:rgba(203, 203, 209, 0.90);
     --home-pane-background-color: rgb(28, 19, 156, 0.45);
     --menu-dropdown-background-color: rgba(203, 203, 209, 0.95);
-    --middle-pane-color: rgba(160,160,160, 0.75);
+    --middle-pane-color: rgba(160,160,160, 0.80);
 }
 
 body {
@@ -63,7 +63,8 @@ ul {
 }
 
 .validation-message {
-    color: red;
+    font-weight: bold;
+    color: rgb(200,0,0);
 }
 
 .validation-message-container {
@@ -82,6 +83,11 @@ ul {
     font-family: var(--default-font-family);
     font-weight: bolder;
     text-align: center;
+}
+
+.validation {
+    font-weight: bold;
+    color: rgb(200,0,0);
 }
 
 
