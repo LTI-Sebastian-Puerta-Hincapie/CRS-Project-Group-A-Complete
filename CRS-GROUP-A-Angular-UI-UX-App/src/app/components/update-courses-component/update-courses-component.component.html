@@ -19,7 +19,13 @@
                              id="courseId" 
                              placeholder="Enter Course ID" 
                              name="courseId"
-                             [(ngModel)]="courseId" required>
+                             [(ngModel)]="courseId"
+                             #COURSEID = "ngModel"
+                             required>
+                        <span class="validation"
+                             *ngIf="COURSEID.touched && courseId == 0">
+                             course id is required
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="courseName" class="form-label">Course Name:</label>
@@ -29,7 +35,13 @@
                             id="courseName" 
                             placeholder="Enter Course Name" 
                             name="courseName" 
-                            [(ngModel)]="courseName" required>
+                            [(ngModel)]="courseName" 
+                            #COURSENAME = "ngModel"
+                            required>
+                        <span class="validation"
+                            *ngIf="COURSENAME.touched && courseName == ''">
+                            course name is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="description" class="form-label">Description:</label>
@@ -39,10 +51,23 @@
                             id="description" 
                             placeholder="Enter Course Description" 
                             name="description" 
-                            [(ngModel)]="description" required><br>
+                            [(ngModel)]="description"
+                            #DESCRIPTION = "ngModel"
+                            required>
+                        <span class="validation"
+                            *ngIf="DESCRIPTION.touched && description == ''">
+                            course description is required
+                       </span>
             
-                        <a type="submit" class="button" (click)="addCourse(courseId, courseName, description); addCourseForm.reset()">
+                        <div class="validation-message-container">
+                            <span class="validation-message" *ngIf="addCourseValidationMessage != ''"> {{addCourseValidationMessage}}</span>
+                        </div>
+                        <a type="submit" class="button" (click)="addCourse(courseId, courseName, description)">
                             Add
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </a>
+                        <a type="submit" class="button" (click)="addCourseForm.reset()">
+                            Cancel
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </a>
                     </div>
@@ -59,7 +84,12 @@
                              id="courseId" 
                              placeholder="Enter Course ID" 
                              name="courseId"
-                             [(ngModel)]="courseId" required>
+                             [(ngModel)]="updateCourseId" 
+                             #UPDATECOURSEID="ngModel" required>
+                        <span class="validation"
+                             *ngIf="UPDATECOURSEID.touched && updateCourseId == 0">
+                             course id is required
+                        </span>
                     </div>
                     <div class="mb-3">
                         <label for="courseName" class="form-label">Course Name:</label>
@@ -69,7 +99,12 @@
                             id="courseName" 
                             placeholder="Enter Course Name" 
                             name="courseName" 
-                            [(ngModel)]="courseName" required>
+                            [(ngModel)]="updateCourseName" 
+                            #UPDATECOURSENAME="ngModel" required>
+                        <span class="validation"
+                            *ngIf="UPDATECOURSENAME.touched && updateCourseName == ''">
+                            course name is required
+                       </span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="description" class="form-label">Description:</label>
@@ -79,14 +114,26 @@
                             id="description" 
                             placeholder="Enter Course Description" 
                             name="description" 
-                            [(ngModel)]="description" required><br>
+                            [(ngModel)]="updateDescription" 
+                            #UPDATEDESCRIPTION="ngModel" required><br>
             
-                        <a type="submit" class="button" (click)="updateCourse(courseId, courseName, description); editCourseForm.reset()">
+                        <span class="validation"
+                            *ngIf="UPDATEDESCRIPTION.touched && updateDescription == ''">
+                            course description is required
+                       </span>
+                        <div class="validation-message-container">
+                            <span class="validation-message" *ngIf="updateCourseValidationMessage != ''"> {{updateCourseValidationMessage}}</span>
+                        </div>
+                        <a type="submit" class="button" (click)="updateCourse(updateCourseId, updateCourseName, updateDescription); editCourseForm.reset()">
                             Edit
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </a>
-                        <a type="submit" class="button" (click)="deleteCourse(courseId); editCourseForm.reset()">
+                        <a type="submit" class="button" (click)="deleteCourse(updateCourseId); editCourseForm.reset()">
                             Delete
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </a>
+                        <a type="submit" class="button" (click)="editCourseForm.reset()">
+                            Cancel
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </a>
                     </div>
