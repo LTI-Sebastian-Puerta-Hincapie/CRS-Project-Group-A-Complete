@@ -87,14 +87,14 @@ public class AdminDAOImpl implements AdminDAO{
 					"Approved",
 					studentID);
 		}catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
 		
 	}
 	
 	@Override
-	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
+	public SemesterRegistration createStudentRegistrationDAO(SemesterRegistration semesterRegistration) {
+		
 		try {
 			jdbcTemplateObject.jdbcTemplate().update(
 					SQLQueries.INSERT_SEMESTERREGISTRATION, 
@@ -103,16 +103,43 @@ public class AdminDAOImpl implements AdminDAO{
 					semesterRegistration.getAdminId(), 
 					semesterRegistration.getComments());
 		} catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
+		
+		SemesterRegistration registration = null;
+		try {
+			registration = jdbcTemplateObject.jdbcTemplate().queryForObject(
+					SQLQueries.SELECT_SEMESTER_REGISTRATION_BY_STUDENTID, 
+					new Object[] {semesterRegistration.getStudentId()},
+					new SemesterRegistrationMapper());
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return registration;
+		
 	}
 	@Override
 	public void addCourseDAO(Course course) {
 		try{
 			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_COURSE, course.getCourseId(), course.getCourseName(), course.getDescription());
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		// also add to course catalog
+		CourseCatalog courseCatalog = new CourseCatalog(course.getCourseId(), 0, 0, "-", 3, 50, 0, "Fall 2022");
+		try{
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.INSERT_COURSE_CATALOG, 
+					courseCatalog.getId(),
+					courseCatalog.getProfessorId(),
+					courseCatalog.getDepartmentId(),
+					courseCatalog.getPrerequisites(),
+					courseCatalog.getCredits(),
+					courseCatalog.getCapacity(),
+					courseCatalog.getEnrolled(),
+					courseCatalog.getSemester());
 		}catch(Exception e){
-			//Handle errors for Class.forName
 			e.printStackTrace();
 		}
 	}
@@ -122,6 +149,14 @@ public class AdminDAOImpl implements AdminDAO{
 	public void removeCourseDAO(int id) throws CourseNotFoundException {
 		try{
 			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.DELETE_COURSE_BY_COURSEID, id);
+		}catch(Exception e){
+			//Handle errors for Class.forName
+			e.printStackTrace();
+		}
+		
+		// also delete from course catalog
+		try{
+			jdbcTemplateObject.jdbcTemplate().update(SQLQueries.DELETE_COURSE_CATALOG_BY_COURSEID, id);
 		}catch(Exception e){
 			//Handle errors for Class.forName
 			e.printStackTrace();

@@ -9,3 +9,8 @@
 .route-link {
     margin-left: 0.5em;
 }
+
+.navbar {
+    background-color: rgb(28, 19, 156, 0.10);
+    padding: 1em;
+}

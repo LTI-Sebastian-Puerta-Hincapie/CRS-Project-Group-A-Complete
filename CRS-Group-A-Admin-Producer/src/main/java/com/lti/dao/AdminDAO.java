@@ -51,8 +51,9 @@ public interface AdminDAO {
 	/**
 	 * Creates StudentRegistration in database
 	 * @param semesterRegistration of type SemesterRegistration
+	 * @return semesterRegistration
 	 */
-	public void createStudentRegistrationDAO(SemesterRegistration semesterRegistration);
+	public SemesterRegistration createStudentRegistrationDAO(SemesterRegistration semesterRegistration);
 	
 	/**
 	 * This method adds a course to the course list

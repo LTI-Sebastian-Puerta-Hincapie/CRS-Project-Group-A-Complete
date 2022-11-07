@@ -1,14 +1,22 @@
-.student-view {
-    margin: 0 auto;
-    max-width: 50rem;
-    min-width: 30rem;
+.top-view-student-profile {
+    background-image: url("/assets/images/diversity-group.jpg");
+    background-size: 100%;
+    background-repeat: repeat;
+    padding-top: 5em;
+    padding-bottom: 5em;
 }
 
 .student-view-component {
     display: grid;
     grid-template-rows: auto auto auto;
     padding: 1em;
-    background-color: rgb(28, 19, 156, 0.15);
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+    background-color: var(--middle-pane-color);
+    font-family: var(--default-font-family);
+    border: solid;
+    color: white;
 }
 
 .student-data-container {

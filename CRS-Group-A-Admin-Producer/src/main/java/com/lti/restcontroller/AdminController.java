@@ -28,6 +28,8 @@ import com.lti.dto.Grade;
 import com.lti.dto.Professor;
 import com.lti.dto.SemesterRegistration;
 import com.lti.exception.CourseNotFoundException;
+import com.lti.exception.SemesterRegistrationExistsException;
+import com.lti.exception.UserNotFoundException;
 
 @RestController
 @CrossOrigin
@@ -96,16 +98,10 @@ public class AdminController {
 			method = RequestMethod.POST,
 			value = "/admin/createregistration")
 	@ResponseBody
-	public ResponseEntity createStudentRegistration(@RequestBody SemesterRegistration semesterRegistration) {
+	public ResponseEntity<SemesterRegistration> createStudentRegistration(@RequestBody SemesterRegistration semesterRegistration) throws SemesterRegistrationExistsException, UserNotFoundException {
 		
-		try {
-			adminservice.createStudentRegistration(semesterRegistration);
-		} catch (Exception e) {
-			return new ResponseEntity(HttpStatus.NOT_FOUND);
-		}
-		
-		return new ResponseEntity(
-				"Successfully registered student with ID: " + semesterRegistration.getStudentId(), HttpStatus.OK);
+		SemesterRegistration registration = adminservice.createStudentRegistration(semesterRegistration);
+		return new ResponseEntity<SemesterRegistration>(registration, HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(produces = MediaType.APPLICATION_JSON,

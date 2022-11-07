@@ -1,14 +1,17 @@
-.professor-view {
-    margin: 0 auto;
-    max-width: 50rem;
-    min-width: 30rem;
-}
-
 .professor-view-component {
     display: grid;
     grid-template-rows: auto auto auto;
+    display: grid;
+    grid-template-rows: auto auto auto;
     padding: 1em;
-    background-color: rgb(28, 19, 156, 0.15);
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+    background-color: var(--middle-pane-color);
+    font-family: var(--default-font-family);
+    border: solid;
+    color: white;
+    text-align: center;
 }
 
 .professor-data-container {

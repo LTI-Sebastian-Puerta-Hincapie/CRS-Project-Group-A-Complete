@@ -1,99 +1,98 @@
-<div class="courses-view">
-    <div class="courses-component">
-        <a class="button back" [routerLink]="['/student']">Back</a>
-        <h2 class="student-pane-title"> COURSES REGISTRATION </h2><br>
-        <!-- <form class="student-login-form">
-            <div class="mb-1 mt-1">
-                <label for="studentid" class="form-label">StudentID: </label>
-                <input 
-                    type="studentid" 
-                    class="form-control" 
-                    id="studentid" 
-                    placeholder="Enter StudentID" 
-                    name="studentid" 
-                    [(ngModel)] = "studentID">
-            </div>
-        </form> -->
-        <button type="button" class="button" 
-            style= "margin: 1em;" 
-            (click)="refresh()">
-            Refresh
-        </button>
-        <div class="main-container">
-            <div class="courses-container">
-                <h4> COURSES </h4><br>
-                <!-- <button type="button" class="button" 
-                    style= "margin: 1em;" 
-                    (click)="getCourses()">
-                    View Available Courses
-                </button> -->
-                    <ul style="list-style-type: none;">
-                    <li *ngFor="let course of getCoursesData">
-                        <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseName}} ({{course.courseId}})
-                            <button type="button" class="btn btn-success" 
-                                style= "margin: 1em;" 
-                                (click)="addCourse(course)">
-                                Add (+)
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="student-added-courses-container">
-                <h4> ADDED COURSES </h4><br>
-                <!-- <button type="button" class="button" 
-                    style= "margin: 1em;" 
-                    (click)="getAddedCourses()">
-                    View Added Courses
-                </button> -->
-                <ul style="list-style-type: none;">
-                    <li *ngFor="let course of getAddedCoursesData">
-                        <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseName}} 
-                            <div>
-                                <button type="button" class="btn btn-warning" 
-                                    style= "margin: 1em;" 
-                                    (click)="registerCourse(course)">
-                                    Register
-                                </button>
-                                <button type="button" class="btn btn-danger" 
-                                    style= "margin: 1em;" 
-                                    (click)="dropCourse(course)">
-                                    Drop
+<div class="top-view-student-courses">
+    <div class="courses-view">
+        <div class="courses-component">
+            <a class="button back" [routerLink]="['/student']">Back</a>
+            <h2 class="page-header-title"> COURSES REGISTRATION </h2><br>
+            <!-- <form class="student-login-form">
+                <div class="mb-1 mt-1">
+                    <label for="studentid" class="form-label">StudentID: </label>
+                    <input 
+                        type="studentid" 
+                        class="form-control" 
+                        id="studentid" 
+                        placeholder="Enter StudentID" 
+                        name="studentid" 
+                        [(ngModel)] = "studentID">
+                </div>
+            </form> -->
+            <button type="button" class="button" 
+                style= "margin: 1em;" 
+                (click)="refresh()">
+                Refresh
+            </button>
+            <div class="main-container">
+                <div class="courses-container">
+                    <h4 class="page-subheader-title"> COURSES </h4><br>
+                    <!-- <button type="button" class="button" 
+                        style= "margin: 1em;" 
+                        (click)="getCourses()">
+                        View Available Courses
+                    </button> -->
+                        <ul>
+                        <li *ngFor="let course of getCoursesData">
+                            <div class="card" style="padding: 0.5em; font-weight: bold;">
+                                {{course.courseName}} ({{course.courseId}})
+                                <button type="button" class="btn btn-success add-button" 
+                                    (click)="addCourse(course)">
+                                    Add (+)
                                 </button>
                             </div>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="student-added-courses-container">
+                    <h4 class="page-subheader-title"> ADDED COURSES </h4><br>
+                    <!-- <button type="button" class="button" 
+                        style= "margin: 1em;" 
+                        (click)="getAddedCourses()">
+                        View Added Courses
+                    </button> -->
+                    <ul>
+                        <li *ngFor="let course of getAddedCoursesData">
+                            <div class="card" style="padding: 0.5em; font-weight: bold;">
+                                {{course.courseName}} 
+                                <div>
+                                    <button type="button" class="btn btn-warning register-button" 
+                                        style= "margin-right: 1em;" 
+                                        (click)="registerCourse(course)">
+                                        Register
+                                    </button>
+                                    <button type="button" class="btn btn-danger drop-button" 
+                                        (click)="dropCourse(course)">
+                                        Drop
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="student-registered-courses-container">
+                    <h4 class="page-subheader-title"> REGISTERED COURSES </h4><br>
+                    <!-- <button type="button" class="button" 
+                        style= "margin: 1em;" y
+                        (click)="getRegisteredCourses()">
+                        View Registered Courses
+                    </button> -->
+                    <ul>
+                        <li *ngFor="let course of getRegisteredCoursesData">
+                            <div class="card" style="padding: 0.5em; font-weight: bold;">
+                                {{course.courseName}} 
+                                <button type="button" class="btn btn-warning unregister-button" 
+                                    (click)="unRegisterCourse(course)">
+                                    Unregister
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="student-registered-courses-container">
-                <h4> REGISTERED COURSES </h4><br>
-                <!-- <button type="button" class="button" 
-                    style= "margin: 1em;" y
-                    (click)="getRegisteredCourses()">
-                    View Registered Courses
-                </button> -->
-                <ul style="list-style-type: none;">
-                    <li *ngFor="let course of getRegisteredCoursesData">
-                        <div class="card" style="padding: 0.5em; font-weight: bold;">
-                            {{course.courseName}} 
-                            <button type="button" class="btn btn-warning" 
-                                style= "margin: 1em;" 
-                                (click)="unRegisterCourse(course)">
-                                Unregister
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+            <div class="submit-button">
+                <button type="button" class="btn btn-primary" 
+                    style= "margin: 1em;" 
+                    (click)="generateStudentFee(studentID)">
+                    Submit
+                </button>
             </div>
-        </div>
-        <div class="submit-button">
-            <button type="button" class="btn btn-primary" 
-                style= "margin: 1em;" 
-                (click)="generateStudentFee(studentID)">
-                Submit
-            </button>
         </div>
     </div>
 </div>

@@ -39,6 +39,12 @@ public interface ProfessorDAO {
 	public Professor getProfessorDAO(int professorId);
 	
 	/**
+	 * This method gets a list of professors
+	 * @return List<Professor> returns a list of professors
+	 */
+	public List<Professor> getProfessorsDAO();
+	
+	/**
 	 * This method gets all courses for a specific professor
 	 * @param professorId of type integer
 	 * @return List<CourseCatalog> returns a list of courses with course details

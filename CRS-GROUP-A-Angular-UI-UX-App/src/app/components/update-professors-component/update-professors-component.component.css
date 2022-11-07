@@ -1,12 +1,20 @@
-.update-professor-view {
-    margin: 0 auto;
-    max-width: 50rem;
-    min-width: 30rem;
+.top-view-admin-update-professors {
+    background-image: url("/assets/images/diversity-group.jpg");
+    background-size: 110%;
+    background-repeat: no-repeat;
+    padding-top: 5em;
+    padding-bottom: 5em;
 }
 
 .update-professors-component {
     padding: 1em;
-    background-color: rgb(28, 19, 156, 0.15);
+    margin: 0 auto;
+    max-width: 50rem;
+    min-width: 30rem;
+    background-color: var(--middle-pane-color);
+    font-family: var(--default-font-family);
+    border: solid;
+    color: white;
 }
 
 .update-professor-components {
@@ -19,5 +27,9 @@
 
 .add-professor-view,
 .edit-professor-view {
-    margin-top: 1.5em;
+    margin-top: 0.5em;
+}
+
+.show-professors-view {
+    background-color:lightgrey;
 }

@@ -1,7 +1,8 @@
-<div class = "add-grades-view">
+<div class="top-view">
+  <div class = "add-grades-view">
     <div class="add-grades-component">
       <a class="button back" [routerLink]="['/professor']">Back</a>
-      <h2 class="professor-pane-title">ADD GRADES</h2>
+      <h2 class="page-header-title">ADD GRADES</h2>
       <form class="add-grades-form">
           <div class="mb-1 mt-1">
                 <label for="professorId" class="form-label">Course ID: </label> 
@@ -41,9 +42,9 @@
                 <td>{{course.courseId}}</td>
                 <td>{{course.courseName}}</td>
                 <td>              
-                    <form class="input-group">
+                    <form class="input-group" #gradeForm="ngForm">
                         <input 
-                            type="grade" 
+                            type="input" 
                             class="form-control grade-input" 
                             id="grade" 
                             placeholder="Grade" 
@@ -51,8 +52,8 @@
                             [(ngModel)] = "grade">
                         <div class="input-group-append">
                             <a type="button" 
-                                class="button" 
-                                (click)="addGrades(getData.studentId, grade, getData.courseId, getData.courseName)">
+                                class="button"
+                                (click)="addGrades(course.studentId, grade, course.courseId); gradeForm.reset()">
                                 Save
                             </a>
                         </div>
@@ -62,5 +63,6 @@
             </tbody>
           </table>
       </section>
+    </div>
   </div>
 </div>

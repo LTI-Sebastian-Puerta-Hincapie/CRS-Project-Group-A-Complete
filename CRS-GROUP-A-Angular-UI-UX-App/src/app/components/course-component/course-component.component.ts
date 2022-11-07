@@ -23,7 +23,7 @@ export class CourseComponentComponent implements OnInit {
 
     // Get saved data from sessionStorage
     let sessionUserId = sessionStorage.getItem("userId");
-    console.log(sessionUserId);
+    console.log("Session userId: ", sessionUserId);
     if(sessionUserId != undefined) {
       this.studentID = parseInt(sessionUserId); 
     }
