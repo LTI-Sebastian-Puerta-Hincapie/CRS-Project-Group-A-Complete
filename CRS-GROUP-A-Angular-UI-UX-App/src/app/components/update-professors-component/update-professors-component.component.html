@@ -5,7 +5,8 @@
             <h2 class="page-header-title">PROFESSORS</h2>
             <div class="update-professor-components">          
                 <a class="button" (click)="professorSelection(1)">Add Professor</a>
-                <a class="button" (click)="professorSelection(2)">Edit Professor</a>       
+                <a class="button" (click)="professorSelection(2)">Edit Professor</a>   
+                <a class="button" (click)="professorSelection(3); getProfessors()">View Professors</a>     
             </div>
             <div [hidden]="!add" class="add-professor-view">
                 <form class="add-professors-form">
@@ -148,6 +149,30 @@
                         <i class="fa-solid fa-right-to-bracket"></i>
                     </a>
                 </form>
+            </div>
+            <div [hidden]="!view" class="show-professors-view">
+                <table class="table table-hover table-striped">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of getData">
+                        <td>{{data.id}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.departmentId}}</td>
+                        <td>{{data.email}}</td>
+                        <td>{{data.phone}}</td>
+                        <td>{{data.address}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
             </div>
         </div>
     </div>

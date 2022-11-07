@@ -1,6 +1,6 @@
 .top-view-admin-update-professors {
     background-image: url("/assets/images/diversity-group.jpg");
-    background-size: 115%;
+    background-size: 110%;
     background-repeat: no-repeat;
     padding-top: 5em;
     padding-bottom: 5em;
@@ -28,4 +28,8 @@
 .add-professor-view,
 .edit-professor-view {
     margin-top: 0.5em;
+}
+
+.show-professors-view {
+    background-color:lightgrey;
 }

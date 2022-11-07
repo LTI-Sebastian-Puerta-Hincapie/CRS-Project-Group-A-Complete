@@ -80,6 +80,8 @@ public class SQLQueries {
 	public static final String SELECT_PROFESSOR_BY_PROFESSORID = 
 			"SELECT * FROM professors WHERE Id = ?";
 	
+	public static final String SELECT_PROFESSORS = "SELECT * FROM professors";
+	
 	public static final String SELECT_STUDENT_ENROLLMENT_BY_COURSEID = 
 			"SELECT pc.CourseId, rc.CourseName, rc.StudentId, s.Name "
 			+ "FROM professorcourses pc "

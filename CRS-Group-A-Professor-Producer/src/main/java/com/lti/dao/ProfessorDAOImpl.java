@@ -81,6 +81,19 @@ public class ProfessorDAOImpl implements ProfessorDAO {
 		}	
 		return professor;
 	}
+	
+	@Override
+	public List<Professor> getProfessorsDAO() {
+		
+		logger.info("From the getProfessorsDAO method");
+		List<Professor> professors = null;
+		try {
+			professors = jdbcTemplateObject.jdbcTemplate().query(SQLQueries.SELECT_PROFESSORS, new ProfessorMapper());
+		} catch (Exception e) {
+			return null;
+		}	
+		return professors;
+	}
 
 	@Override
 	public List<CourseCatalog> getProfessorCoursesDAO(int professorId) {

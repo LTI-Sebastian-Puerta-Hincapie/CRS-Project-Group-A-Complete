@@ -1,7 +1,7 @@
 .top-view-admin-update-courses {
     background-image: url("/assets/images/diversity-group.jpg");
-    background-size: 115%;
-    background-repeat: no-repeat;
+    background-size: 110%;
+    background-repeat: repeat;
     padding-top: 5em;
     padding-bottom: 5em;
 }
@@ -9,7 +9,7 @@
 .update-courses-component {
     padding: 1em;
     margin: 0 auto;
-    max-width: 50rem;
+    max-width: 40rem;
     min-width: 30rem;
     background-color: var(--middle-pane-color);
     font-family: var(--default-font-family);
@@ -28,4 +28,8 @@
 .add-course-view,
 .edit-course-view {
     margin-top: 1.5em;
+}
+
+.show-courses-view {
+    background-color: lightgrey;
 }

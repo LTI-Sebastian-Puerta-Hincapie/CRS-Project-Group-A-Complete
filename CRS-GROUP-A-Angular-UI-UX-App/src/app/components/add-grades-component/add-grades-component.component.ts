@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Course } from 'src/app/models/course';
 import { Grade } from 'src/app/models/grade';
 import { ProfessorServiceService } from 'src/app/services/professor-service.service';
@@ -17,7 +18,8 @@ export class AddGradesComponentComponent implements OnInit {
   grade:string = "";
   getData:any;
 
-  constructor(private _httpService:ProfessorServiceService) { }
+  constructor(private _httpService:ProfessorServiceService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -27,15 +29,23 @@ export class AddGradesComponentComponent implements OnInit {
     this._httpService.getCourseEnrollment(courseId).subscribe((res:any[]) => {
       console.log(res);
       this.getData = res;
-      console.log(this.getData);
     });
   }
 
-  addGrades(studentId:number, gradeInput:string, courseId:number, courseName:string) {
+  addGrades(studentId:number, gradeInput:string, courseId:number) {
     console.log("Calling add grades method");
-    let grade = new Grade(gradeInput, new Course(courseId, courseName, ""));
+    let grade = new Grade(gradeInput.toUpperCase(), new Course(courseId, "", ""));
     this._httpService.addGrades(studentId, grade).subscribe((res:any[]) => {
       console.log(res);
+      this.showSuccess();
     })
+  }
+
+  showSuccess() {
+    this.toastr.success('You have successfully added a grade for this student', 'Success');
+  }
+
+  showError() {
+    this.toastr.error('An error occurred, please try again', 'Error');
   }
 }

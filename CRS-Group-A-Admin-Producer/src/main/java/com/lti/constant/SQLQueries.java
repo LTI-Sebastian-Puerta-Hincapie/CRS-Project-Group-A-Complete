@@ -55,8 +55,14 @@ public class SQLQueries {
 	public static final String INSERT_COURSE = 
 			"insert into course values(?,?,?)";
 	
+	public static final String INSERT_COURSE_CATALOG = 
+			"insert into coursecatalog values(?,?,?,?,?,?,?,?)";
+	
 	public static final String DELETE_COURSE_BY_COURSEID = 
 			"DELETE from course where CourseID=?";
+	
+	public static final String DELETE_COURSE_CATALOG_BY_COURSEID = 
+			"DELETE from coursecatalog where Id=?";
 	
 	public static final String UPDATE_COURSE_BY_COURSEID = 
 			"UPDATE course SET CourseName=?, Description=? WHERE CourseID=?";

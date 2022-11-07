@@ -32,8 +32,6 @@ export class LoginComponentComponent implements OnInit {
 
   ngOnInit() {}
 
-  sleep = (ms:number) => new Promise(r => setTimeout(r, ms));
-
   login(username:string, password:string, roleId:number) {
 
     console.log("Login component method");

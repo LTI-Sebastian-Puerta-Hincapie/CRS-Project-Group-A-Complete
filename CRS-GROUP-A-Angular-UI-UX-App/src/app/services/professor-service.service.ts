@@ -17,20 +17,26 @@ export class ProfessorServiceService {
 
   // Service methods
   // GET 
+  getProfessors():Observable<any> {
+    console.log("Get professors service method"); 
+    let uri:string = "http://localhost:9095/professors"; 
+    return this.httpClient.get(uri, {headers:this.headers});
+  }
+
   getProfessor(studentId:number):Observable<any> {
-    console.log("Get semester registartion servie method"); 
+    console.log("Get professor service method"); 
     let uri:string = "http://localhost:9095/professors/" + studentId; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
 
   getCourseEnrollment(courseId:number):Observable<any> {
-    console.log("Get course enrollment servie method"); 
+    console.log("Get course enrollment service method"); 
     let uri:string = "http://localhost:9095/professor/enrolled/courses/" + courseId; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
 
   getProfessorCourses(professorId:number):Observable<any> {
-    console.log("Get professor courses servie method"); 
+    console.log("Get professor courses service method"); 
     let uri:string = "http://localhost:9095/professor/" + professorId + "/courses"; 
     return this.httpClient.get(uri, {headers:this.headers});
   }
