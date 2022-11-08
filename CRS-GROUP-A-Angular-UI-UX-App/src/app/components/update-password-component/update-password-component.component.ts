@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UpdatePassword } from 'src/app/models/update-password';
 import { LoginServiceService } from 'src/app/services/login-service.service';
@@ -23,23 +24,45 @@ export class UpdatePasswordComponentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  updatePassword(username:string, currentPassword:string, newPassword:string){
+  updatePassword(username:string, currentPassword:string, newPassword:string, form:NgForm){
     console.log("Update password component method");
 
-    if(!this.updatePasswordValidations()) return;
+    if(!this.updatePasswordValidations()) {
+      this.showError();
+      return;
+    }
 
     // update password
     this._updatePasswordService.updatePassword(username, currentPassword, newPassword).subscribe((res:any) => {
       console.log(res);
       this.showSuccess();
       this.updateValidationMessage = "";
+      form.reset();
     })
   }
 
   updatePasswordValidations():boolean {
-    // validations
+
+    // Initial input validations
+    if(this.user.username == "" || this.user.username == undefined || this.user.username == null){
+      this.updateValidationMessage = "Missing username";
+      return false;
+    }
+    else if(this.user.currentPassword == "" || this.user.currentPassword == undefined || this.user.currentPassword == null){
+      this.updateValidationMessage = "Missing current password";
+      return false;
+    }
+    else if(this.user.newPassword == "" || this.user.newPassword == undefined || this.user.newPassword == null){
+      this.updateValidationMessage = "Missing new password";
+      return false;
+    }
+    else if(this.confirmationPassword == "" || this.confirmationPassword == undefined || this.confirmationPassword == null){
+      this.updateValidationMessage = "Missing confirmation password";
+      return false;
+    }
+
+    // credential validations
     if(this.getUserData == undefined) {
-      this.showError();
       this.updateValidationMessage = "user does not exist";
       return false;
     }

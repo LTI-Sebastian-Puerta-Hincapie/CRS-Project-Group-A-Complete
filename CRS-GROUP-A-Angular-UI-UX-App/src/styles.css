@@ -50,6 +50,8 @@ ul {
     border: none;
     border-radius: 8px;
     font-family: var(--default-font-family);
+    font-weight: bold;
+    font-size: 1em;
 }
 
 .button:hover,
@@ -69,6 +71,7 @@ ul {
 
 .validation-message-container {
     margin: 1em;
+    text-align: center;
 }
 
 .top-view {
@@ -90,6 +93,14 @@ ul {
     color: rgb(200,0,0);
 }
 
+.cancel-button {
+    margin-left: 1em;
+}
+
+.submit-container {
+    text-align: center;
+    margin-top: 2em;
+}
 
 
 
