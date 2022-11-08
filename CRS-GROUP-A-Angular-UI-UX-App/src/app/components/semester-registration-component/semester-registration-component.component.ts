@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { SemesterRegistration } from 'src/app/models/semester-registration';
 import { User } from 'src/app/models/user';
@@ -43,14 +44,12 @@ export class SemesterRegistrationComponentComponent implements OnInit {
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
+
   }
 
   // service methods
   getSemesterRegistration(studentId:number, process:number) {
     console.log("Get semester registration method");
-
-    if(process == 1 && !this.semesterRegistrationValidations()) return;
-    if(process == 2 && !this.semesterRegistrationApprovalValidations()) return;
 
     this._httpService.getSemesterRegistration(studentId).subscribe((res:any[]) => {
       console.log(res);
@@ -58,30 +57,39 @@ export class SemesterRegistrationComponentComponent implements OnInit {
     })
   }
 
-  public createSemesterRegistration(studentId:number) {
+  public createSemesterRegistration(studentId:number, form:NgForm) {
 
     console.log("Calling create semester registration method");
 
-    if(!this.semesterRegistrationValidations()) return;
+    if(!this.semesterRegistrationValidations()) {
+      this.showError();
+      return;
+    }
     
     let semesterRegistration = new SemesterRegistration(0, studentId, 1, 0 , "Pending Approval");
     this._httpService.createSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
       console.log(res);
-      if(res != undefined) this.showSuccess("Semester Registration Created");
-      else this.showError();
+      this.showSuccess("Semester Registration Created");
+      form.reset();
+      this.semesterRegistrationValidationMessage = "";
     })
   }
 
-  public approveSemesterRegistration(studentId:number) {
+  public approveSemesterRegistration(studentId:number, form:NgForm) {
 
     console.log("Calling update semester registration method");
 
-    if(!this.semesterRegistrationApprovalValidations()) return;
+    if(!this.semesterRegistrationApprovalValidations()) {
+      this.showError();
+      return;
+    }
 
     let semesterRegistration = new SemesterRegistration(0, studentId, 1, 1, "Approved");
     this._httpService.approveSemesterRegistration(semesterRegistration).subscribe((res:any[]) => {
       console.log(res);
       this.showSuccess("Semester Registration Approved");
+      form.reset();
+      this.semesterRegistrationApprovalValidationMessage = "";
     })
   }
 
@@ -94,7 +102,29 @@ export class SemesterRegistrationComponentComponent implements OnInit {
     })
   }
 
+  viewSemesterRegistration(studentId:number) {
+    console.log("View semester registration method");
+
+    if(!this.semesterRegistrationViewValidations()) {
+      this.showError();
+      return;
+    }
+
+    this._httpService.getSemesterRegistration(studentId).subscribe((res:any[]) => {
+      console.log(res);
+      this.getData=res;
+      this.semesterRegistrationViewValidationMessage = "";
+    })
+  }
+
   semesterRegistrationSelection(selection:number) {
+
+    // reset data
+    this.getData = null;
+    this.semesterRegistrationValidationMessage = "";
+    this.semesterRegistrationApprovalValidationMessage = "";
+    this.semesterRegistrationViewValidationMessage = "";
+
     if(selection == 1) {
       this.create = !this.create;
       this.approve = false;
@@ -112,14 +142,24 @@ export class SemesterRegistrationComponentComponent implements OnInit {
   }
 
   semesterRegistrationValidations():boolean {
-
-    // CREATE VALIDATIONS
     console.log("Create semester registration validations");
-    if(this.getUserData == undefined && (this.username == "" || this.username == null || this.username == undefined)) {
-      this.semesterRegistrationValidationMessage = "";
+
+   // Initial input validations
+   if(this.username == "" || this.username == undefined || this.username == null){
+    this.semesterRegistrationValidationMessage = "Missing username";
+    return false;
+    }
+    else if(this.password == "" || this.password == undefined || this.password == null){
+      this.semesterRegistrationValidationMessage = "Missing password";
       return false;
     }
-    else if(this.getUserData == undefined && (this.username != "" && this.username != null)) {
+    else if(this.studentId == 0 || this.studentId == undefined || this.studentId == null){
+      this.semesterRegistrationValidationMessage = "Missing studentId";
+      return false;
+    }
+
+    // CREATE VALIDATIONS
+    if(this.getUserData == undefined) {
       this.semesterRegistrationValidationMessage = "user does not exist";
       return false;
     }
@@ -131,10 +171,6 @@ export class SemesterRegistrationComponentComponent implements OnInit {
       this.semesterRegistrationValidationMessage = "Incorrect user credentials, try again";
       return false;
     }
-    else if(this.studentId == 0 || this.studentId == null) {
-      this.semesterRegistrationValidationMessage = "Please enter a valid studentId";
-      return false;
-    }
 
     this.semesterRegistrationValidationMessage = "";
     return true;
@@ -142,13 +178,23 @@ export class SemesterRegistrationComponentComponent implements OnInit {
 
   semesterRegistrationApprovalValidations() {
 
-    // APPROVAL VALIDATIONS
-    console.log("Approve semester registration validations");
-    if(this.getUserData == undefined && (this.usernameApprove == "" || this.usernameApprove == null || this.usernameApprove == undefined)) {
-      this.semesterRegistrationApprovalValidationMessage = "";
+   // Initial input validations
+   if(this.usernameApprove == "" || this.usernameApprove == undefined || this.usernameApprove == null){
+    this.semesterRegistrationApprovalValidationMessage = "Missing username";
+    return false;
+    }
+    else if(this.passwordApprove == "" || this.passwordApprove == undefined || this.passwordApprove == null){
+      this.semesterRegistrationApprovalValidationMessage = "Missing password";
       return false;
     }
-    else if(this.getUserData == undefined && (this.usernameApprove != "" && this.usernameApprove != null)) {
+    else if(this.studentIdApprove == 0 || this.studentIdApprove == undefined || this.studentIdApprove == null){
+      this.semesterRegistrationApprovalValidationMessage = "Missing studentId";
+      return false;
+    }
+
+    // APPROVAL VALIDATIONS
+    console.log("Approve semester registration validations");
+    if(this.getUserData == undefined){
       this.semesterRegistrationApprovalValidationMessage = "user does not exist";
       return false;
     }
@@ -160,14 +206,45 @@ export class SemesterRegistrationComponentComponent implements OnInit {
       this.semesterRegistrationApprovalValidationMessage = "Incorrect user credentials, try again";
       return false;
     }
-    else if(this.studentIdApprove == 0 || this.studentIdApprove == null) {
-      this.semesterRegistrationApprovalValidationMessage = "Please enter a valid studentId";
-      return false;
-    }
     
-    this.semesterRegistrationValidationMessage = "";
+    this.semesterRegistrationApprovalValidationMessage = "";
     return true;
   }
+
+  semesterRegistrationViewValidations() {
+
+    // Initial input validations
+    if(this.usernameView == "" || this.usernameView == undefined || this.usernameView == null){
+     this.semesterRegistrationViewValidationMessage = "Missing username";
+     return false;
+     }
+     else if(this.passwordView == "" || this.passwordView == undefined || this.passwordView == null){
+       this.semesterRegistrationViewValidationMessage = "Missing password";
+       return false;
+     }
+     else if(this.studentIdView == 0 || this.studentIdView == undefined || this.studentIdView == null){
+       this.semesterRegistrationViewValidationMessage = "Missing studentId";
+       return false;
+     }
+ 
+     // APPROVAL VALIDATIONS
+     console.log("Approve semester registration validations");
+     if(this.getUserData == undefined){
+       this.semesterRegistrationViewValidationMessage = "user does not exist";
+       return false;
+     }
+     else if(this.getUserData[0].username != this.usernameView) {
+       this.semesterRegistrationViewValidationMessage = "user does not exist";
+       return false;
+     }
+     else if(this.getUserData[0].password != this.passwordView) {
+       this.semesterRegistrationViewValidationMessage = "Incorrect user credentials, try again";
+       return false;
+     }
+     
+     this.semesterRegistrationViewValidationMessage = "";
+     return true;
+   }
 
   getUser(username:string) {
     console.log("get user component method");
@@ -181,26 +258,37 @@ export class SemesterRegistrationComponentComponent implements OnInit {
   }
 
   semesterRegistrationExists():boolean {
-    // console.log("Semester registration exists method");
-    if(this.getData != undefined) {
-      this.semesterRegistrationValidationMessage = "Semester registration already exists for this student";
-      return true;
+    console.log("Semester registration exists method");
+
+    if(this.getData == undefined || this.getData == null) {
+      return false;
     }
-    this.semesterRegistrationValidationMessage = "";
-    return false;
+    
+    this.semesterRegistrationValidationMessage = "Semester registration already exists for this student";
+    return true;
   }
 
   semesterRegistrationApproved():boolean {
-    // console.log("Semester registration approved method");
-    console.log(this.getData);
-    if(this.getData != undefined) {
-      if(this.getData.approvalStatus == 1) {
+    console.log("Semester registration approved method");
+
+    if(this.getData == undefined || this.getData == null) {
+      return false;
+    } 
+
+    if(this.getData.approvalStatus == 1) {
         this.semesterRegistrationApprovalValidationMessage = "Semester registration has already been approved for this student";
         return true;
-      }
     }
+    else {
+      return false;
+    }
+  }
+
+  resetValidationMessages() {
+    this.getData = null;
+    this.semesterRegistrationValidationMessage = "";
     this.semesterRegistrationApprovalValidationMessage = "";
-    return false;
+    this.semesterRegistrationViewValidationMessage = "";
   }
 
   showSuccess(message:string) {

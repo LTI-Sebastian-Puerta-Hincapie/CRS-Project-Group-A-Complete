@@ -49,6 +49,7 @@ export class LoginComponentComponent implements OnInit {
           this.showSuccess();
           this.router.navigate(["admin", { admin: res }]);
           this.userSession(username, password, "admin", this.getData[0].id);
+          this.resetModels();
         }
       })
     }
@@ -66,6 +67,7 @@ export class LoginComponentComponent implements OnInit {
           this.showSuccess();
           this.router.navigate(["professor", { professor: res }]);
           this.userSession(username, password, "professor", this.getData[0].id);
+          this.resetModels();
         }
       })
     }
@@ -87,6 +89,7 @@ export class LoginComponentComponent implements OnInit {
         this.showSuccess();
         this.router.navigate(["student", { student: res }]);
         this.userSession(username, password, "student", this.getData[0].id);
+        this.resetModels();
       })
     } 
     else {
