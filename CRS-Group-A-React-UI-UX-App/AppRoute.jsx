@@ -7,7 +7,6 @@ class AppRouter extends React.Component{
 
  render(){
 
-    
     let routes = {
         margin: 10
     }
