@@ -14,8 +14,14 @@
 }
 
 .sign-in-button {
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 1em;
+}
+
+.cancel-button {
+    font-weight: bold;
+    font-size: 1em;
+    margin-left: 1em;
 }
 
 .submit-container {
