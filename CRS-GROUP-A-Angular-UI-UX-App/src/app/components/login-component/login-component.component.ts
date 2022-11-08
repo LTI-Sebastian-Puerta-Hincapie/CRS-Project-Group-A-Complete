@@ -37,46 +37,59 @@ export class LoginComponentComponent implements OnInit {
     console.log("Login component method");
     if (roleId == 1) {
 
-      if(!this.userPasswordValidation()) return;
+      if(!this.userPasswordValidation()) {
+        this.showError();
+        return;
+      }
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
         console.log(res);
         if(res != undefined) {  
+          this.getData = res;
           this.showSuccess();
           this.router.navigate(["admin", { admin: res }]);
-          this.getData = res;
           this.userSession(username, password, "admin", this.getData[0].id);
         }
       })
     }
     else if (roleId == 2) {
 
-      if(!this.userPasswordValidation()) return;
+      if(!this.userPasswordValidation()) {
+        this.showError();
+        return;
+      }
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => {
         console.log(res);
         if(res != undefined) {
+          this.getData = res;
           this.showSuccess();
           this.router.navigate(["professor", { professor: res }]);
-          this.getData = res;
           this.userSession(username, password, "professor", this.getData[0].id);
         }
       })
     }
     else if(roleId == 3)  {
 
-      if(!this.userPasswordValidation()) return;
+      if(!this.userPasswordValidation()) {
+        this.showError();
+        return;
+      }
 
-      if(!this.studentSemesterValidation()) return;
+      if(!this.studentSemesterValidation()) {
+        this.showError();
+        return;
+      }
 
       this._userService.loginExpress(username, password, roleId).subscribe((res:any[]) => { 
         console.log("student res:", res);
+        this.getData = res;  
         this.showSuccess();
         this.router.navigate(["student", { student: res }]);
-        this.getData = res;  
         this.userSession(username, password, "student", this.getData[0].id);
       })
-    } else {
+    } 
+    else {
       console.log("user role does not exist");
       this.showError();
     }
@@ -114,8 +127,23 @@ export class LoginComponentComponent implements OnInit {
   }
 
   userPasswordValidation():boolean {
+
     // PASSWORD VALIDATION
-    console.log(this.getUserData);
+    // Initial input validations
+    if(this._username == "" || this._username == undefined || this._username == null){
+      this.loginValidationMessage = "Missing or incorrect username entered";
+      return false;
+    }
+    else if(this._password == "" || this._password == undefined || this._password == null){
+      this.loginValidationMessage = "Missing or incorrect password entered";
+      return false;
+    }
+    else if(this._role == 0 || this._role == undefined || this._role == null){
+      this.loginValidationMessage = "Missing or incorrect role entered";
+      return false;
+    }
+
+    // credential verification validation
     if(this.getUserData != undefined) {
       if(this.getUserData[0].password != this._password) {
         this.loginValidationMessage = "Incorrect user credentials, please try again";

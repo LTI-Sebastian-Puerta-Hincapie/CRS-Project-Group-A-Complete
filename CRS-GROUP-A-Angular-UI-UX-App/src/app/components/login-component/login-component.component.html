@@ -17,7 +17,7 @@
                         (mouseover) = "getUser()"
                         (keydown.Tab)="getUser()"
                         required>
-                    <span class="text-danger"
+                    <span class="validation"
                         *ngIf="username.touched && _username == ''">
                         username is required
                     </span>
@@ -33,7 +33,7 @@
                         [(ngModel)] = "_password"
                         #password = "ngModel"
                         required>
-                    <span class="text-danger"
+                    <span class="validation"
                         *ngIf="password.touched && _password == ''">
                         password is required
                     </span>
@@ -58,7 +58,7 @@
                           <option value="2">Professor</option>
                           <option value="3">Student</option>
                         </select>
-                    <span class="text-danger"
+                    <span class="validation"
                         *ngIf="role.touched && _role == 0">
                         role is required
                     </span>
@@ -74,6 +74,9 @@
                   Sign-in
                   <i class="fa-solid fa-right-to-bracket"></i>
               </a>
+              <a type="submit" class="button cancel-button" (click)="loginForm.reset()">
+              Cancel
+          </a>
             </div>
         </div>
     </div>
