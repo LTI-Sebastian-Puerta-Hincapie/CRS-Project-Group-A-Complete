@@ -8,7 +8,8 @@ class Home extends React.Component{
  render(){
 
     let link = {
-        color: "black"
+        color: "black",
+        fontFamily: "Robot"
     }
 
     let button = {
