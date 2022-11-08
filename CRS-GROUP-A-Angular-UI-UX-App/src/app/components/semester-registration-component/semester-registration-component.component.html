@@ -3,9 +3,9 @@
         <div class="semester-registration-component">
             <h2 class="page-header-title">SEMESTER REGISTRATION</h2>
             <div class="semester-registration-components">           
-                <a class="button" (click)="semesterRegistrationSelection(1)">Create Registration</a>
-                <a class="button" (click)="semesterRegistrationSelection(2)">Approve Registration</a>
-                <a class="button" (click)="semesterRegistrationSelection(3)">View Student Registration</a>          
+                <a class="button sr-nav-button" (click)="semesterRegistrationSelection(1)">Create Registration</a>
+                <a class="button sr-nav-button" (click)="semesterRegistrationSelection(2)">Approve Registration</a>
+                <a class="button sr-nav-button" (click)="semesterRegistrationSelection(3)">View Student Registration</a>          
             </div>
     
             <div [hidden]="!create" class="create-semester-registration">
@@ -25,7 +25,7 @@
                              (mouseover) = "getUser(username)"
                              (keydown.Tab)="getUser(username)"
                              required>
-                        <span class="text-danger"
+                        <span class="validation"
                              *ngIf="USERNAME.touched && username == ''">
                              username is required
                          </span>
@@ -41,7 +41,7 @@
                             [(ngModel)]="password" 
                             #PASSWORD = "ngModel"
                             required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="PASSWORD.touched && password == ''">
                             password is required
                         </span>
@@ -61,26 +61,26 @@
                             (keydown.Tab)="getSemesterRegistration(studentId, 1)"
                             (keydown.Enter)="getSemesterRegistration(studentId, 1)"
                             required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="STUDENTID.touched &&  studentId == 0">
                             userId is required
                         </span>
                     </div>
+                    <div class="validation-message-container">
+                        <span class="validation-message"> {{semesterRegistrationValidationMessage}} </span>
+                    </div>
                     <div class="submit-container">
                         <button type="submit" 
-                            class="button" 
-                            (click)="createSemesterRegistration(studentId)"
+                            class="button create-button" 
+                            (click)="createSemesterRegistration(studentId, semesterRegistrationForm)"
                             *ngIf="!semesterRegistrationExists()">
-                            Create Registration
+                            Create 
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
-                        <button type="submit" class="button" (click)="semesterRegistrationForm.reset()">
+                        <button type="submit" class="button cancel-button" 
+                        (click)="resetValidationMessages(); semesterRegistrationForm.reset()">
                             Cancel
-                            <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
-                        <div class="validation-message-container">
-                            <span class="text-danger validation-message"> {{semesterRegistrationValidationMessage}} </span>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -101,7 +101,7 @@
                             (mouseover) = "getUser(usernameApprove)"
                             (keydown.Tab)="getUser(usernameApprove)"
                             required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="USERNAMEAPPROVAL.touched && usernameApprove == ''">
                             username is required
                         </span>
@@ -115,9 +115,8 @@
                             placeholder="Enter current password" 
                             name="password-approve"
                             [(ngModel)]="passwordApprove" 
-                            #PASSWORDAPPROVAL = "ngModel"
-                            required>
-                        <span class="text-danger"
+                            #PASSWORDAPPROVAL = "ngModel" required>
+                        <span class="validation"
                             *ngIf="PASSWORDAPPROVAL.touched && passwordApprove == ''">
                             password is required
                         </span>
@@ -136,29 +135,28 @@
                             (mouseout)="getSemesterRegistration(studentIdApprove, 2)"
                             (keydown.Tab)="getSemesterRegistration(studentIdApprove, 2)"
                             (keydown.Enter)="getSemesterRegistration(studentIdApprove, 2)" required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="STUDENTIDAPPROVAL.touched && studentIdApprove == 0">
                             userId is required
                         </span>
                     </div>
+                    <div class="validation-message-container">
+                        <span class="validation-message"> {{semesterRegistrationApprovalValidationMessage}} </span>
+                    </div>
                     <div class="submit-container">
                         <button type="submit" 
-                            class="button" 
-                            (click)="approveSemesterRegistration(studentIdApprove)"
+                            class="button approve-button" 
+                            (click)="approveSemesterRegistration(studentIdApprove, approveSemesterRegistrationForm)"
                             *ngIf="!semesterRegistrationApproved()"
                             >
-                            Approve Registration
+                            Approve 
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
                         <button type="submit" 
-                            class="button" 
-                            (click)="approveSemesterRegistrationForm.reset()">
+                            class="button cancel-button" 
+                            (click)="resetValidationMessages(); approveSemesterRegistrationForm.reset()">
                             Cancel
-                            <i class="fa-solid fa-right-to-bracket"></i>
                         </button>
-                        <div class="validation-message-container">
-                            <span class="text-danger validation-message"> {{semesterRegistrationApprovalValidationMessage}} </span>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -179,7 +177,7 @@
                             (mouseover) = "getUser(usernameView)"
                             (keydown.Tab)="getUser(usernameView)"
                             required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="USERNAMEVIEW.touched && usernameView == ''">
                             username is required
                         </span>
@@ -194,7 +192,7 @@
                             name="password-view"
                             [(ngModel)]="passwordView" 
                             #PASSWORDVIEW = "ngModel" required>
-                        <span class="text-danger"
+                        <span class="validation"
                             *ngIf="PASSWORDVIEW.touched && passwordView == ''">
                             password is required
                         </span>
@@ -209,25 +207,30 @@
                             name="studentId-view" 
                             [(ngModel)]="studentIdView" 
                             #STUDENTIDVIEW = "ngModel" required>
-                         <span class="text-danger"
+                         <span class="validation"
                             *ngIf="STUDENTIDVIEW.touched && studentIdView == 0">
                             studentId is required
                         </span>
                     </div>
+                    <div class="validation-message-container">
+                        <span class="validation-message"> {{semesterRegistrationViewValidationMessage}} </span>
+                    </div>
                     <div class="submit-container">
                         <a type="submit" 
-                            class="button" 
-                            (click)="getSemesterRegistration(studentId, 3)">
-                            View Registration
+                            class="button view-button" 
+                            (click)="viewSemesterRegistration(studentIdView)">
+                            View 
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </a>
-                        <div class="validation-message-container">
-                            <span class="text-danger validation-message"> {{semesterRegistrationViewValidationMessage}} </span>
-                        </div>
+                        <a type="submit" 
+                            class="button cancel-button" 
+                            (click)="resetValidationMessages(); viewSemesterRegistrationForm.reset()">
+                            Cancel
+                        </a>
                     </div>
                 </form><br>
     
-                <table class="table table-striped" *ngIf="getData == []">
+                <table class="table table-striped view-table">
                     <thead class="thead-dark">
                       <tr>
                         <th scope="col">RegistrationID</th>

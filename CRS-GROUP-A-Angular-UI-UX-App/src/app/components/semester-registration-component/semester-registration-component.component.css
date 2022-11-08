@@ -1,13 +1,12 @@
 .semester-registration-component {
     padding: 1em;
     margin: 0 auto;
-    max-width: 60rem;
+    max-width: 40rem;
     min-width: 30rem;
     background-color: var(--middle-pane-color);
     font-family: var(--default-font-family);
     border: solid;
     color: white;
-    text-align: center;
 }
 
 .button {
@@ -18,4 +17,12 @@
 .create-semester-registration,
 .approve-semester-registration {
     margin-top: 0.5em;
+}
+
+.semester-registration-components {
+    text-align: center;
+}
+
+.view-table {
+    background-color: lightgrey;
 }
