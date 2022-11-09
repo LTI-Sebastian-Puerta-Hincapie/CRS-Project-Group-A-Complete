@@ -18,6 +18,7 @@ import { UpdateCoursesComponentComponent } from './components/update-courses-com
 import { UpdatePasswordComponentComponent } from './components/update-password-component/update-password-component.component';
 import { UpdateProfessorsComponentComponent } from './components/update-professors-component/update-professors-component.component';
 import { ViewCourseAvailabilityComponentComponent } from './components/view-course-availability-component/view-course-availability-component.component';
+import { CrsGuardGuard } from './guards/crs-guard.guard';
 
 const routes: Routes = [  
 
@@ -29,22 +30,22 @@ const routes: Routes = [
   {path:'login', component: LoginComponentComponent},
 
   // student
-  {path:'student', component: StudentComponentComponent},
-  {path:'student/courses', component: CourseComponentComponent},
-  {path:'student/payment', component: PaymentComponentComponent},
-  {path:'student/studentview', component: StudentViewComponentComponent},
+  {path:'student', component: StudentComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'student/courses', component: CourseComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'student/payment', component: PaymentComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'student/studentview', component: StudentViewComponentComponent, canActivate: [CrsGuardGuard]},
 
   // admin
-  {path:'admin', component: AdminComponentComponent},
-  {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent},
-  {path:'admin/updatecourses', component: UpdateCoursesComponentComponent},
-  {path:'admin/viewcourseavailability', component: ViewCourseAvailabilityComponentComponent},
-  {path:'admin/generatereportcard', component: GenerateReportCardComponentComponent},
+  {path:'admin', component: AdminComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'admin/updateprofessors', component: UpdateProfessorsComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'admin/updatecourses', component: UpdateCoursesComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'admin/viewcourseavailability', component: ViewCourseAvailabilityComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'admin/generatereportcard', component: GenerateReportCardComponentComponent, canActivate: [CrsGuardGuard]},
 
   // professor
-  {path:'professor', component: ProfessorComponentComponent},
-  {path:'professor/addgrades', component: AddGradesComponentComponent},
-  {path:'professor/professorview', component: ProfessorViewComponentComponent},
+  {path:'professor', component: ProfessorComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'professor/addgrades', component: AddGradesComponentComponent, canActivate: [CrsGuardGuard]},
+  {path:'professor/professorview', component: ProfessorViewComponentComponent, canActivate: [CrsGuardGuard]},
 
   {path:'**', component: PageNotFoundComponentComponent}
 
